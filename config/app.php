@@ -167,6 +167,7 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,  //using yajra database for lots of data
         Intervention\Image\ImageServiceProvider::class,  //image resize package
+        LaraIzitoast\LaraIzitoastServiceProvider::class,  //success message
 
         /*
          * Application Service Providers...

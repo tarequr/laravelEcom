@@ -19,7 +19,14 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
+    <style>
+        .error{
+            font-size: 1rem;
+            color: red
+        }
+    </style>
     @stack('css')
 </head>
 
@@ -62,6 +69,9 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
+
+    <script src="{{ asset('js/iziToast.js') }}"></script>
+    @include('vendor.lara-izitoast.toast')
 
     @stack('js')
 </body>

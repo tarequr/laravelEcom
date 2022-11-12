@@ -31,8 +31,9 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('category.edit', $category->id) }}" class="btn btn-success btn-sm"
-                                        title="Edit">
+                                    {{-- {{ route('category.edit', $category->id) }} --}}
+                                    <a href="#" class="btn btn-success btn-sm" title="Edit" data-toggle="modal"
+                                    data-target="#editModal" data-id="{{ $category->id }}">
                                         <i class="fa fa-pen"></i>
                                         Edit
                                     </a>
@@ -51,7 +52,7 @@
     </div>
 
 
-    <!-- Modal -->
+    <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -61,13 +62,41 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('category.store') }}">
+                <form method="POST" action="{{ route('category.store') }}" id="myform">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="cat_name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control" name="name" id="cat_name"
-                                placeholder="Enter category name">
+                                placeholder="Enter category name" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Create</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" action="{{ route('category.store') }}" class="formData" id="myform">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="cat_name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" name="name" id="cat_name"
+                                placeholder="Enter category name" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -81,7 +110,23 @@
 @endsection
 
 @push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
     <script>
+        $(document).ready(function() {
+            // $('#myform').validate({
+            //     rules: {
+            //         name: {
+            //             required: true
+            //         }
+            //     }
+            // });
+            $('.formData').on('click','.edit', function(){
+                let id = $(this).data('id');
+                console.log(id);
+                // $.get("", function(){
 
+                // });
+            });
+        });
     </script>
 @endpush
