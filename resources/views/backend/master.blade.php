@@ -18,7 +18,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+    @stack('css')
 </head>
 
 <body id="page-top">
@@ -54,6 +56,14 @@
     <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('backend/js/demo/chart-pie-demo.js') }}"></script>
 
+    <!-- Page level plugins -->
+    <script src="{{ asset('backend/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
+
+    @stack('js')
 </body>
 
 </html>
