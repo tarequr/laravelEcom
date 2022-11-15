@@ -32,16 +32,21 @@
                                 </td>
                                 <td class="text-center">
                                     {{-- {{ route('category.edit', $category->id) }} --}}
-                                    <a href="#" class="btn btn-success btn-sm" title="Edit" data-toggle="modal"
+                                    <a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
                                     data-target="#editModal" data-id="{{ $category->id }}">
                                         <i class="fa fa-pen"></i>
                                         Edit
                                     </a>
-                                    <a href="{{ route('category.destroy', $category->id) }}" class="btn btn-danger btn-sm"
-                                        title="Delete" onclick="return confirm('Are you sure to delete?')">
+
+                                    <button type="button" onclick="deleteData({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete">
                                         <i class="fa fa-trash"></i>
-                                        Delete
-                                    </a>
+                                        <span>Delete</span>
+                                    </button>
+
+                                    <form id="delete-form-{{ $category->id }}" method="POST" action="{{ route('category.destroy',$category->id) }}" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -90,13 +95,17 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('category.store') }}" class="formData" id="myform">
+                <form method="POST" action="{{ route('category.update',1) }}" class="formData" id="myform">
                     @csrf
+
+                    @method('PUT')
+
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="cat_name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" name="name" id="cat_name"
+                            <label for="category_name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" name="name" id="category_name"
                                 placeholder="Enter category name" required>
+                            <input type="hidden"  name="category_id" id="category_id">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -120,12 +129,14 @@
             //         }
             //     }
             // });
-            $('.formData').on('click','.edit', function(){
-                let id = $(this).data('id');
-                console.log(id);
-                // $.get("", function(){
 
-                // });
+            $('body').on('click','.edit', function(){
+                let id = $(this).data('id');
+                $.get("category/"+id+"/edit", function(data){
+                    // console.log(data);
+                    $('#category_name').val(data.name);
+                    $('#category_id').val(data.id);
+                });
             });
         });
     </script>

@@ -70,6 +70,9 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('backend/js/demo/datatables-demo.js') }}"></script>
 
+    <script type="text/javascript" src="{{ asset('js/sweetalert2@11.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/customSweetalert2.js') }}"></script>
+
     <script src="{{ asset('js/iziToast.js') }}"></script>
     @include('vendor.lara-izitoast.toast')
 
