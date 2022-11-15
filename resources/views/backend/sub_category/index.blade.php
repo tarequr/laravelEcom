@@ -6,7 +6,7 @@
             <a href="{{ route('category.create') }}" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal"
                 data-target="#addModal">
                 <i class="fa fa-plus-circle"></i>
-                Create Category
+                Create Sub Category
             </a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -14,17 +14,19 @@
                         <tr>
                             <th class="text-center">SL</th>
                             <th class="text-center">Category</th>
+                            <th class="text-center">Sub Category</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $key => $category)
+                        @foreach ($sub_categories as $key => $subcategory)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
-                                <td class="text-center">{{ $category->name }}</td>
+                                <td class="text-center">{{ $subcategory->category->name }}</td>
+                                <td class="text-center">{{ $subcategory->subcategory_name }}</td>
                                 <td class="text-center">
-                                    @if ($category->status == '1')
+                                    @if ($subcategory->status == '1')
                                         <span class="badge badge-success">Active</span>
                                     @else
                                         <span class="badge badge-warning">InActive</span>
@@ -33,17 +35,17 @@
                                 <td class="text-center">
                                     {{-- {{ route('category.edit', $category->id) }} --}}
                                     <a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                                    data-target="#editModal" data-id="{{ $category->id }}">
+                                    data-target="#editModal" data-id="{{ $subcategory->id }}">
                                         <i class="fa fa-pen"></i>
                                         Edit
                                     </a>
 
-                                    <button type="button" onclick="deleteData({{ $category->id }})" class="btn btn-danger btn-sm" title="Delete">
+                                    <button type="button" onclick="deleteData({{ $subcategory->id }})" class="btn btn-danger btn-sm" title="Delete">
                                         <i class="fa fa-trash"></i>
                                         <span>Delete</span>
                                     </button>
 
-                                    <form id="delete-form-{{ $category->id }}" method="POST" action="{{ route('category.destroy',$category->id) }}" style="display: none;">
+                                    <form id="delete-form-{{ $subcategory->id }}" method="POST" action="{{ route('subcategory.destroy',$subcategory->id) }}" style="display: none;">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -67,13 +69,23 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('category.store') }}" id="myform">
+                <form method="POST" action="{{ route('subcategory.store') }}" id="myform">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="cat_name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" name="name" id="cat_name"
-                                placeholder="Enter category name" required>
+                            <label for="category" class="col-form-label">Category:</label>
+                            <select class="form-control" name="category" id="category" required>
+                                <option value="">please select</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subcategory_name" class="col-form-label">Sub Category:</label>
+                            <input type="text" class="form-control" name="subcategory_name" id="subcategory_name"
+                                placeholder="Enter sub category name" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,24 +107,10 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('category.update',1) }}" class="formData" id="myform">
-                    @csrf
 
-                    @method('PUT')
+                <div class="modal_body">
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="category_name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" name="name" id="category_name"
-                                placeholder="Enter category name" required>
-                            <input type="hidden"  name="category_id" id="category_id">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -131,11 +129,9 @@
             // });
 
             $('body').on('click','.edit', function(){
-                let id = $(this).data('id');
-                $.get("category/"+id+"/edit", function(data){
-                    // console.log(data);
-                    $('#category_name').val(data.name);
-                    $('#category_id').val(data.id);
+                let subcat_id = $(this).data('id');
+                $.get("subcategory/"+subcat_id+"/edit", function(data){
+                    $('.modal_body').html(data);
                 });
             });
         });

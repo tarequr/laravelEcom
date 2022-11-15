@@ -43,6 +43,21 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subcategory"
+            aria-expanded="true" aria-controls="subcategory">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Sub Category</span>
+        </a>
+        <div id="subcategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Sub Category Components:</h6>
+                {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
+                <a class="collapse-item" href="{{ route('subcategory.index') }}">Manage Sub Category</a>
+            </div>
+        </div>
+    </li>
+
     {{-- <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"

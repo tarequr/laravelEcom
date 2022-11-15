@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('id','desc')->get();
-        return view('backend.category.index',compact('categories'));
+        $categories     = Category::orderBy('id','desc')->get();
+        $sub_categories = SubCategory::with('category')->orderBy('id','desc')->get();
+
+        return view('backend.sub_category.index',compact('categories','sub_categories'));
     }
 
     /**
@@ -40,24 +43,24 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'subcategory_name' => 'required|unique:sub_categories,subcategory_name',
         ]);
 
         try {
-            Category::create([
-                'name' => $request->name,
-                'slug' => Str::slug($request->name,'-')
+            SubCategory::create([
+                'category_id' => $request->category,
+                'subcategory_name' => $request->subcategory_name,
+                'subcategory_slug' => Str::slug($request->subcategory_name,'-')
             ]);
 
-            notify()->success("Category Created Successfully.", "Success");
-            return redirect()->route('category.index');
+            notify()->success("Sub Category Created Successfully.", "Success");
+            return redirect()->route('subcategory.index');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            notify()->error("Category Create Failed.", "Error");
+            notify()->error("Sub Category Create Failed.", "Error");
             return back();
         }
-
     }
 
     /**
@@ -79,8 +82,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $data = Category::find($id);
-        return response()->json($data);
+        $subCategory = SubCategory::find($id);
+        $categories  = Category::orderBy('id','desc')->get();
+
+        return view('backend.sub_category.edit',compact('subCategory','categories'));
     }
 
     /**
@@ -93,17 +98,19 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Category::find($request->category_id)->update([
-                'name' => $request->name,
-                'slug' => Str::slug($request->name,'-')
+            $subCategory = SubCategory::findOrFail($id);
+            $subCategory->update([
+                'category_id'      => $request->category,
+                'subcategory_name' => $request->subcategory_name,
+                'subcategory_slug' => Str::slug($request->subcategory_name,'-')
             ]);
 
-            notify()->success("Category Updated Successfully.", "Success");
-            return redirect()->route('category.index');
+            notify()->success("Sub Category Updated Successfully.", "Success");
+            return redirect()->route('subcategory.index');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            notify()->error("Category Updated Failed.", "Error");
+            notify()->error("Sub Category Update Failed.", "Error");
             return back();
         }
     }
@@ -117,17 +124,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $category = Category::find($id);
-            $category->delete();
+            $subCategory = SubCategory::findOrFail($id);
+            $subCategory->delete();
 
-            notify()->success("Category Deleted Successfully.", "Success");
+            notify()->success("Sub Category Deleted Successfully.", "Success");
             return back();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
-            notify()->error("Category Delete Failed.", "Error");
+            notify()->error("Sub Category Delete Failed.", "Error");
             return back();
         }
-
     }
 }
