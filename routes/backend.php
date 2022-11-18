@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\CategoryController;
+use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
 
@@ -24,3 +25,4 @@ Route::get('/home',[DashboardController::class,'index'])->name('home');
 // Route::resource('categories',CategoryController::class)->except('create','edit','show');
 Route::resource('category',CategoryController::class);
 Route::resource('subcategory',SubCategoryController::class);
+Route::resource('childcategory',ChildCategoryController::class);
