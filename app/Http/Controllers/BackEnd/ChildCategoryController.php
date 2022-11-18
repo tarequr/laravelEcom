@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\BackEnd;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\SubCategory;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\ChildCategory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 // use DataTables;
 
@@ -64,7 +68,28 @@ class ChildCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request, [
+            'childcategory_name' => 'required|unique:child_categories,childcategory_name',
+        ]);
+
+        try {
+            $sub_cat = SubCategory::where('id',$request->subcategory_id)->first();
+            ChildCategory::create([
+                'category_id' => $sub_cat->category_id,
+                'subcategory_id' => $request->subcategory_id,
+                'childcategory_name' => $request->childcategory_name,
+                'childcategory_slug'   => Str::slug($request->childcategory_name,'-')
+            ]);
+
+            notify()->success("Child Category Created Successfully.", "Success");
+            return redirect()->route('childcategory.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Child Category Create Failed.", "Error");
+            return back();
+        }
     }
 
     /**
