@@ -28,16 +28,27 @@ class ChildCategoryController extends Controller
                 ->leftJoin('categories','child_categories.category_id','categories.id')
                 ->leftJoin('sub_categories','child_categories.subcategory_id','sub_categories.id')
                 ->select('categories.name','sub_categories.subcategory_name','child_categories.*')
+                ->orderBy('child_categories.id','desc')
                 ->get();
 
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
                         $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                        data-target="#editModal" data-id="{{ $row->id }}">
+                        data-target="#editModal" data-id="'.$row->id.'">
                             <i class="fa fa-pen"></i>
                             Edit
-                        </a>';
+                        </a>
+
+                        <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" title="Delete">
+                            <i class="fa fa-trash"></i>
+                            <span>Delete</span>
+                        </button>
+
+                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('childcategory.destroy',[$row->id]).'" style="display: none;">
+                            '.csrf_field().'
+                            '.method_field("DELETE").'
+                        </form>';
 
                         return $actionbtn;
                     })
@@ -46,7 +57,7 @@ class ChildCategoryController extends Controller
         }
 
         $categories = Category::orderBy('id','desc')->get();
-// dd($categories);
+
         return view('backend.child_category.index', compact('categories'));
     }
 
@@ -111,7 +122,10 @@ class ChildCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $categories = Category::orderBy('id','desc')->get();
+        $childCategory = ChildCategory::findOrFail($id);
+
+        return view('backend.child_category.edit', compact('categories','childCategory'));
     }
 
     /**
@@ -123,7 +137,25 @@ class ChildCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $sub_cat = SubCategory::where('id',$request->subcategory_id)->first();
+
+            $childCategory = ChildCategory::findOrFail($id);
+            $childCategory->update([
+                'category_id' => $sub_cat->category_id,
+                'subcategory_id' => $request->subcategory_id,
+                'childcategory_name' => $request->childcategory_name,
+                'childcategory_slug'   => Str::slug($request->childcategory_name,'-')
+            ]);
+
+            notify()->success("Child Category Updated Successfully.", "Success");
+            return redirect()->route('childcategory.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Child Category Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**
@@ -134,6 +166,17 @@ class ChildCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $childCategory = ChildCategory::findOrFail($id);
+            $childCategory->delete();
+
+            notify()->success("Child Category Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Child Category Delete Failed.", "Error");
+            return back();
+        }
     }
 }

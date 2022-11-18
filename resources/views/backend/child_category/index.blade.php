@@ -127,5 +127,12 @@
                 ]
             });
         });
+
+        $('body').on('click','.edit', function(){
+            let id = $(this).data('id');
+            $.get("childcategory/"+id+"/edit", function(data){
+                $('.modal_body').html(data);
+            });
+        });
     </script>
 @endpush

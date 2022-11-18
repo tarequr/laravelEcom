@@ -25,4 +25,5 @@ Route::get('/home',[DashboardController::class,'index'])->name('home');
 // Route::resource('categories',CategoryController::class)->except('create','edit','show');
 Route::resource('category',CategoryController::class);
 Route::resource('subcategory',SubCategoryController::class);
+
 Route::resource('childcategory',ChildCategoryController::class);
