@@ -1,21 +1,24 @@
 @extends('backend.master')
 
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
+@endpush
+
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
             <a href="{{ route('category.create') }}" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal"
                 data-target="#addModal">
                 <i class="fa fa-plus-circle"></i>
-                Create Child Category
+                Create Brand
             </a>
             <div class="table-responsive">
                 <table class="table table-bordered ytable" id="" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th class="text-center">SL</th>
-                            <th class="text-center">Category</th>
-                            <th class="text-center">Sub Category</th>
-                            <th class="text-center">Child Category</th>
+                            <th class="text-center">Brand</th>
+                            <th class="text-center">Logo</th>
                             {{-- <th class="text-center">Status</th> --}}
                             <th class="text-center">Action</th>
                         </tr>
@@ -39,30 +42,19 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('childcategory.store') }}" id="addForm">
+                <form method="POST" action="{{ route('brand.store') }}" id="addForm" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="category" class="col-form-label">Category / Sub Category:</label>
-                            <select class="form-control select2" name="subcategory_id" id="category" required>
-                                <option value="">Please select</option>
-                                @foreach ($categories as $category)
-                                    @php
-                                        $subCategories = App\Models\SubCategory::where('category_id',$category->id)->get();
-                                    @endphp
-                                    <option value="" disabled>{{ $category->name }}</option>
-
-                                        @foreach ($subCategories as $subCategor)
-                                        <option value="{{ $subCategor->id }}"> ~~~~~ {{ $subCategor->subcategory_name }}</option>
-                                        @endforeach
-                                @endforeach
-                            </select>
+                            <label for="brnad_name" class="col-form-label">Brand:</label>
+                            <input type="text" class="form-control" name="brnad_name" id="brnad_name"
+                                placeholder="Enter brand name" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="childcategory_name" class="col-form-label">Child Category:</label>
-                            <input type="text" class="form-control" name="childcategory_name" id="childcategory_name"
-                                placeholder="Enter child category name" required>
+                            <label for="brand_logo" class="col-form-label ">Brand Logo:</label>
+                            <input type="file" class="form-control dropify" name="brand_logo" id="brand_logo"
+                                placeholder="Enter brand name" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,6 +87,7 @@
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script>
         // $(document).ready(function() {
         //     // $('#myform').validate({
@@ -113,16 +106,17 @@
         //     });
         // });
 
-        $(function childCategory(){
+        $(function brand(){
             var table = $('.ytable').DataTable({
                 processing:true,
                 serverSide:true,
-                ajax:"{{ route('childcategory.index') }}",
+                ajax:"{{ route('brand.index') }}",
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
-                    {data:'name', name:'name'},
-                    {data:'subcategory_name', name:'subcategory_name'},
-                    {data:'childcategory_name', name:'childcategory_name'},
+                    {data:'brnad_name', name:'brnad_name'},
+                    {data:'brand_logo', name:'brand_logo', render: function(data, type, full, meta){
+                        return "<img src=\""+data+"\" height=\"30\" />";
+                    }},
                     {data:'action', name:'action',orderable:true,searchable:true},
                 ]
             });
@@ -134,5 +128,7 @@
                 $('.modal_body').html(data);
             });
         });
+
+        $('.dropify').dropify();
     </script>
 @endpush

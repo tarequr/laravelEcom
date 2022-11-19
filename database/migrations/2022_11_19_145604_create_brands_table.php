@@ -18,7 +18,7 @@ class CreateBrandsTable extends Migration
             $table->string('brnad_name')->unique();
             $table->string('brnad_slug');
             $table->string('brand_logo')->nullable();
-            $table->string('front_page');
+            $table->string('front_page')->nullable();;
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
