@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnd\BrandController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\CategoryController;
@@ -27,3 +28,4 @@ Route::resource('category',CategoryController::class);
 Route::resource('subcategory',SubCategoryController::class);
 
 Route::resource('childcategory',ChildCategoryController::class);
+Route::resource('brand', BrandController::class);
