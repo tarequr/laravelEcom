@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\Facades\DataTables;
 use Intervention\Image\Facades\Image;
 
+
 class BrandController extends Controller
 {
     /**
@@ -146,6 +147,22 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $brand = Brand::findOrFail($id);
+
+            $image = explode('http://127.0.0.1:8000/upload/brand/', $brand->brand_logo);
+            $image_name = $image[1];
+
+            @unlink(public_path('upload/brand/' . $image_name));
+            $brand->delete();
+
+            notify()->success("Brand Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Brand Delete Failed.", "Error");
+            return back();
+        }
     }
 }
