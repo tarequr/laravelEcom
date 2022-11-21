@@ -20,6 +20,7 @@
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
 
     <style>
         .error{
@@ -74,6 +75,11 @@
     <script type="text/javascript" src="{{ asset('js/customSweetalert2.js') }}"></script>
 
     <script src="{{ asset('js/iziToast.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script>
+        $('.dropify').dropify();
+    </script>
+
     @include('vendor.lara-izitoast.toast')
 
     @stack('js')

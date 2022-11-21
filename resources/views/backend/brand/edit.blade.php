@@ -1,29 +1,17 @@
-<form method="POST" action="{{ route('childcategory.update',$childCategory->id) }}" id="addForm">
+<form method="POST" action="{{ route('brand.update',$brand->id) }}" id="addForm" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
     <div class="modal-body">
         <div class="form-group">
-            <label for="category" class="col-form-label">Category / Sub Category:</label>
-            <select class="form-control select2" name="subcategory_id" id="category" required>
-                <option value="">Please select</option>
-                @foreach ($categories as $category)
-                    @php
-                        $subCategories = App\Models\SubCategory::where('category_id',$category->id)->get();
-                    @endphp
-                    <option value="" disabled>{{ $category->name }}</option>
-
-                        @foreach ($subCategories as $subCategor)
-                        <option value="{{ $subCategor->id }}" {{ $subCategor->id == $childCategory->subcategory_id ? "selected" : "" }}> ~~~~~ {{ $subCategor->subcategory_name }}</option>
-                        @endforeach
-                @endforeach
-            </select>
+            <label for="brnad_name" class="col-form-label">Brand:</label>
+            <input type="text" class="form-control" name="brnad_name" id="brnad_name" value="{{ $brand->brnad_name }}"
+                placeholder="Enter brand name" required>
         </div>
 
         <div class="form-group">
-            <label for="childcategory_name" class="col-form-label">Child Category:</label>
-            <input type="text" class="form-control" name="childcategory_name" value="{{ $childCategory->childcategory_name }}" id="childcategory_name"
-                placeholder="Enter child category name" required>
+            <label for="brand_logo" class="col-form-label ">Brand Logo:</label>
+            <input type="file" class="form-control dropify" name="brand_logo" id="brand_logo">
         </div>
     </div>
     <div class="modal-footer">

@@ -124,7 +124,8 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brand = Brand::findOrFail($id);
+        return view('backend.brand.edit',compact('brand'));
     }
 
     /**
@@ -136,7 +137,43 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'brnad_name' => 'required|unique:brands,brnad_name',
+        ]);
+
+        try {
+
+            $slug = Str::slug($request->brnad_name,'-');
+            $brand = Brand::findOrFail($id);
+
+            if ($request->hasFile('brand_logo')) {
+                $file = $request->file('brand_logo');
+
+                $image = explode('http://127.0.0.1:8000/upload/brand/', $brand->brand_logo);
+                $image_name = $image[1];
+                @unlink(public_path('upload/brand/' . $image_name));
+
+                $filename = $slug . '.' . $file->getClientOriginalExtension();
+                $path = public_path('upload/brand/').$filename;
+                Image::make($file)->resize(240,120)->save($path);
+                $brand->update([
+                    'brand_logo' => URL::to('/').'/'.'upload/brand/'.$filename
+                ]);
+            }
+
+            $brand->update([
+                'brnad_name' => $request->brnad_name,
+                'brnad_slug' => $slug
+            ]);
+
+            notify()->success("Brand Updated Successfully.", "Success");
+            return redirect()->route('brand.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Brand Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**

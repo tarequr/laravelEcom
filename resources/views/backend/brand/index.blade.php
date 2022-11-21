@@ -1,7 +1,7 @@
 @extends('backend.master')
 
 @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.css">
+
 @endpush
 
 @section('content')
@@ -87,7 +87,6 @@
 
 @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script>
         // $(document).ready(function() {
         //     // $('#myform').validate({
@@ -124,11 +123,9 @@
 
         $('body').on('click','.edit', function(){
             let id = $(this).data('id');
-            $.get("childcategory/"+id+"/edit", function(data){
+            $.get("brand/"+id+"/edit", function(data){
                 $('.modal_body').html(data);
             });
         });
-
-        $('.dropify').dropify();
     </script>
 @endpush
