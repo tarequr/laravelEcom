@@ -31,7 +31,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-light fa-gem"></i>
             <span>Category</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -46,7 +46,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#subcategory"
             aria-expanded="true" aria-controls="subcategory">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-light fa-gem"></i>
             <span>Sub Category</span>
         </a>
         <div id="subcategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -61,7 +61,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#childcategory"
             aria-expanded="true" aria-controls="childcategory">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-light fa-gem"></i>
             <span>Child Category</span>
         </a>
         <div id="childcategory" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -76,7 +76,7 @@
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#brand"
             aria-expanded="true" aria-controls="brand">
-            <i class="fas fa-fw fa-cog"></i>
+            <i class="fas fa-light fa-gem"></i>
             <span>Brand</span>
         </a>
         <div id="brand" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -84,6 +84,26 @@
                 <h6 class="collapse-header">Brand Components:</h6>
                 {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
                 <a class="collapse-item" href="{{ route('brand.index') }}">Manage Brand</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Setting
+    </div>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#setting"
+            aria-expanded="true" aria-controls="setting">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Setting</span>
+        </a>
+        <div id="setting" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Setting Components:</h6>
+                {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
+                <a class="collapse-item" href="{{ route('setting.seo') }}">Manage SEO</a>
             </div>
         </div>
     </li>

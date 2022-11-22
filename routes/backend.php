@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\DashboardController;
+use App\Http\Controllers\BackEnd\SettingController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
 
 /*
@@ -29,3 +30,8 @@ Route::resource('subcategory',SubCategoryController::class);
 
 Route::resource('childcategory',ChildCategoryController::class);
 Route::resource('brand', BrandController::class);
+
+/* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
+Route::group(['prefix' => 'setting'], function(){
+    Route::get('seo',[SettingController::class,'seoIndex'])->name('setting.seo');
+});
