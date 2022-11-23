@@ -6,98 +6,74 @@
 
 @section('content')
     <div class="container">
-        <div class="row mb-3">
-            <div class="col-sm-6"></div>
-            <div class="col-sm-6">
-                <a href="#" class="btn btn-primary float-right btn-sm">
-                    <i class="fa fa-list"></i>
-                    Manage PDF</a>
-            </div>
-        </div>
-        <!-- Outer Row -->
         <div class="row justify-content-center">
-            <div class="col-xl-8 col-lg-12 col-md-9">
+            <div class="col-xl-11 col-lg-12 col-md-9 mb-5">
                 <div class="card o-hidden border-0 shadow-lg">
                     <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Add PDF!</h1>
-                                    </div>
-                                    <form class="user" method="POST" action="#"
-                                        enctype="multipart/form-data">
-                                        @csrf
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Title</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" name="title"
-                                                    class="form-control @error('title') is-invalid @enderror">
-
-                                                @error('title')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Description</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" name="description" rows="3"></textarea>
-                                                @error('description')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">PDF</label>
-                                            <div class="col-sm-10">
-                                                <input type="file" name="file_name" id="file_name"
-                                                    class="form-control @error('file_name') is-invalid @enderror">
-
-                                                @error('file_name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Status</label>
-                                            <div class="col-sm-10">
-                                                <select name="status" id=""
-                                                    class="form-control @error('status') is-invalid @enderror">
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Inactive</option>
-                                                </select>
-
-                                                @error('status')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label"></label>
-                                            <div class="col-sm-10">
-                                                <input type="submit" name="btn"
-                                                    class="btn btn-primary btn-user btn-block" value="Save">
-                                            </div>
-                                        </div>
-                                    </form>
+                            <div class="col-lg-12 p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">SEO Setting</h1>
                                 </div>
+                                <form class="user" method="POST" action="{{ route('setting.seo.update',$seo_setting->id) }}" enctype="multipart/form-data">
+                                    @csrf
+
+                                    @method('PUT')
+
+                                    <div class="form-row">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Meta Title</label>
+                                            <input type="text" name="meta_title" class="form-control" value="{{ $seo_setting->meta_title }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Meta Author</label>
+                                            <input type="text" name="meta_author" class="form-control" value="{{ $seo_setting->meta_author }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Meta Tag</label>
+                                            <input type="text" name="meta_tag" class="form-control" value="{{ $seo_setting->meta_tag }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Meta Keyword</label>
+                                            <input type="text" name="meta_keyword" class="form-control" value="{{ $seo_setting->meta_keyword }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-12">
+                                            <label class="col-form-label">Meta Description</label>
+                                            <textarea class="form-control" name="meta_description" rows="3">{{ $seo_setting->meta_description }}</textarea>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <b>Other's Options</b>
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Google Verification</label>
+                                            <input type="text" name="google_verification" class="form-control" value="{{ $seo_setting->google_verification }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-form-label">Alexa Verification</label>
+                                            <input type="text" name="alexa_verification" class="form-control" value="{{ $seo_setting->alexa_verification }}">
+                                        </div>
+
+                                        <div class="form-group col-sm-12">
+                                            <label class="col-form-label">Google Analytics</label>
+                                            <textarea class="form-control" name="google_analytics" rows="3">{{ $seo_setting->google_analytics }}</textarea>
+                                        </div>
+
+                                        <div class="form-group col-sm-12">
+                                            <label class="col-form-label">Google Adsense</label>
+                                            <textarea class="form-control" name="google_adsense" rows="3">{{ $seo_setting->google_adsense }}</textarea>
+                                        </div>
+
+                                        <div class="form-group col-sm-12">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
