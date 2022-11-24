@@ -6,6 +6,7 @@ use App\Models\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Smtp;
 
 class SettingController extends Controller
 {
@@ -37,6 +38,36 @@ class SettingController extends Controller
             Log::error($th->getMessage());
 
             notify()->error("SEO Update Failed.", "Error");
+            return back();
+        }
+    }
+
+
+    public function smtpIndex()
+    {
+        $smtpSetting = Smtp::first();
+        return view('backend.setting.smtp_index',compact('smtpSetting'));
+    }
+
+    public function smtpUpdate(Request $request, $id)
+    {
+        try {
+            $smtpSetting = Smtp::findOrFail($id);
+            $smtpSetting->update([
+                'mailer' => $request->mailer,
+                'host' => $request->host,
+                'port' => $request->port,
+                'username' => $request->username,
+                'password' => $request->password
+            ]);
+
+
+            notify()->success("SMTP Updated Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("SMTP Update Failed.", "Error");
             return back();
         }
     }

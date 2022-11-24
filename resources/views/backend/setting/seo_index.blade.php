@@ -1,9 +1,5 @@
 @extends('backend.master')
 
-@section('title')
-    Create PDF
-@endsection
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -70,7 +66,7 @@
                                         </div>
 
                                         <div class="form-group col-sm-12">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>

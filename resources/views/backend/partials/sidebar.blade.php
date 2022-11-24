@@ -104,6 +104,7 @@
                 <h6 class="collapse-header">Setting Components:</h6>
                 {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
                 <a class="collapse-item" href="{{ route('setting.seo') }}">Manage SEO</a>
+                <a class="collapse-item" href="{{ route('setting.smtp') }}">Manage SMTP</a>
             </div>
         </div>
     </li>

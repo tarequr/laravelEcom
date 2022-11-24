@@ -35,4 +35,6 @@ Route::resource('brand', BrandController::class);
 Route::group(['prefix' => 'setting'], function(){
     Route::get('seo',[SettingController::class,'seoIndex'])->name('setting.seo');
     Route::put('seo/{id}/update',[SettingController::class,'seoUpdate'])->name('setting.seo.update');
+    Route::get('smtp',[SettingController::class,'smtpIndex'])->name('setting.smtp');
+    Route::put('smtp/{id}/update',[SettingController::class,'smtpUpdate'])->name('setting.smtp.update');
 });
