@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\DashboardController;
+use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\SettingController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
 
@@ -37,4 +38,5 @@ Route::group(['prefix' => 'setting'], function(){
     Route::put('seo/{id}/update',[SettingController::class,'seoUpdate'])->name('setting.seo.update');
     Route::get('smtp',[SettingController::class,'smtpIndex'])->name('setting.smtp');
     Route::put('smtp/{id}/update',[SettingController::class,'smtpUpdate'])->name('setting.smtp.update');
+    Route::resource('page', PageController::class);
 });
