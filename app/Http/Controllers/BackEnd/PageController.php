@@ -81,7 +81,8 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Page::findOrFail($id);
+        return view('backend.setting.page.edit',compact('page'));
     }
 
     /**
@@ -93,7 +94,28 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'page_title' => 'required',
+        ]);
+
+        try {
+            $page = Page::findOrFail($id);
+            $page->update([
+                'page_position' => $request->page_position,
+                'page_name' => $request->page_name,
+                'page_title' => $request->page_title,
+                'page_slug' => Str::slug($request->page_title,'-'),
+                'page_description' => $request->page_description
+            ]);
+
+            notify()->success("Page Updated Successfully.", "Success");
+            return redirect()->route('page.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Page Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**

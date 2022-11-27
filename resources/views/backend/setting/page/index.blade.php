@@ -23,13 +23,18 @@
                         @foreach ($pages as $key => $page)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
-                                <td class="text-center">{{ $page->page_position }}</td>
+                                <td class="text-center">
+                                    @if ($page->page_position == 1)
+                                        <span>Line One</span>
+                                    @else
+                                        <span>Line Two</span>
+                                    @endif
+                                </td>
                                 <td class="text-center">{{ $page->page_name }}</td>
                                 <td class="text-center">{{ $page->page_title }}</td>
                                 <td class="text-center">{{ $page->page_description }}</td>
                                 <td class="text-center">
-                                    <a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                                    data-target="#editModal" data-id="{{ $page->id }}">
+                                    <a href="{{ route('page.edit',$page->id) }}" class="btn btn-success btn-sm edit" title="Edit">
                                         <i class="fa fa-pen"></i>
                                         Edit
                                     </a>

@@ -19,38 +19,40 @@
                         <div class="row">
                             <div class="col-lg-12 p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Create Page Setting</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Edit Page Setting</h1>
                                 </div>
-                                <form class="user" method="POST" action="{{ route('page.store') }}" enctype="multipart/form-data">
+                                <form class="user" method="POST" action="{{ route('page.update',$page->id) }}" enctype="multipart/form-data">
                                     @csrf
+
+                                    @method('PUT')
 
                                     <div class="form-row">
                                         <div class="form-group col-sm-12">
                                             <label class="col-form-label">Page Position</label>
                                             <select name="page_position" id="" class="form-control">
                                                 <option value="">Please select</option>
-                                                <option value="1">Line One</option>
-                                                <option value="2">Line Two</option>
+                                                <option value="1" {{ $page->page_position == 1 ? "selected" : "" }}>Line One</option>
+                                                <option value="2" {{ $page->page_position == 2 ? "selected" : "" }}>Line Two</option>
                                             </select>
                                         </div>
 
                                         <div class="form-group col-sm-12">
                                             <label class="col-form-label">Page Name</label>
-                                            <input type="text" name="page_name" class="form-control" placeholder="Enter page name">
+                                            <input type="text" name="page_name" class="form-control" value="{{ $page->page_name }}" placeholder="Enter page name">
                                         </div>
 
                                         <div class="form-group col-sm-12">
                                             <label class="col-form-label">Page Title</label>
-                                            <input type="text" name="page_title" class="form-control" placeholder="Enter page title">
+                                            <input type="text" name="page_title" class="form-control" value="{{ $page->page_title }}" placeholder="Enter page title">
                                         </div>
 
                                         <div class="form-group col-sm-12">
                                             <label class="col-form-label">Page Description</label>
-                                            <textarea class="form-control" id="summernote" name="page_description" rows="10" placeholder="Type here..."></textarea>
+                                            <textarea class="form-control" id="summernote" name="page_description" rows="10" placeholder="Type here...">{{ $page->page_description }}</textarea>
                                         </div>
 
                                         <div class="form-group col-sm-12">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </form>
@@ -68,6 +70,7 @@
 <script>
     $(document).ready(function() {
         $('#summernote').summernote({
+            placeholder: 'Type here...',
             tabsize: 2,
             height: 120,
             toolbar: [
