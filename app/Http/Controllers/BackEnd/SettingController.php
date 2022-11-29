@@ -6,7 +6,10 @@ use App\Models\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\Smtp;
+use Illuminate\Support\Facades\URL;
+use Intervention\Image\Facades\Image;
 
 class SettingController extends Controller
 {
@@ -68,6 +71,65 @@ class SettingController extends Controller
             Log::error($th->getMessage());
 
             notify()->error("SMTP Update Failed.", "Error");
+            return back();
+        }
+    }
+
+    public function websiteIndex()
+    {
+        $websiteSetting = Setting::first();
+        return view('backend.setting.website_index',compact('websiteSetting'));
+    }
+
+    public function websiteUpdate(Request $request, $id)
+    {
+        try {
+            $websiteSetting = Setting::findOrFail($id);
+
+            if ($request->hasFile('logo')) {
+                $file = $request->file('logo');
+                @unlink(public_path('upload/setting/' . $websiteSetting->logo));
+                $filename = 'Logo_' . date('YmdHi') . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('upload/setting'), $filename);
+                // Image::make($file)->resize(320,120)->save($path);
+                // Image::make($file)->resize(32,32)->save($path);
+                $websiteSetting->update([
+                    "logo" => $filename,
+                ]);
+            }
+
+            if ($request->hasFile('favicon')) {
+                $file2 = $request->file('favicon');
+                @unlink(public_path('upload/setting/' . $websiteSetting->favicon));
+                $filename2 = 'IMG_' . date('YmdHi') . '.' . $file2->getClientOriginalExtension();
+                $file2->move(public_path('upload/setting'), $filename2);
+                $websiteSetting->update([
+                    "favicon" => $filename2,
+                ]);
+            }
+
+
+            $websiteSetting->update([
+                "currency" => $request->currency,
+                "phone_one" => $request->phone_one,
+                "phone_two" => $request->phone_two,
+                "main_email" => $request->main_email,
+                "support_email" => $request->support_email,
+                "address" => $request->address,
+                "facebook" => $request->facebook,
+                "twitter" => $request->twitter,
+                "instagram" => $request->instagram,
+                "linkedin" => $request->linkedin,
+                "youtube" => $request->youtube
+            ]);
+
+
+            notify()->success("Setting Updated Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Setting Update Failed.", "Error");
             return back();
         }
     }

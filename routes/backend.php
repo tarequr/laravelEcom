@@ -40,5 +40,7 @@ Route::group(['prefix' => 'setting'], function(){
     Route::put('seo/{id}/update',[SettingController::class,'seoUpdate'])->name('setting.seo.update');
     Route::get('smtp',[SettingController::class,'smtpIndex'])->name('setting.smtp');
     Route::put('smtp/{id}/update',[SettingController::class,'smtpUpdate'])->name('setting.smtp.update');
+    Route::get('website',[SettingController::class,'websiteIndex'])->name('setting.website');
+    Route::put('website/{id}/update',[SettingController::class,'websiteUpdate'])->name('setting.website.update');
     Route::resource('page', PageController::class);
 });

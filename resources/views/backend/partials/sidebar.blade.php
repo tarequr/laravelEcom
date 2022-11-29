@@ -105,6 +105,7 @@
                 {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
                 <a class="collapse-item" href="{{ route('setting.seo') }}">Manage SEO</a>
                 <a class="collapse-item" href="{{ route('setting.smtp') }}">Manage SMTP</a>
+                <a class="collapse-item" href="{{ route('setting.website') }}">Manage Website</a>
                 <a class="collapse-item" href="{{ route('page.index') }}">Manage Page</a>
             </div>
         </div>
