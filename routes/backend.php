@@ -10,6 +10,7 @@ use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\ProductController;
 use App\Http\Controllers\BackEnd\SettingController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
+use App\Http\Controllers\WarehouseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::resource('subcategory',SubCategoryController::class);
 Route::resource('childcategory',ChildCategoryController::class);
 Route::resource('brand', BrandController::class);
 Route::resource('product', ProductController::class);
+Route::resource('warehouse', WarehouseController::class);
 
 /* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
 Route::group(['prefix' => 'setting'], function(){

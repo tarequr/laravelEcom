@@ -88,6 +88,36 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse"
+            aria-expanded="true" aria-controls="warehouse">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Warehouse</span>
+        </a>
+        <div id="warehouse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Warehouse Components:</h6>
+                {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
+                <a class="collapse-item" href="{{ route('warehouse.index') }}">Manage Warehouse</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#offer"
+            aria-expanded="true" aria-controls="offer">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Offer</span>
+        </a>
+        <div id="offer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Offer Components:</h6>
+                {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
+                <a class="collapse-item" href="{{ route('brand.index') }}">Manage Coupon</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Setting
