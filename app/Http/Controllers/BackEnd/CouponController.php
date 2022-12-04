@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -31,7 +33,7 @@ class CouponController extends Controller
                             Edit
                         </a>
 
-                        <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" title="Delete">
+                        <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
                             <i class="fa fa-trash"></i>
                             <span>Delete</span>
                         </button>
@@ -113,6 +115,17 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Coupon::find($id)->delete();
+
+            notify()->success("Coupon Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Coupon Delete Failed.", "Error");
+            return back();
+        }
+
     }
 }

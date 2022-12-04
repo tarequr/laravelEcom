@@ -125,7 +125,7 @@
         // });
 
         $(function brand(){
-            var table = $('.ytable').DataTable({
+            table = $('.ytable').DataTable({
                 processing:true,
                 serverSide:true,
                 ajax:"{{ route('coupon.index') }}",
@@ -144,6 +144,55 @@
             $('.loader').removeClass('d-none');
             $('.save_btn').addClass('d-none');
         });
+
+        // $('body').on('click','#couponDelete', function(e){
+        //     e.preventDefault();
+        //     let id = $(this).data('id');
+        //     // alert(id);
+
+        //     Swal.fire({
+        //         title: 'Are you sure?',
+        //         text: "You won't be able to revert this!",
+        //         icon: 'warning',
+        //         showCancelButton: true,
+        //         confirmButtonColor: '#3085d6',
+        //         cancelButtonColor: '#d33',
+        //         confirmButtonText: 'Yes, delete it!'
+        //     }).then((result) => {
+        //         console.log(id);
+        //         if (result.isConfirmed) {
+        //             document.getElementById('delete-form-'+id).submit();  //custom edit.
+        //             Swal.fire(
+        //             'Deleted!',
+        //             'Your file has been deleted.',
+        //             'success'
+        //             )
+        //         }
+        //     });
+        //     // $.get("brand/"+id+"/edit", function(data){
+        //     //     $('.modal_body').html(data);
+        //     // });
+        // });
+
+        // $('body').on('submit',"#delete-form-"+id, function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('action');
+        //     var request = $(this).serialize();
+
+        //     $.ajax({
+        //         url: url,
+        //         type: 'post',
+        //         data: request,
+        //         success: function(data){
+        //             $("#delete-form-"+id)[0].reset();
+        //             table.ajax.reload();
+        //         }
+        //     });
+        // });
+
+
+
+
 
         $('body').on('click','.edit', function(){
             let id = $(this).data('id');
