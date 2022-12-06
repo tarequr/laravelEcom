@@ -8,6 +8,7 @@ use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\CouponController;
 use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\PageController;
+use App\Http\Controllers\BackEnd\PickupController;
 use App\Http\Controllers\BackEnd\ProductController;
 use App\Http\Controllers\BackEnd\SettingController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
@@ -37,6 +38,7 @@ Route::resource('brand', BrandController::class);
 Route::resource('product', ProductController::class);
 Route::resource('warehouse', WarehouseController::class);
 Route::resource('coupon', CouponController::class);
+Route::resource('pickup', PickupController::class);
 
 /* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
 Route::group(['prefix' => 'setting'], function(){

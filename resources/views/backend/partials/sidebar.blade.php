@@ -119,6 +119,19 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pickupPoint"
+            aria-expanded="true" aria-controls="pickupPoint">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Pickup Point</span>
+        </a>
+        <div id="pickupPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Pickup Components:</h6>
+                <a class="collapse-item" href="{{ route('pickup.index') }}">Manage Pickup</a>
+            </div>
+        </div>
+    </li>
     <!-- Heading -->
     <div class="sidebar-heading">
         Setting
