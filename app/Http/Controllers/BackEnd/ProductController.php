@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\BackEnd;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
@@ -12,8 +14,38 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $data = DB::table('products')
+                ->orderBy('id','desc')
+                ->get();
+
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('action', function($row){
+                        $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
+                        data-target="#editModal" data-id="'.$row->id.'">
+                            <i class="fa fa-pen"></i>
+                            Edit
+                        </a>
+
+                        <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
+                            <i class="fa fa-trash"></i>
+                            <span>Delete</span>
+                        </button>
+
+                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('coupon.destroy',[$row->id]).'" style="display: none;">
+                            '.csrf_field().'
+                            '.method_field("DELETE").'
+                        </form>';
+
+                        return $actionbtn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
         return view('backend.product.index');
     }
 
