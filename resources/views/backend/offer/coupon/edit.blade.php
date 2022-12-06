@@ -1,17 +1,32 @@
-<form method="POST" action="{{ route('brand.update',$brand->id) }}" id="addForm" enctype="multipart/form-data">
+<form method="POST" action="{{ route('coupon.update',$coupon->id) }}" id="editForm" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
     <div class="modal-body">
         <div class="form-group">
-            <label for="brnad_name" class="col-form-label">Brand:</label>
-            <input type="text" class="form-control" name="brnad_name" id="brnad_name" value="{{ $brand->brnad_name }}"
-                placeholder="Enter brand name" required>
+            <label for="coupon_code" class="col-form-label">Coupon Code:</label>
+            <input type="text" class="form-control" name="coupon_code" id="coupon_code" value="{{ $coupon->coupon_code }}"
+                placeholder="Enter coupon code" required>
         </div>
 
         <div class="form-group">
-            <label for="brand_logo" class="col-form-label ">Brand Logo:</label>
-            <input type="file" class="form-control dropify" name="brand_logo" id="brand_logo">
+            <label for="type" class="col-form-label">Coupon Type:</label>
+            <select name="type" id="" class="form-control" required>
+                <option value="">Please select</option>
+                <option value="1" {{ $coupon->type == "1" ? "selected" : "" }}>Fixed</option>
+                <option value="2" {{ $coupon->type == "2" ? "selected" : "" }}>Percentage</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="coupon_amount" class="col-form-label">Amount:</label>
+            <input type="number" class="form-control" name="coupon_amount" id="coupon_amount" value="{{ $coupon->coupon_amount }}"
+                placeholder="Enter coupon amount" required>
+        </div>
+
+        <div class="form-group">
+            <label for="valid_date" class="col-form-label">Valid Date:</label>
+            <input type="date" class="form-control" name="valid_date" id="valid_date" required value="{{ $coupon->valid_date }}">
         </div>
     </div>
     <div class="modal-footer">

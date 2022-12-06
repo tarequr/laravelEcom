@@ -44,7 +44,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('brand.store') }}" id="addForm" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('coupon.store') }}" id="addForm" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="type" class="col-form-label">Coupon Type:</label>
-                            <select name="" id="" class="form-control" required>
+                            <select name="type" id="" class="form-control" required>
                                 <option value="">Please select</option>
                                 <option value="1">Fixed</option>
                                 <option value="2">Percentage</option>
@@ -64,7 +64,7 @@
 
                         <div class="form-group">
                             <label for="coupon_amount" class="col-form-label">Amount:</label>
-                            <input type="text" class="form-control" name="coupon_amount" id="coupon_amount"
+                            <input type="number" class="form-control" name="coupon_amount" id="coupon_amount"
                                 placeholder="Enter coupon amount" required>
                         </div>
 
@@ -124,6 +124,34 @@
         //     });
         // });
 
+        $('body').on('submit',"#addForm", function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Coupon created successfully.',
+                        position: 'topRight'
+                    });
+
+                    $("#addForm")[0].reset();
+                    // $("#addModal").fadeOut();
+                    $("#addModal").modal('hide');
+                    table.ajax.reload();
+                }
+            });
+        });
+
+
+
+
         $(function brand(){
             table = $('.ytable').DataTable({
                 processing:true,
@@ -140,10 +168,10 @@
             });
         });
 
-        $('#addForm').on('submit', function(){
-            $('.loader').removeClass('d-none');
-            $('.save_btn').addClass('d-none');
-        });
+        // $('#addForm').on('submit', function(){
+        //     $('.loader').removeClass('d-none');
+        //     $('.save_btn').addClass('d-none');
+        // });
 
         // $('body').on('click','#couponDelete', function(e){
         //     e.preventDefault();
@@ -193,11 +221,37 @@
 
 
 
-
+        //show edit page
         $('body').on('click','.edit', function(){
             let id = $(this).data('id');
-            $.get("brand/"+id+"/edit", function(data){
+            $.get("coupon/"+id+"/edit", function(data){
                 $('.modal_body').html(data);
+            });
+        });
+
+        //update data
+        $('body').on('submit',"#editForm", function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Coupon created successfully.',
+                        position: 'topRight'
+                    });
+
+                    $("#editForm")[0].reset();
+                    // $("#addModal").fadeOut();
+                    $("#editModal").modal('hide');
+                    table.ajax.reload();
+                }
             });
         });
     </script>

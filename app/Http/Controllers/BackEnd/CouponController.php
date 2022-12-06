@@ -70,7 +70,9 @@ class CouponController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['valid_date' => date('Y-m-d',strtotime($request->valid_date))]);
+        Coupon::create($request->all());
+        return response()->json('Coupon create');
     }
 
     /**
@@ -92,7 +94,8 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coupon = Coupon::find($id);
+        return view('backend.offer.coupon.edit',compact('coupon'));
     }
 
     /**
@@ -104,7 +107,9 @@ class CouponController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->merge(['valid_date' => date('Y-m-d',strtotime($request->valid_date))]);
+        Coupon::find($id)->update($request->all());
+        return response()->json('Coupon create');
     }
 
     /**
