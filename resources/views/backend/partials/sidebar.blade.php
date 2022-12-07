@@ -89,6 +89,21 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#product"
+            aria-expanded="true" aria-controls="product">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Product</span>
+        </a>
+        <div id="product" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Product Components:</h6>
+                {{-- <a class="collapse-item" href="{{ route('category.create') }}">Add Category</a> --}}
+                <a class="collapse-item" href="{{ route('product.index') }}">Manage Product</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#warehouse"
             aria-expanded="true" aria-controls="warehouse">
             <i class="fas fa-light fa-gem"></i>

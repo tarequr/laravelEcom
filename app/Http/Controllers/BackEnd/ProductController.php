@@ -5,6 +5,9 @@ namespace App\Http\Controllers\BackEnd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\PickupPoint;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -56,7 +59,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        $brands = Brand::all();
+        $pickups = PickupPoint::all();
+        $categories = Category::all();
+
+        return view('backend.product.create',compact('brands','pickups','categories'));
     }
 
     /**
