@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Warehouse;
+use App\Models\PickupPoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\PickupPoint;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -59,11 +60,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $brands = Brand::all();
-        $pickups = PickupPoint::all();
-        $categories = Category::all();
+        $brands = Brand::orderBy('id','desc')->get();
+        $pickups = PickupPoint::orderBy('id','desc')->get();
+        $categories = Category::orderBy('id','desc')->get();
+        $wareHouses = Warehouse::orderBy('id','desc')->get();
 
-        return view('backend.product.create',compact('brands','pickups','categories'));
+        return view('backend.product.create',compact('brands','pickups','categories','wareHouses'));
     }
 
     /**
