@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\ChildCategory;
 
 class CategoryController extends Controller
 {
@@ -129,5 +130,11 @@ class CategoryController extends Controller
             return back();
         }
 
+    }
+
+    public function getChildCategory($id)
+    {
+        $data = ChildCategory::where('subcategory_id',$id)->get();
+        return response()->json($data);
     }
 }

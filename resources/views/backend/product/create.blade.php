@@ -38,7 +38,7 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Category / Sub Category</label>
-                                                    <select class="form-control select2" name="subcategory_id" id="category" required>
+                                                    <select class="form-control select2" name="subcategory_id" id="subcategory_id" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($categories as $category)
                                                             @php
@@ -55,12 +55,14 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Child Category</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <select name="childcategory_id" id="childcategory_id" class="form-control" required>
+
+                                                    </select>
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Brand</label>
-                                                    <select name="" id="" class="form-control" required>
+                                                    <select name="brand_id" id="" class="form-control" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($brands as $brand)
                                                             <option value="{{ $brand->id }}">{{ $brand->brnad_name }}</option>
@@ -105,7 +107,7 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Warehouse</label>
-                                                    <select name="" id="" class="form-control" required>
+                                                    <select name="warehouse" id="" class="form-control" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($wareHouses as $ware_house)
                                                             <option value="{{ $ware_house->brnad_name }}">{{ $ware_house->name }}</option>
@@ -236,6 +238,20 @@
                 ['insert', ['link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
                 ]
+            });
+
+            $("#subcategory_id").change(function(){
+                var id = $(this).val();
+                $.ajax({
+                    url: "{{ url('get-child-category') }}/"+id,
+                    type: 'get',
+                    success: function(data) {
+                        $('select[name="childcategory_id"]').empty();
+                        $.each(data, function(key, data){
+                            $('select[name="childcategory_id"]').append('<option value="'+data.id+'">'+data.childcategory_name+'</option>');
+                        })
+                    }
+                })
             });
 
         });

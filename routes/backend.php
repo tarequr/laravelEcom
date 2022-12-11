@@ -32,13 +32,15 @@ Route::get('/home',[DashboardController::class,'index'])->name('home');
 // Route::resource('categories',CategoryController::class)->except('create','edit','show');
 Route::resource('category',CategoryController::class);
 Route::resource('subcategory',SubCategoryController::class);
-
 Route::resource('childcategory',ChildCategoryController::class);
 Route::resource('brand', BrandController::class);
 Route::resource('product', ProductController::class);
 Route::resource('warehouse', WarehouseController::class);
 Route::resource('coupon', CouponController::class);
 Route::resource('pickup', PickupController::class);
+
+/* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
+Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 
 /* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
 Route::group(['prefix' => 'setting'], function(){
