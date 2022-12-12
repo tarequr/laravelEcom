@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\Warehouse;
 use App\Models\PickupPoint;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -76,7 +82,69 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request->all());
+
+        $this->validate($request, [
+            'name' => 'required|unique:products,name',
+            'code' => 'required|unique:products,code',
+            'subcategory_id' => 'required',
+            'brand_id' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+            'color' => 'required',
+            'description' => 'required',
+        ]);
+
+        try {
+
+            $slug = Str::slug($request->name,'-');
+
+            if ($request->hasFile('thumbnail')) {
+                $file = $request->file('thumbnail');
+                $filename = $slug . '.' . $file->getClientOriginalExtension();
+                // $path = public_path('upload/product/').$filename;
+                // Image::make($file)->resize(240,120)->save($path);
+            }
+            $subCategory = SubCategory::find($request->subcategory_id);
+
+            Product::create([
+                "name" => $request->name,
+                "slug" => $slug,
+                "code" => $request->code,
+                "category_id" => $subCategory->category_id,
+                "subcategory_id" => $request->subcategory_id,
+                "childcategory_id" => $request->childcategory_id,
+                "brand_id" => $request->brand_id,
+                "pickup_id" => $request->pickup_id,
+                "unit" => $request->unit,
+                "tags" => $request->tags,
+                "purchase_price" => $request->purchase_price,
+                "selling_price" => $request->selling_price,
+                "discount_price" => $request->discount_price,
+                "warehouse" => $request->warehouse,
+                "stock_quantity" => $request->stock_quantity,
+                "color" => $request->color,
+                "size" => $request->size,
+                "description" => $request->description,
+                "video" => $request->video,
+                "thumbnail" => $filename,
+                "featured" => $request->filled('featured'),
+                "toady_deal_id" => $request->filled('toady_deal_id'),
+                "status" => $request->filled('status'),
+                "created_by" => Auth::user()->id,
+                "date" => date('Y-m-d'),
+                "month" => date('F'),
+            ]);
+
+            notify()->success("Product Created Successfully.", "Success");
+            return redirect()->route('product.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Product Create Failed.", "Error");
+            return back();
+        }
     }
 
     /**

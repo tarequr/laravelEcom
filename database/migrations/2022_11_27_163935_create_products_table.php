@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('pickup_id')->nullable();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->string('code');
             $table->string('unit')->nullable();
             $table->string('tags')->nullable();
@@ -34,13 +35,15 @@ class CreateProductsTable extends Migration
             $table->string('warehouse')->nullable();
             $table->longText('description')->nullable();
             $table->string('thumbnail')->nullable();
-            $table->string('image')->nullable();
+            $table->string('images')->nullable();
             $table->integer('featured')->nullable();
             $table->integer('toady_deal_id')->nullable();
             $table->boolean('status')->default(1);
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
             $table->integer('created_by')->nullable();
+            $table->date('date')->nullable();
+            $table->string('month')->nullable();
             $table->timestamps();
         });
     }

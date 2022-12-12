@@ -2,9 +2,16 @@
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
 <style>
     .dropify-message .file-icon p{
         font-size: 13px !important;
+    }
+
+    .bootstrap-tagsinput .tag {
+        color: black !important;
+        background: #b9b9b9;
+        padding: 2px;
     }
 </style>
 @endpush
@@ -20,7 +27,7 @@
                                 <div class="text-center bg-primary p-2">
                                     <h1 class="h4 text-light"><b>Product Create</b></h1>
                                 </div>
-                                <form class="user" method="POST" action="" enctype="multipart/form-data">
+                                <form class="user" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row mt-4">
@@ -28,12 +35,12 @@
                                             <div class="form-row">
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Product Name</label>
-                                                    <input type="text" name="meta_title" class="form-control">
+                                                    <input type="text" name="name" class="form-control" value="{{ old('name') }}" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Product Code</label>
-                                                    <input type="text" name="meta_author" class="form-control">
+                                                    <input type="text" name="code" class="form-control" value="{{ old('code') }}" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
@@ -55,7 +62,7 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Child Category</label>
-                                                    <select name="childcategory_id" id="childcategory_id" class="form-control" required>
+                                                    <select name="childcategory_id" id="childcategory_id" class="form-control">
 
                                                     </select>
                                                 </div>
@@ -72,7 +79,7 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Pickup</label>
-                                                    <select name="" id="" class="form-control" required>
+                                                    <select name="pickup_id" id="pickup_id" class="form-control" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($pickups as $pickup)
                                                             <option value="{{ $pickup->id }}">{{ $pickup->name }}</option>
@@ -82,27 +89,27 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Unit</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="unit" class="form-control" value="{{ old('unit') }}" required>
                                                 </div>
 
-                                                <div class="form-group col-sm-6">
+                                                <div class="form-group col-sm-6" style="margin-top: 35px;">
                                                     <label class="col-form-label">Tags</label>
                                                     <input type="text" name="tags" class="form-control" data-role="tagsinput">
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Purchase Price</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="purchase_price" class="form-control" value="{{ old('purchase_price') }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Selling Price</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="selling_price" class="form-control" value="{{ old('selling_price') }}" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Discount Price</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="discount_price" class="form-control" value="{{ old('discount_price') }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
@@ -110,29 +117,34 @@
                                                     <select name="warehouse" id="" class="form-control" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($wareHouses as $ware_house)
-                                                            <option value="{{ $ware_house->brnad_name }}">{{ $ware_house->name }}</option>
+                                                            <option value="{{ $ware_house->name }}">{{ $ware_house->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Stock</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="stock_quantity" class="form-control" value="{{ old('stock_quantity') }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Color</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="color" class="form-control" data-role="tagsinput">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Size</label>
-                                                    <input type="text" name="meta_keyword" class="form-control">
+                                                    <input type="text" name="size" class="form-control" data-role="tagsinput">
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
                                                     <label class="col-form-label">Product Details</label>
-                                                    <textarea name="" cols="30" rows="10" class="form-control" id="summernote"></textarea>
+                                                    <textarea name="description" cols="30" rows="10" class="form-control" id="summernote">{{ old('description') }}</textarea>
+                                                </div>
+
+                                                <div class="form-group col-sm-12">
+                                                    <label class="col-form-label">Video Embed Code</label>
+                                                    <textarea name="video" rows="3" class="form-control">{{ old('video') }}</textarea>
                                                 </div>
 
                                                 <div class="form-group col-md-12 mt-4">
@@ -144,14 +156,13 @@
                                         <div class="col-md-5">
                                             <div class="form-row card p-2">
                                                 <div class="form-group col-sm-12">
-                                                    <label for="brand_logo" class="col-form-label ">Main Thumbnail:</label>
-                                                    <input type="file" class="form-control dropify image" name="brand_logo" id="brand_logo"
-                                                        placeholder="Enter brand name" required>
+                                                    <label for="thumbnail" class="col-form-label ">Main Thumbnail:</label>
+                                                    <input type="file" class="form-control dropify image" name="thumbnail" id="thumbnail" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
                                                     <label for="brand_logo" class="col-form-label "></label>
-                                                    <table class="table" id="daynamic_table">
+                                                    {{-- <table class="table" id="daynamic_table">
                                                         <tr>
                                                             <th colspan="2" style="border: none !important; padding: 0px;">
                                                                 <span>More Image:</span>
@@ -165,26 +176,26 @@
                                                                 <button type="button" class="btn btn-sm btn-success" name="add" id="add">+</button>
                                                             </td>
                                                         </tr>
-                                                    </table>
+                                                    </table> --}}
 
                                                 </div>
 
+                                                <div class="form-group col-sm-12">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" name="featured" id="featured" >
+                                                        <label class="custom-control-label" for="featured">Featured Product</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" name="toady_deal_id" id="toady_deal_id" >
+                                                        <label class="custom-control-label" for="toady_deal_id">Toady Deal</label>
+                                                    </div>
+                                                </div>
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input" name="status" id="status" >
-                                                        <label class="custom-control-label" for="status">Featured Product</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-sm-12">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="status" id="status1" >
-                                                        <label class="custom-control-label" for="status1">Toady Deal</label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-sm-12">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="status" id="status20" >
-                                                        <label class="custom-control-label" for="status20">Status</label>
+                                                        <label class="custom-control-label" for="status">Status</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,6 +214,7 @@
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
     <script>
         $(document).ready(function() {
 
