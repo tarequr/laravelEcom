@@ -106,6 +106,18 @@ class ProductController extends Controller
                 // $path = public_path('upload/product/').$filename;
                 // Image::make($file)->resize(240,120)->save($path);
             }
+
+            $images = [];
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $key => $value) {
+                    $filename = 'IMG'. time() . '.' . $file->getClientOriginalExtension();
+                    array_push($images,$filename);
+                }
+
+                $all_images = json_encode($images);
+            }
+
             $subCategory = SubCategory::find($request->subcategory_id);
 
             Product::create([
@@ -129,6 +141,7 @@ class ProductController extends Controller
                 "description" => $request->description,
                 "video" => $request->video,
                 "thumbnail" => $filename,
+                "images" => $all_images,
                 "featured" => $request->filled('featured'),
                 "toady_deal_id" => $request->filled('toady_deal_id'),
                 "status" => $request->filled('status'),

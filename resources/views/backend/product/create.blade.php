@@ -162,7 +162,7 @@
 
                                                 <div class="form-group col-sm-12">
                                                     <label for="brand_logo" class="col-form-label "></label>
-                                                    {{-- <table class="table" id="daynamic_table">
+                                                    <table class="table" id="daynamic_table">
                                                         <tr>
                                                             <th colspan="2" style="border: none !important; padding: 0px;">
                                                                 <span>More Image:</span>
@@ -176,7 +176,7 @@
                                                                 <button type="button" class="btn btn-sm btn-success" name="add" id="add">+</button>
                                                             </td>
                                                         </tr>
-                                                    </table> --}}
+                                                    </table>
 
                                                 </div>
 
