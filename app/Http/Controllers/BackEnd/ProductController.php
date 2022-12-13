@@ -27,17 +27,33 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('products')
-                ->orderBy('id','desc')
-                ->get();
-
+            $data = Product::orderBy('id','desc')->get();
+            // $imagePath = 'public/upload/product';
+            $imagePath = asset('upload/product');
             return DataTables::of($data)
                     ->addIndexColumn()
+                    ->editColumn('thumbnail', function($row) use($imagePath) {
+                        return '<img src="'.$imagePath.'/'.$row->thumbnail.'" height="50" width="70" >';
+                    })
+                    ->editColumn('category_name', function($row){
+                        return $row->category->name;
+                    })
+                    ->editColumn('subcategory_name', function($row){
+                        return $row->subCategories->subcategory_name;
+                    })
+                    ->editColumn('brnad_name', function($row){
+                        return $row->brand->brnad_name;
+                    })
                     ->addColumn('action', function($row){
-                        $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                        data-target="#editModal" data-id="'.$row->id.'">
+                        $actionbtn = '
+                        <a href="#" class="btn btn-success btn-sm edit" title="Edit">
                             <i class="fa fa-pen"></i>
                             Edit
+                        </a>
+
+                        <a href="#" class="btn btn-info btn-sm edit" title="Show">
+                            <i class="fa fa-eye"></i>
+                            Show
                         </a>
 
                         <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
@@ -52,7 +68,7 @@ class ProductController extends Controller
 
                         return $actionbtn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','category_name','subcategory_name','brnad_name','thumbnail'])
                     ->make(true);
         }
 
@@ -106,8 +122,6 @@ class ProductController extends Controller
                 $path = public_path('upload/product/').$filename;
                 Image::make($file->getRealPath())->resize(600,600)->save($path);
             }
-
-
 
             $images = [];
 

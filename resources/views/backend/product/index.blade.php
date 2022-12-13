@@ -16,9 +16,15 @@
                     <thead>
                         <tr>
                             <th class="text-center">SL</th>
+                            <th class="text-center">Thumbnail</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Code</th>
+                            <th class="text-center">Category</th>
+                            <th class="text-center">SubCategory</th>
                             <th class="text-center">Brand</th>
-                            <th class="text-center">Logo</th>
-                            {{-- <th class="text-center">Status</th> --}}
+                            <th class="text-center">Featured</th>
+                            <th class="text-center">Today Deal</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -29,63 +35,9 @@
             </div>
         </div>
     </div>
-
-
-    <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Create</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form method="POST" action="{{ route('brand.store') }}" id="addForm" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="brnad_name" class="col-form-label">Brand:</label>
-                            <input type="text" class="form-control" name="brnad_name" id="brnad_name"
-                                placeholder="Enter brand name" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="brand_logo" class="col-form-label ">Brand Logo:</label>
-                            <input type="file" class="form-control dropify" name="brand_logo" id="brand_logo"
-                                placeholder="Enter brand name" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Edit</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-                <div class="modal_body">
-
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
     <script>
         // $(document).ready(function() {
         //     // $('#myform').validate({
@@ -104,17 +56,22 @@
         //     });
         // });
 
-        $(function brand(){
+        $(function product(){
             var table = $('.ytable').DataTable({
                 processing:true,
                 serverSide:true,
-                ajax:"{{ route('brand.index') }}",
+                ajax:"{{ route('product.index') }}",
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
+                    {data:'thumbnail', name:'thumbnail'},
+                    {data:'name', name:'name'},
+                    {data:'code', name:'code'},
+                    {data:'category_name', name:'category_name'},
+                    {data:'subcategory_name', name:'subcategory_name'},
                     {data:'brnad_name', name:'brnad_name'},
-                    {data:'brand_logo', name:'brand_logo', render: function(data, type, full, meta){
-                        return "<img src=\""+data+"\" height=\"30\" />";
-                    }},
+                    {data:'featured', name:'featured'},
+                    {data:'toady_deal_id', name:'toady_deal_id'},
+                    {data:'status', name:'status'},
                     {data:'action', name:'action',orderable:true,searchable:true},
                 ]
             });
