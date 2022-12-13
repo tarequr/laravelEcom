@@ -96,23 +96,27 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
 
-        try {
+        // try {
 
             $slug = Str::slug($request->name,'-');
 
             if ($request->hasFile('thumbnail')) {
                 $file = $request->file('thumbnail');
                 $filename = $slug . '.' . $file->getClientOriginalExtension();
-                // $path = public_path('upload/product/').$filename;
-                // Image::make($file)->resize(240,120)->save($path);
+                $path = public_path('upload/product/').$filename;
+                Image::make($file->getRealPath())->resize(600,600)->save($path);
             }
+
+
 
             $images = [];
 
             if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $key => $value) {
-                    $filename = 'IMG'. time() . '.' . $file->getClientOriginalExtension();
-                    array_push($images,$filename);
+                foreach ($request->file('images') as $key => $image) {
+                    $filename2 = 'IMG'. time(). $key . '.' . $image->getClientOriginalExtension();
+                    $path2 = public_path('upload/product_images/').$filename2;
+                    Image::make($image->getRealPath())->resize(600,600)->save($path2);
+                    array_push($images,$filename2);
                 }
 
                 $all_images = json_encode($images);
@@ -152,12 +156,12 @@ class ProductController extends Controller
 
             notify()->success("Product Created Successfully.", "Success");
             return redirect()->route('product.index');
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+        // } catch (\Throwable $th) {
+        //     Log::error($th->getMessage());
 
-            notify()->error("Product Create Failed.", "Error");
-            return back();
-        }
+        //     notify()->error("Product Create Failed.", "Error");
+        //     return back();
+        // }
     }
 
     /**
