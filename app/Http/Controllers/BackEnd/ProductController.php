@@ -96,7 +96,7 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
 
-        // try {
+        try {
 
             $slug = Str::slug($request->name,'-');
 
@@ -156,12 +156,12 @@ class ProductController extends Controller
 
             notify()->success("Product Created Successfully.", "Success");
             return redirect()->route('product.index');
-        // } catch (\Throwable $th) {
-        //     Log::error($th->getMessage());
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
-        //     notify()->error("Product Create Failed.", "Error");
-        //     return back();
-        // }
+            notify()->error("Product Create Failed.", "Error");
+            return back();
+        }
     }
 
     /**
