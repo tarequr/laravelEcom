@@ -60,9 +60,9 @@ class ProductController extends Controller
                     })
                     ->editColumn('status', function($row){
                         if ($row->status == 1) {
-                            return '<a href="#"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                            return '<a href="#" data-id="'.$row->id.'" class="deactive_status"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
                         } else{
-                            return '<a href="#"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                            return '<a href="#" data-id="'.$row->id.'" class="active_status"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
                         }
                     })
                     ->addColumn('action', function($row){
@@ -275,6 +275,24 @@ class ProductController extends Controller
     {
         Product::find($id)->update([
             'toady_deal_id' => 1
+        ]);
+
+        return response()->json('Poduct Toady Deal Active');
+    }
+
+    public function notStatus($id)
+    {
+        Product::find($id)->update([
+            'status' => 0
+        ]);
+
+        return response()->json('Poduct Toady Deal Deactive');
+    }
+
+    public function activeStatus($id)
+    {
+        Product::find($id)->update([
+            'status' => 1
         ]);
 
         return response()->json('Poduct Toady Deal Active');

@@ -45,6 +45,9 @@ Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);
 Route::get('not-toadydeal/{id}', [ProductController::class,'notToadydeal']);
 Route::get('active-toadydeal/{id}', [ProductController::class,'activeToadydeal']);
 
+Route::get('not-status/{id}', [ProductController::class,'notStatus']);
+Route::get('active-status/{id}', [ProductController::class,'activeStatus']);
+
 /* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
 Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 

@@ -155,5 +155,44 @@
                 }
             })
         });
+
+        //status
+        $('body').on('click','.deactive_status', function(e){
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let url = "{{ url('not-status') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Status Deactive Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
+        });
+
+        $('body').on('click','.active_status', function(e){
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let url = "{{ url('active-status') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Status Active Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
+        });
     </script>
 @endpush
