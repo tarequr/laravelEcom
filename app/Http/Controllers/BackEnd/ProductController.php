@@ -44,6 +44,27 @@ class ProductController extends Controller
                     ->editColumn('brnad_name', function($row){
                         return $row->brand->brnad_name;
                     })
+                    ->editColumn('featured', function($row){
+                        if ($row->featured == 1) {
+                            return '<a href="#" data-id="'.$row->id.'" class="deactive_featured"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#" data-id="'.$row->id.'" class="active_featured"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
+                    ->editColumn('toady_deal_id', function($row){
+                        if ($row->toady_deal_id == 1) {
+                            return '<a href="#"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
+                    ->editColumn('status', function($row){
+                        if ($row->status == 1) {
+                            return '<a href="#"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
                     ->addColumn('action', function($row){
                         $actionbtn = '
                         <a href="#" class="btn btn-success btn-sm edit" title="Edit">
@@ -68,7 +89,7 @@ class ProductController extends Controller
 
                         return $actionbtn;
                     })
-                    ->rawColumns(['action','category_name','subcategory_name','brnad_name','thumbnail'])
+                    ->rawColumns(['action','category_name','subcategory_name','brnad_name','thumbnail','featured','toady_deal_id','status'])
                     ->make(true);
         }
 
@@ -221,5 +242,23 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function notFeatured($id)
+    {
+        Product::find($id)->update([
+            'featured' => 0
+        ]);
+
+        return response()->json('Poduct Featured Deactive');
+    }
+
+    public function activeFeatured($id)
+    {
+        Product::find($id)->update([
+            'featured' => 1
+        ]);
+
+        return response()->json('Poduct Featured Active');
     }
 }

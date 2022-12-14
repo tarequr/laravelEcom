@@ -39,6 +39,9 @@ Route::resource('warehouse', WarehouseController::class);
 Route::resource('coupon', CouponController::class);
 Route::resource('pickup', PickupController::class);
 
+Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
+Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);
+
 /* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
 Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 

@@ -77,11 +77,38 @@
             });
         });
 
-        $('body').on('click','.edit', function(){
+        $('body').on('click','.deactive_featured', function(){
             let id = $(this).data('id');
-            $.get("brand/"+id+"/edit", function(data){
-                $('.modal_body').html(data);
-            });
+            let url = "{{ url('not-featured') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Featured Deactive Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
+        });
+
+        $('body').on('click','.active_featured', function(){
+            let id = $(this).data('id');
+            let url = "{{ url('active-featured') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Featured Active Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
         });
     </script>
 @endpush
