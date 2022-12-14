@@ -77,7 +77,11 @@
             });
         });
 
-        $('body').on('click','.deactive_featured', function(){
+
+        //featured
+        $('body').on('click','.deactive_featured', function(e){
+            e.preventDefault();
+
             let id = $(this).data('id');
             let url = "{{ url('not-featured') }}/"+id;
             $.ajax({
@@ -94,7 +98,9 @@
             })
         });
 
-        $('body').on('click','.active_featured', function(){
+        $('body').on('click','.active_featured', function(e){
+            e.preventDefault();
+
             let id = $(this).data('id');
             let url = "{{ url('active-featured') }}/"+id;
             $.ajax({
@@ -104,6 +110,45 @@
                     iziToast.success({
                         title: 'Success',
                         message: 'Poduct Featured Active Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
+        });
+
+        //toadydeal
+        $('body').on('click','.deactive_toadydeal', function(e){
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let url = "{{ url('not-toadydeal') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Toady Deal Deactive Successfully.',
+                        position: 'topRight'
+                    });
+                    table.ajax.reload();
+                }
+            })
+        });
+
+        $('body').on('click','.active_toadydeal', function(e){
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let url = "{{ url('active-toadydeal') }}/"+id;
+            $.ajax({
+                url: url,
+                type: 'get',
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Poduct Toady Deal Active Successfully.',
                         position: 'topRight'
                     });
                     table.ajax.reload();
