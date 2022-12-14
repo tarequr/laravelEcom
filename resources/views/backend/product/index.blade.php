@@ -28,7 +28,7 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
 
                     </tbody>
                 </table>
@@ -171,7 +171,7 @@
                         message: 'Poduct Status Deactive Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
@@ -190,7 +190,7 @@
                         message: 'Poduct Status Active Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
