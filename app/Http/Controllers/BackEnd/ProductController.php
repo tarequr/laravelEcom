@@ -82,7 +82,7 @@ class ProductController extends Controller
                             <span>Delete</span>
                         </button>
 
-                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('coupon.destroy',[$row->id]).'" style="display: none;">
+                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('product.destroy',[$row->id]).'" style="display: none;">
                             '.csrf_field().'
                             '.method_field("DELETE").'
                         </form>';
@@ -241,7 +241,28 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $product = Product::find($id);
+
+            if ($product->thumbnail != NULL) {
+                @unlink(public_path('upload/product/' . $product->thumbnail));
+            }
+
+            if ($product->images != NULL) {
+                foreach (json_decode($product->images) as $key => $image) {
+                    @unlink(public_path('upload/product_images/' . $image));
+                }
+            }
+            $product->delete();
+
+            notify()->success("Product Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Product Delete Failed.", "Error");
+            return back();
+        }
     }
 
     public function notFeatured($id)

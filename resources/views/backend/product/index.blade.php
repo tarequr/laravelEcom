@@ -56,8 +56,13 @@
         //     });
         // });
 
+        // $('.ytable').DataTable({
+        //     responsive: true,
+        // });
+
         $(function product(){
             var table = $('.ytable').DataTable({
+                responsive: true,
                 processing:true,
                 serverSide:true,
                 ajax:"{{ route('product.index') }}",
@@ -93,7 +98,7 @@
                         message: 'Poduct Featured Deactive Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
@@ -112,7 +117,7 @@
                         message: 'Poduct Featured Active Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
@@ -132,7 +137,7 @@
                         message: 'Poduct Toady Deal Deactive Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
@@ -151,7 +156,7 @@
                         message: 'Poduct Toady Deal Active Successfully.',
                         position: 'topRight'
                     });
-                    table.ajax.reload();
+                    $('.ytable').DataTable().ajax.reload();
                 }
             })
         });
