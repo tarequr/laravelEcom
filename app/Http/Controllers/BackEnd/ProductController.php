@@ -93,7 +93,10 @@ class ProductController extends Controller
                     ->make(true);
         }
 
-        return view('backend.product.index');
+        $categories = Category::orderBy('id','desc')->get();
+        $brands = Brand::orderBy('id','desc')->get();
+
+        return view('backend.product.index',compact('categories','brands'));
     }
 
     /**

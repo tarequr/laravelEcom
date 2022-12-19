@@ -11,7 +11,40 @@
                 <i class="fa fa-plus-circle"></i>
                 Create Product
             </a>
-            <div class="table-responsive">
+
+            <div class="row">
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Category</label>
+                    <select name="category_id" id="" class="form-control submitable">
+                        <option value="">Select category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Brand</label>
+                    <select name="brand_id" id="" class="form-control submitable">
+                        <option value="">Select brand</option>
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->brnad_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Status</label>
+                    <select name="brand_id" id="" class="form-control submitable">
+                        <option value="">Select status</option>
+                        <option value="1">Active</option>
+                        <option value="0">Deactive</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="table-responsive mt-2">
                 <table class="table table-bordered ytable" id="" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -199,5 +232,10 @@
                 }
             })
         });
+
+        /*submitable on change*/
+        $(document).on('change','.submitable', function(){
+            $('.ytable').DataTable().ajax.reload();
+        })
     </script>
 @endpush
