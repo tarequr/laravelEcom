@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-md-3 p-2">
                     <label class="col-form-label">Category</label>
-                    <select name="category_id" id="" class="form-control submitable">
-                        <option value="">Select category</option>
+                    <select name="category_id" id="category_id" class="form-control submitable">
+                        <option value="">All category</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
@@ -25,8 +25,8 @@
 
                 <div class="col-md-3 p-2">
                     <label class="col-form-label">Brand</label>
-                    <select name="brand_id" id="" class="form-control submitable">
-                        <option value="">Select brand</option>
+                    <select name="brand_id" id="brand_id" class="form-control submitable">
+                        <option value="">All brand</option>
                         @foreach ($brands as $brand)
                             <option value="{{ $brand->id }}">{{ $brand->brnad_name }}</option>
                         @endforeach
@@ -35,8 +35,8 @@
 
                 <div class="col-md-3 p-2">
                     <label class="col-form-label">Status</label>
-                    <select name="brand_id" id="" class="form-control submitable">
-                        <option value="">Select status</option>
+                    <select name="status" id="status" class="form-control submitable">
+                        <option value="">All status</option>
                         <option value="1">Active</option>
                         <option value="0">Deactive</option>
                     </select>
@@ -98,7 +98,15 @@
                 responsive: true,
                 processing:true,
                 serverSide:true,
-                ajax:"{{ route('product.index') }}",
+                // ajax:"{{ route('product.index') }}",
+                ajax: {
+                    "url" : "{{ route('product.index') }}",
+                    "data" : function(e) {
+                        e.category_id = $("#category_id").val();
+                        e.brand_id = $("#brand_id").val();
+                        e.status = $("#status").val();
+                    }
+                },
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
                     {data:'thumbnail', name:'thumbnail'},

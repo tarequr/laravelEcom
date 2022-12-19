@@ -27,8 +27,29 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::orderBy('id','desc')->get();
-            // $imagePath = 'public/upload/product';
+
+            $data = "";
+            // $data = Product::orderBy('id','desc')->get();
+            $query = Product::query();
+
+            if ($request->category_id) {
+                $query->where('category_id',$request->category_id);
+            }
+
+            if ($request->brand_id) {
+                $query->where('brand_id',$request->brand_id);
+            }
+
+            if ($request->status == '1') {
+                $query->where('status','1');
+            }
+
+            if ($request->status == '0') {
+                $query->where('status','0');
+            }
+
+            $data = $query->orderBy('id','desc')->get();
+
             $imagePath = asset('upload/product');
             return DataTables::of($data)
                     ->addIndexColumn()
