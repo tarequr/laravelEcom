@@ -198,6 +198,12 @@
                                                         <label class="custom-control-label" for="status">Status</label>
                                                     </div>
                                                 </div>
+                                                <div class="form-group col-sm-12">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" name="slider" id="slider" >
+                                                        <label class="custom-control-label" for="slider">Slider</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 

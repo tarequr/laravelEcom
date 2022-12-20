@@ -208,6 +208,7 @@ class ProductController extends Controller
                 "featured" => $request->filled('featured'),
                 "toady_deal_id" => $request->filled('toady_deal_id'),
                 "status" => $request->filled('status'),
+                "slider" => $request->filled('slider'),
                 "created_by" => Auth::user()->id,
                 "date" => date('Y-m-d'),
                 "month" => date('F'),
