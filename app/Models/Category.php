@@ -11,4 +11,9 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
+    public function subCategory()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
+
 }

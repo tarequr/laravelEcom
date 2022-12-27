@@ -14,17 +14,27 @@
                         </div>
 
                         <ul class="cat_menu">
+                            @foreach ($categories as $category)
                             <li class="hassubs">
-                                <a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
+                                <a href="#">{{ $category->name }}<i class="fas fa-chevron-right"></i></a>
                                 <ul>
+                                    @if (!empty($category->subCategory))
+                                    @foreach ($category->subCategory as $subCategory)
                                     <li class="hassubs">
-                                        <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
+                                        <a href="#">{{ $subCategory->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
                                         <ul>
-                                            <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                            @if (!empty($subCategory->childCategory))
+                                            @foreach ($subCategory->childCategory as $childCategory)
+                                            <li><a href="#">{{ $childCategory->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
+                                            @endforeach
+                                            @endif
                                         </ul>
                                     </li>
+                                    @endforeach
+                                    @endif
                                 </ul>
                             </li>
+                            @endforeach
                         </ul>
                     </div>
 
