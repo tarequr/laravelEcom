@@ -23,6 +23,7 @@
                                                 <option value="">Please select</option>
                                                 <option value="৳" {{ $websiteSetting->currency == "৳" ? "selected" : "" }}>Taka ৳</option>
                                                 <option value="$" {{ $websiteSetting->currency == "$" ? "selected" : "" }}>USD $</option>
+                                                <option value="₹" {{ $websiteSetting->currency == "$" ? "selected" : "" }}>Rupee ₹</option>
                                             </select>
                                         </div>
 
