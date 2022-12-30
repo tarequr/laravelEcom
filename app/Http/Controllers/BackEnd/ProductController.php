@@ -88,7 +88,7 @@ class ProductController extends Controller
                     })
                     ->addColumn('action', function($row){
                         $actionbtn = '
-                        <a href="#" class="btn btn-success btn-sm edit" title="Edit">
+                        <a href="'.route('product.edit',[$row->id]).'" class="btn btn-success btn-sm edit" title="Edit">
                             <i class="fa fa-pen"></i>
                             Edit
                         </a>
@@ -243,7 +243,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.product.edit');
+        $product = Product::find($id);
+        $brands = Brand::orderBy('id','desc')->get();
+        $pickups = PickupPoint::orderBy('id','desc')->get();
+        $categories = Category::orderBy('id','desc')->get();
+        $wareHouses = Warehouse::orderBy('id','desc')->get();
+
+        return view('backend.product.edit',compact('product','brands','pickups','categories','wareHouses'));
     }
 
     /**

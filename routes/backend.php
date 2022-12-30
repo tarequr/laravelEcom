@@ -35,11 +35,11 @@ Route::group(['middleware'=>'auth'],function(){
     Route::resource('subcategory',SubCategoryController::class);
     Route::resource('childcategory',ChildCategoryController::class);
     Route::resource('brand', BrandController::class);
-    Route::resource('product', ProductController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('coupon', CouponController::class);
     Route::resource('pickup', PickupController::class);
 
+    Route::resource('product', ProductController::class);
     Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
     Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);
 
