@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/animate.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/slick-1.8.0/slick.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
+@stack('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
 
 </head>
@@ -52,7 +52,7 @@
 <script src="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
-<script src="{{ asset('frontend/js/custom.js') }}"></script>
+@stack('js')
 </body>
 
 </html>

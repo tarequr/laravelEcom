@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FrontEnd\HomeController;
+use App\Http\Controllers\FrontEnd\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.home');
+Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->name('single.product');

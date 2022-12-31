@@ -89,27 +89,27 @@
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Unit</label>
-                                                    <input type="text" name="unit" class="form-control" value="{{ old('unit') }}" required>
+                                                    <input type="text" name="unit" class="form-control" value="{{ old('unit') ?? $product->unit }}" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-6" style="margin-top: 35px;">
                                                     <label class="col-form-label">Tags</label>
-                                                    <input type="text" name="tags" class="form-control" data-role="tagsinput">
+                                                    <input type="text" name="tags" class="form-control" data-role="tagsinput" value="{{ $product->tags }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Purchase Price</label>
-                                                    <input type="text" name="purchase_price" class="form-control" value="{{ old('purchase_price') }}">
+                                                    <input type="text" name="purchase_price" class="form-control" value="{{ old('purchase_price') ?? $product->purchase_price }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Selling Price</label>
-                                                    <input type="text" name="selling_price" class="form-control" value="{{ old('selling_price') }}" required>
+                                                    <input type="text" name="selling_price" class="form-control" value="{{ old('selling_price') ?? $product->selling_price }}" required>
                                                 </div>
 
                                                 <div class="form-group col-sm-4">
                                                     <label class="col-form-label">Discount Price</label>
-                                                    <input type="text" name="discount_price" class="form-control" value="{{ old('discount_price') }}">
+                                                    <input type="text" name="discount_price" class="form-control" value="{{ old('discount_price') ?? $product->discount_price }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
@@ -117,34 +117,34 @@
                                                     <select name="warehouse" id="" class="form-control" required>
                                                         <option value="">Please select</option>
                                                         @foreach ($wareHouses as $ware_house)
-                                                            <option value="{{ $ware_house->name }}" {{ $ware_house->id == $product->warehouse ? 'selected' : '' }}>{{ $ware_house->name }}</option>
+                                                            <option value="{{ $ware_house->name }}" {{ $ware_house->name == $product->warehouse ? 'selected' : '' }}>{{ $ware_house->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Stock</label>
-                                                    <input type="text" name="stock_quantity" class="form-control" value="{{ old('stock_quantity') }}">
+                                                    <input type="text" name="stock_quantity" class="form-control" value="{{ old('stock_quantity') ?? $product->stock_quantity }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Color</label>
-                                                    <input type="text" name="color" class="form-control" data-role="tagsinput">
+                                                    <input type="text" name="color" class="form-control" data-role="tagsinput" value="{{ $product->color }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Size</label>
-                                                    <input type="text" name="size" class="form-control" data-role="tagsinput">
+                                                    <input type="text" name="size" class="form-control" data-role="tagsinput" value="{{ $product->size }}">
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
                                                     <label class="col-form-label">Product Details</label>
-                                                    <textarea name="description" cols="30" rows="10" class="form-control" id="summernote">{{ old('description') }}</textarea>
+                                                    <textarea name="description" cols="30" rows="10" class="form-control" id="summernote">{{ old('description') ?? $product->description }}</textarea>
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
                                                     <label class="col-form-label">Video Embed Code</label>
-                                                    <textarea name="video" rows="3" class="form-control">{{ old('video') }}</textarea>
+                                                    <textarea name="video" rows="3" class="form-control">{{ old('video') ?? $product->video }}</textarea>
                                                 </div>
 
                                                 <div class="form-group col-md-12 mt-4">
@@ -182,25 +182,25 @@
 
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="featured" id="featured" >
+                                                        <input type="checkbox" class="custom-control-input" name="featured" id="featured" {{ $product->featured == 1 ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="featured">Featured Product</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="toady_deal_id" id="toady_deal_id" >
+                                                        <input type="checkbox" class="custom-control-input" name="toady_deal_id" id="toady_deal_id" {{ $product->toady_deal_id == 1 ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="toady_deal_id">Toady Deal</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="status" id="status" >
+                                                        <input type="checkbox" class="custom-control-input" name="status" id="status" {{ $product->status == 1 ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="status">Status</label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" name="slider" id="slider" >
+                                                        <input type="checkbox" class="custom-control-input" name="slider" id="slider" {{ $product->slider == 1 ? 'checked' : '' }}>
                                                         <label class="custom-control-label" for="slider">Slider</label>
                                                     </div>
                                                 </div>
