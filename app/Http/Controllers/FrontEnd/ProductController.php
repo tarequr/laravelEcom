@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function singleProduct($slug)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
+        $product = Product::with('category','subCategories','brand','pickupPoint')->where('slug', $slug)->firstOrFail();
         $categories = Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get();
         $banner_product = Product::with('brand')->where('slider',1)->latest()->first();
 

@@ -143,8 +143,8 @@
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
-                                                    <label class="col-form-label">Video Embed Code</label>
-                                                    <textarea name="video" rows="3" class="form-control">{{ old('video') }}</textarea>
+                                                    <label class="col-form-label">Video Embed Code <code>(Only code after embed word)</code></label>
+                                                    <input name="video" class="form-control" value="{{ old('video') }}" placeholder="Only code after embed word">
                                                 </div>
 
                                                 <div class="form-group col-md-12 mt-4">
