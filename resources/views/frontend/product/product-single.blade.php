@@ -16,19 +16,21 @@
 <div class="single_product">
     <div class="container">
         <div class="row">
-
+            @php
+                $images = json_decode($product->images);
+            @endphp
             <!-- Images -->
             <div class="col-lg-1 order-lg-1 order-2">
                 <ul class="image_list">
-                    <li data-image="{{ asset('frontend/images/single_4.jpg') }}"><img src="{{ asset('frontend/images/single_4.jpg') }}" alt=""></li>
-                    <li data-image="{{ asset('frontend/images/single_2.jpg') }}"><img src="{{ asset('frontend/images/single_2.jpg') }}" alt=""></li>
-                    <li data-image="{{ asset('frontend/images/single_3.jpg') }}"><img src="{{ asset('frontend/images/single_3.jpg') }}" alt=""></li>
+                    @foreach ($images as $image)
+                    <li data-image="{{ asset('upload/product_images/'.$image) }}"><img src="{{ asset('upload/product_images/'.$image) }}" alt=""></li>
+                    @endforeach
                 </ul>
             </div>
 
             <!-- Selected Image -->
             <div class="col-lg-4 order-lg-2 order-1">
-                <div class="image_selected"><img src="{{ asset('frontend/images/single_4.jpg') }}" alt=""></div>
+                <div class="image_selected"><img src="{{ asset('upload/product/'.$product->thumbnail) }}" alt="{{ $product->name }}"></div>
             </div>
 
             <!-- Description -->
@@ -62,29 +64,40 @@
                         <form action="#">
                             <div class="form-group">
                                 <div class="row">
+                                    @isset($product->size)
+                                        @php
+                                            $sizes = explode(',',$product->size);
+                                        @endphp
                                     <div class="col-lg-6">
                                         <label for="">Size:</label>
                                         <select class="form-control form-control-sm" name="size" id="">
-                                            <option value="">A</option>
-                                            <option value="">B</option>
-                                            <option value="">C</option>
+                                            @foreach ($sizes as $size)
+                                                <option value="{{$size}}">{{$size}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                    @endisset
+
+                                    @isset($product->color)
+                                        @php
+                                            $colors = explode(',',$product->color);
+                                        @endphp
                                     <div class="col-lg-6">
                                         <label for="">Color:</label>
-                                        <select class="form-control form-control-sm" name="size" id="">
-                                            <option value="">A</option>
-                                            <option value="">B</option>
-                                            <option value="">C</option>
+                                        <select class="form-control form-control-sm" name="color" id="">
+                                            @foreach ($colors as $color)
+                                                <option value="{{$color}}">{{$color}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
+                                    @endisset
                                 </div>
                             </div>
 
                             <div class="clearfix" style="z-index: 1000;">
 
                                 <!-- Product Quantity -->
-                                <div class="product_quantity clearfix">
+                                <div class="product_quantity clearfix ml-2">
                                     <span>Quantity: </span>
                                     <input id="quantity_input" type="text" pattern="[1-9]*" value="1">
                                     <div class="quantity_buttons">
@@ -242,6 +255,132 @@
 
     </div>
 </div>
+
+<!-- Recently Viewed -->
+
+<div class="viewed">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="viewed_title_container">
+                    <h3 class="viewed_title">Releted Product</h3>
+                    <div class="viewed_nav_container">
+                        <div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
+                        <div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+
+                <div class="viewed_slider_container">
+
+                    <!-- Recently Viewed Slider -->
+
+                    <div class="owl-carousel owl-theme viewed_slider">
+
+                        <!-- Recently Viewed Item -->
+                        @foreach ($reladed_produts as $reladed_pdt)
+                        <div class="owl-item">
+                            <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('upload/product/'.$reladed_pdt->thumbnail) }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    @if ($reladed_pdt->discount_price == null)
+                                    <div class="viewed_price">{{$setting->currency}}{{$reladed_pdt->selling_price}}</div>
+                                    @else
+                                    <div class="viewed_price">{{$setting->currency}}{{$reladed_pdt->discount_price}}<span>{{$setting->currency}}{{$reladed_pdt->selling_price}}</span></div>
+                                    @endif
+
+                                    <div class="viewed_name"><a href="{{ route('single.product',$reladed_pdt->slug) }}">{{ substr($reladed_pdt->name,'0','50') }}</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount" style="background-color: blueviolet !important">new</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div>
+                        @endforeach
+
+                        {{-- <!-- Recently Viewed Item -->
+                        <div class="owl-item">
+                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_2.jpg') }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    <div class="viewed_price">$379</div>
+                                    <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount">-25%</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Recently Viewed Item -->
+                        <div class="owl-item">
+                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_3.jpg') }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    <div class="viewed_price">$225</div>
+                                    <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount">-25%</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Recently Viewed Item -->
+                        <div class="owl-item">
+                            <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_4.jpg') }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    <div class="viewed_price">$379</div>
+                                    <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount">-25%</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Recently Viewed Item -->
+                        <div class="owl-item">
+                            <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_5.jpg') }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    <div class="viewed_price">$225<span>$300</span></div>
+                                    <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount">-25%</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Recently Viewed Item -->
+                        <div class="owl-item">
+                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
+                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_6.jpg') }}" alt=""></div>
+                                <div class="viewed_content text-center">
+                                    <div class="viewed_price">$375</div>
+                                    <div class="viewed_name"><a href="#">Speedlink...</a></div>
+                                </div>
+                                <ul class="item_marks">
+                                    <li class="item_mark item_discount">-25%</li>
+                                    <li class="item_mark item_new">new</li>
+                                </ul>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@include('frontend.partials.top_footer')
+
 @endsection
 
 @push('js')

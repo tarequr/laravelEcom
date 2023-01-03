@@ -4045,6 +4045,8 @@
 			</div>
 		</div>
 	</div>
+
+    @include('frontend.partials.top_footer')
 @endsection
 
 @push('js')

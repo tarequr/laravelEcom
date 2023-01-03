@@ -14,7 +14,8 @@ class ProductController extends Controller
         $product = Product::with('category','subCategories','brand','pickupPoint')->where('slug', $slug)->firstOrFail();
         $categories = Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get();
         $banner_product = Product::with('brand')->where('slider',1)->latest()->first();
+        $reladed_produts = Product::where('subcategory_id',$product->subcategory_id)->orderBy('id','desc')->take(10)->get();
 
-        return view('frontend.product.product-single', compact('product','categories','banner_product'));
+        return view('frontend.product.product-single', compact('product','categories','banner_product','reladed_produts'));
     }
 }
