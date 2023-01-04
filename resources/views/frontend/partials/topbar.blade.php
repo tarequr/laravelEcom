@@ -28,7 +28,7 @@
                     <div class="top_bar_user">
                         <div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>
                         <div><a href="#">Register</a></div>
-                        <div><a href="#">Sign in</a></div>
+                        <div><a href="{{ route('customer.login') }}">Sign in</a></div>
                     </div>
                 </div>
             </div>
