@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/slick-1.8.0/slick.css') }}">
 @stack('css')
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
+<link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
 </head>
 
@@ -52,6 +53,10 @@
 <script src="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
+<script src="{{ asset('js/iziToast.js') }}"></script>
+
+@include('vendor.lara-izitoast.toast')
+
 @stack('js')
 
 </body>

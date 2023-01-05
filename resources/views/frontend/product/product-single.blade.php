@@ -70,7 +70,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Size:</label>
-                                        <select class="form-control form-control-sm" name="size" id="">
+                                        <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;>
                                             @foreach ($sizes as $size)
                                                 <option value="{{$size}}">{{$size}}</option>
                                             @endforeach
@@ -84,7 +84,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Color:</label>
-                                        <select class="form-control form-control-sm" name="color" id="">
+                                        <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;>
                                             @foreach ($colors as $color)
                                                 <option value="{{$color}}">{{$color}}</option>
                                             @endforeach
@@ -228,14 +228,24 @@
                             </div>
 
                             <div class="col-lg-6">
-                                <form action="#">
+                                <form action="{{ route('review.store') }}" method="POST">
+                                    @csrf
+
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                     <div class="form-group">
                                         <label for="details">Write Your Review</label>
-                                        <textarea name="" id="" class="form-control"></textarea>
+                                        <textarea name="review" id="" class="form-control @error('review') is-invalid @enderror"></textarea>
+
+                                        @error('review')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+
                                     <div class="form-group">
                                         <label for="details">Write Your Review</label>
-                                        <select class="form-control" name="review" id="" style="width: 200px; margin-left: -2px">
+                                        <select class="custom-select form-control @error('rating') is-invalid @enderror" name="rating" id="" style="min-width: 120px;">
                                             <option value="" disabled selected> Select Your Review</option>
                                             <option value="1">1 Star</option>
                                             <option value="2">2 Star</option>
@@ -243,11 +253,80 @@
                                             <option value="4">4 Star</option>
                                             <option value="5">5 Star</option>
                                         </select>
+
+                                        @error('rating')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-star"></i> Submit Review</button>
+
+                                    @if (Auth::check())
+                                        <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-star"></i> Submit Review</button>
+                                    @else
+                                        <p class="text-danger">Please login first for submit a review</p>
+                                    @endif
                                 </form>
                             </div>
                         </div>
+                        <br>
+
+                        <strong>All review of {{ $product->name }}</strong><hr>
+                        <div class="row">
+                            @foreach ($reviews as $data)
+                            <div class="card col-lg-5 m-2">
+                                <div class="card-header">
+                                    {{ $data->user->name }} ({{ date('d F, Y',strtotime($data->created_at)) }})
+                                </div>
+                                <div class="card-body">
+                                    {{ $data->review }}
+
+                                    @if ($data->rating == 5)
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                    </div>
+                                    @elseif ($data->rating == 4)
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    @elseif ($data->rating == 3)
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    @elseif ($data->rating == 2)
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    @elseif ($data->rating == 1)
+                                    <div>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -297,81 +376,6 @@
                             </div>
                         </div>
                         @endforeach
-
-                        {{-- <!-- Recently Viewed Item -->
-                        <div class="owl-item">
-                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_2.jpg') }}" alt=""></div>
-                                <div class="viewed_content text-center">
-                                    <div class="viewed_price">$379</div>
-                                    <div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-                                </div>
-                                <ul class="item_marks">
-                                    <li class="item_mark item_discount">-25%</li>
-                                    <li class="item_mark item_new">new</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Recently Viewed Item -->
-                        <div class="owl-item">
-                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_3.jpg') }}" alt=""></div>
-                                <div class="viewed_content text-center">
-                                    <div class="viewed_price">$225</div>
-                                    <div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-                                </div>
-                                <ul class="item_marks">
-                                    <li class="item_mark item_discount">-25%</li>
-                                    <li class="item_mark item_new">new</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Recently Viewed Item -->
-                        <div class="owl-item">
-                            <div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_4.jpg') }}" alt=""></div>
-                                <div class="viewed_content text-center">
-                                    <div class="viewed_price">$379</div>
-                                    <div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-                                </div>
-                                <ul class="item_marks">
-                                    <li class="item_mark item_discount">-25%</li>
-                                    <li class="item_mark item_new">new</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Recently Viewed Item -->
-                        <div class="owl-item">
-                            <div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_5.jpg') }}" alt=""></div>
-                                <div class="viewed_content text-center">
-                                    <div class="viewed_price">$225<span>$300</span></div>
-                                    <div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-                                </div>
-                                <ul class="item_marks">
-                                    <li class="item_mark item_discount">-25%</li>
-                                    <li class="item_mark item_new">new</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!-- Recently Viewed Item -->
-                        <div class="owl-item">
-                            <div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-                                <div class="viewed_image"><img src="{{ asset('frontend/images/view_6.jpg') }}" alt=""></div>
-                                <div class="viewed_content text-center">
-                                    <div class="viewed_price">$375</div>
-                                    <div class="viewed_name"><a href="#">Speedlink...</a></div>
-                                </div>
-                                <ul class="item_marks">
-                                    <li class="item_mark item_discount">-25%</li>
-                                    <li class="item_mark item_new">new</li>
-                                </ul>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
