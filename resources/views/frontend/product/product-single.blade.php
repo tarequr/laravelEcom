@@ -49,36 +49,38 @@
                     @endphp
 
                     <div>
-                        @if (intval($sum_rating / $count_rating) == 5)
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                        @elseif (intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < 5)
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                        @elseif (intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        @elseif (intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        @elseif (intval($sum_rating / $count_rating) >= 1 && intval($sum_rating / $count_rating) < 2)
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                        @if ($sum_rating != null)
+                            @if (intval($sum_rating / $count_rating) == 5)
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                            @elseif (intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < 5)
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star"></i>
+                            @elseif (intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            @elseif (intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            @elseif (intval($sum_rating / $count_rating) >= 1 && intval($sum_rating / $count_rating) < 2)
+                                <i class="fa fa-star checked"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            @endif
                         @endif
                     </div>
 
@@ -208,36 +210,38 @@
                             <div class="col-lg-3">
                                 Average Review of {{ $product->name }}:<br>
 
-                                @if (intval($sum_rating / $count_rating) == 5)
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                @elseif (intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < 5)
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                @elseif (intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                @elseif (intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                @elseif (intval($sum_rating / $count_rating) >= 1 && intval($sum_rating / $count_rating) < 2)
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                @if ($sum_rating != null)
+                                    @if (intval($sum_rating / $count_rating) == 5)
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                    @elseif (intval($sum_rating / $count_rating) >= 4 && intval($sum_rating / $count_rating) < 5)
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif (intval($sum_rating / $count_rating) >= 3 && intval($sum_rating / $count_rating) < 4)
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif (intval($sum_rating / $count_rating) >= 2 && intval($sum_rating / $count_rating) < 3)
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @elseif (intval($sum_rating / $count_rating) >= 1 && intval($sum_rating / $count_rating) < 2)
+                                        <i class="fa fa-star checked"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    @endif
                                 @endif
                             </div>
 
