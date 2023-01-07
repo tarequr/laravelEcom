@@ -159,7 +159,19 @@
                             {{-- <div class="product_price">$2000</div> --}}
                             <div class="button_container">
                                 <button type="button" class="button cart_button">Add to Cart</button>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                @auth
+                                    @php
+                                        $findData = App\Models\Wishlist::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first();
+                                    @endphp
+                                    <a href="{{ route('add.wishlist',$product->id) }}">
+                                        <div class="product_fav {{ $findData? 'active' : '' }}"><i class="fas fa-heart"></i></div>
+                                    </a>
+                                @else
+                                    <a href="{{ route('customer.login') }}">
+                                        <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                    </a>
+                                @endauth
+
                             </div>
 
                         </form>

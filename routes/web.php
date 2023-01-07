@@ -30,3 +30,4 @@ Route::get('customer/dashboard', function () {
 })->name('customer.dashboard');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
+Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
