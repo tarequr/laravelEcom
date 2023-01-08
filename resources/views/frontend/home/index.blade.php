@@ -267,11 +267,14 @@
 												<div class="product_price discount">$225<span>$300</span></div>
 												<div class="product_name"><div><a href="product.html">Huawei MediaPad...</a></div></div>
 												<div class="product_extras">
-													<div class="product_color">
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-success p-1" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
+                                                    </div>
+													{{-- <div class="product_color">
 														<input type="radio" checked name="product_color" style="background:#b19c83">
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
-													</div>
+													</div> --}}
 													<button class="product_cart_button">Add to Cart</button>
 												</div>
 											</div>
@@ -4047,6 +4050,69 @@
 	</div>
 
     @include('frontend.partials.top_footer')
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="">
+                                    <img src="{{ asset('frontend/images/single_1.jpg') }}" alt="" height="100%" width="100%">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8">
+                                <h3>This is the main product title</h3>
+                                <p>Categoryname > subcategoryname</p>
+                                <p>Brand: Brand Name</p>
+                                <div class="">Price: $120</div><br>
+                                <div class="order_info d-flex flex-row">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-5">
+                                                    <label for="" class="ml-2">Pick Size</label>
+                                                    <select class="custom-select form-control-sm" name="size" id="" style="min-width: 120px;">
+                                                        <option value="">Example</option>
+                                                        <option value="">Example</option>
+                                                        <option value="">Example</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-5">
+                                                    <label for="" class="ml-2">Pick Size</label>
+                                                    <select class="custom-select form-control-sm" name="size" id="" style="min-width: 120px;">
+                                                        <option value="">Example</option>
+                                                        <option value="">Example</option>
+                                                        <option value="">Example</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="button_container">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-sm btn-outline-info" type="submit">Add to cart</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
