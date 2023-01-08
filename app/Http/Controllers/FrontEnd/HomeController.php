@@ -13,7 +13,8 @@ class HomeController extends Controller
     {
         $categories = Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get();
         $banner_product = Product::with('brand')->where('slider',1)->latest()->first();
+        $featureds = Product::where('featured',1)->orderBy('id','desc')->take(8)->get();
         // dd($categories);
-        return view('frontend.home.index',compact('categories','banner_product'));
+        return view('frontend.home.index',compact('categories','banner_product','featureds'));
     }
 }
