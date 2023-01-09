@@ -12,6 +12,8 @@ class ProductController extends Controller
 {
     public function singleProduct($slug)
     {
+        Product::where('slug', $slug)->increment('product_view'); //here add number of product view in product_view in column.
+
         $product = Product::with('category','subCategories','brand','pickupPoint')->where('slug', $slug)->firstOrFail();
         $categories = Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get();
         $banner_product = Product::with('brand')->where('slider',1)->latest()->first();

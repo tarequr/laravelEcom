@@ -45,6 +45,8 @@ class CreateProductsTable extends Migration
             $table->integer('created_by')->nullable();
             $table->date('date')->nullable();
             $table->string('month')->nullable();
+            $table->integer('product_view')->default(0);
+            $table->integer('trendy')->default(0);
             $table->timestamps();
         });
     }
