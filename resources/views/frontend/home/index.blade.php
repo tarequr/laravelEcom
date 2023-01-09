@@ -254,7 +254,7 @@
 								<div class="tabs_line"><span></span></div>
 							</div>
 
-							<!-- Product Panel -->
+							<!-- Featured Product Panel -->
 							<div class="product_panel panel active">
 								<div class="featured_slider slider">
 
@@ -268,7 +268,12 @@
                                                     <img src="{{ asset('upload/product/'.$featured->thumbnail) }}" alt="" style="width: 115px; height: 115px;">
                                                 </div>
                                                 <div class="product_content">
-                                                    <div class="product_price discount">$225<span>$300</span></div>
+                                                    @if ($featured->discount_price == NULL)
+                                                        <div class="product_price discount">{{$setting->currency}}{{$featured->selling_price}}</div>
+                                                    @else
+                                                        <div class="product_price discount">{{$setting->currency}}{{$featured->discount_price}}<span>{{$setting->currency}}{{$featured->selling_price}}</span></div>
+                                                    @endif
+
                                                     <div class="product_name"><div><a href="{{ route('single.product',$featured->slug) }}">{{ substr($featured->name,'0','20') }}</a></div></div>
                                                     <div class="product_extras">
                                                         <div class="mt-1">
@@ -315,29 +320,55 @@
 								<div class="featured_slider slider">
 
 									<!-- Slider Item -->
+                                    @if (!empty($popular_products))
+                                    @foreach ($popular_products as $popularProduct)
 									<div class="featured_slider_item">
-										<div class="border_active"></div>
-										<div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
-											<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('frontend/images/featured_1.png') }}" alt=""></div>
-											<div class="product_content">
-												<div class="product_price discount">$225<span>$300</span></div>
-												<div class="product_name"><div><a href="product.html">Huawei MediaPad...</a></div></div>
-												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
-													<button class="product_cart_button">Add to Cart</button>
-												</div>
-											</div>
-											<div class="product_fav"><i class="fas fa-heart"></i></div>
-											<ul class="product_marks">
-												<li class="product_mark product_discount">-25%</li>
-												<li class="product_mark product_new">new</li>
-											</ul>
-										</div>
-									</div>
+                                        <div class="border_active"></div>
+                                        <div class="product_item discount d-flex flex-column align-items-center justify-content-center text-center">
+                                            <div class="product_image d-flex flex-column align-items-center justify-content-center">
+                                                <img src="{{ asset('upload/product/'.$popularProduct->thumbnail) }}" alt="" style="width: 115px; height: 115px;">
+                                            </div>
+                                            <div class="product_content">
+                                                @if ($popularProduct->discount_price == NULL)
+                                                    <div class="product_price discount">{{$setting->currency}}{{$popularProduct->selling_price}}</div>
+                                                @else
+                                                    <div class="product_price discount">{{$setting->currency}}{{$popularProduct->discount_price}}<span>{{$setting->currency}}{{$popularProduct->selling_price}}</span></div>
+                                                @endif
+                                                <div class="product_name"><div><a href="{{ route('single.product',$popularProduct->slug) }}">{{ substr($popularProduct->name,'0','20') }}</a></div></div>
+                                                <div class="product_extras">
+                                                    <div class="mt-1">
+                                                        <span class="badge badge-success p-1" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
+                                                    </div>
+                                                    {{-- <div class="product_color">
+                                                        <input type="radio" checked name="product_color" style="background:#b19c83">
+                                                        <input type="radio" name="product_color" style="background:#000000">
+                                                        <input type="radio" name="product_color" style="background:#999999">
+                                                    </div> --}}
+                                                    <button class="product_cart_button">Add to Cart</button>
+                                                </div>
+                                            </div>
+
+                                            @auth
+                                                @php
+                                                    $findData = App\Models\Wishlist::where('user_id', Auth::user()->id)->where('product_id', $popularProduct->id)->first();
+                                                @endphp
+                                                <a href="{{ route('add.wishlist',$popularProduct->id) }}">
+                                                    <div class="product_fav {{ $findData ? 'active' : '' }}"><i class="fas fa-heart"></i></div>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('customer.login') }}">
+                                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                                </a>
+                                            @endauth
+
+                                            <ul class="product_marks">
+                                                <li class="product_mark product_discount" style="background-color: blueviolet !important">new</li>
+                                                <li class="product_mark product_new">new</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    @endif
 
 								</div>
 								<div class="featured_slider_dots_cover"></div>
