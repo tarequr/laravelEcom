@@ -277,8 +277,11 @@
                                                     <div class="product_name"><div><a href="{{ route('single.product',$featured->slug) }}">{{ substr($featured->name,'0','20') }}</a></div></div>
                                                     <div class="product_extras">
                                                         <div class="mt-1">
-                                                            <span class="badge badge-success p-1" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
+                                                            <span class="badge badge-success p-1 quick_view" id="{{ $featured->id }}" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
                                                         </div>
+
+
+
                                                         {{-- <div class="product_color">
                                                             <input type="radio" checked name="product_color" style="background:#b19c83">
                                                             <input type="radio" name="product_color" style="background:#000000">
@@ -337,7 +340,7 @@
                                                 <div class="product_name"><div><a href="{{ route('single.product',$popularProduct->slug) }}">{{ substr($popularProduct->name,'0','20') }}</a></div></div>
                                                 <div class="product_extras">
                                                     <div class="mt-1">
-                                                        <span class="badge badge-success p-1" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
+                                                        <span class="badge badge-success p-1 quick_view" id="{{ $popularProduct->id }}" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
                                                     </div>
                                                     {{-- <div class="product_color">
                                                         <input type="radio" checked name="product_color" style="background:#b19c83">
@@ -3283,54 +3286,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="">
-                                    <img src="{{ asset('frontend/images/single_1.jpg') }}" alt="" height="100%" width="100%">
-                                </div>
-                            </div>
+                <div class="modal-body" id="modal_body">
 
-                            <div class="col-lg-8">
-                                <h3>This is the main product title</h3>
-                                <p>Categoryname > subcategoryname</p>
-                                <p>Brand: Brand Name</p>
-                                <div class="">Price: $120</div><br>
-                                <div class="order_info d-flex flex-row">
-                                    <form action="#">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-5">
-                                                    <label for="" class="ml-2">Pick Size</label>
-                                                    <select class="custom-select form-control-sm" name="size" id="" style="min-width: 120px;">
-                                                        <option value="">Example</option>
-                                                        <option value="">Example</option>
-                                                        <option value="">Example</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-5">
-                                                    <label for="" class="ml-2">Pick Size</label>
-                                                    <select class="custom-select form-control-sm" name="size" id="" style="min-width: 120px;">
-                                                        <option value="">Example</option>
-                                                        <option value="">Example</option>
-                                                        <option value="">Example</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="button_container">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <button class="btn btn-sm btn-outline-info" type="submit">Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -3339,4 +3296,21 @@
 
 @push('js')
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <script>
+        $(document).on('click','.quick_view', function(e){
+            e.preventDefault();
+            var id = $(this).attr('id');
+            $.ajax({
+                url: "{{ url('product-quick-view') }}/"+id,
+                type: 'get',
+                success: function(data) {
+                    $('#modal_body').html(data);
+                    // $('select[name="childcategory_id"]').empty();
+                    // $.each(data, function(key, data){
+                    //     $('select[name="childcategory_id"]').append('<option value="'+data.id+'">'+data.childcategory_name+'</option>');
+                    // })
+                }
+            })
+        });
+    </script>
 @endpush

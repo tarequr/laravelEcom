@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->name('single.product');
+Route::get('product-quick-view/{id}',[ProductController::class,'productQuickview']);
 
 Route::get('customer/login', [CustomerController::class,'customerLogin'])->name('customer.login');
 Route::get('customer/dashboard', function () {

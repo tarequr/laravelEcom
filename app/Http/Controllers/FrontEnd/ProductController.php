@@ -22,4 +22,12 @@ class ProductController extends Controller
 
         return view('frontend.product.product-single', compact('product','categories','banner_product','reladed_produts','reviews'));
     }
+
+    public function productQuickview($id)
+    {
+        $product = Product::with('category','subCategories','brand','pickupPoint')->findOrFail($id);
+
+        return view('frontend.product.product-quick-view', compact('product'));
+    }
+
 }
