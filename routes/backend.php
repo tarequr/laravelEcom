@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\CouponController;
+use App\Http\Controllers\BackEnd\CampaignController;
 use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\PickupController;
@@ -37,6 +38,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('brand', BrandController::class);
     Route::resource('warehouse', WarehouseController::class);
     Route::resource('coupon', CouponController::class);
+    Route::resource('campaign', CampaignController::class);
     Route::resource('pickup', PickupController::class);
 
     Route::resource('product', ProductController::class);
