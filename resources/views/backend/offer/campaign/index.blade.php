@@ -17,9 +17,11 @@
                     <thead>
                         <tr>
                             <th class="text-center">SL</th>
-                            <th class="text-center">Brand</th>
-                            <th class="text-center">Logo</th>
-                            {{-- <th class="text-center">Status</th> --}}
+                            <th class="text-center">Title</th>
+                            <th class="text-center">Image</th>
+                            <th class="text-center">Date</th>
+                            <th class="text-center">Discount</th>
+                            <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -34,7 +36,7 @@
 
     <!-- Add Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addModalLabel">Create</h5>
@@ -64,8 +66,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="discount" class="col-form-label">Discount (%) <sup class="text-danger">*</sup></label>
-                            <input type="text" class="form-control" name="discount" id="discount" placeholder="Enter campaign discount" required>
+                            <label for="discount" class="col-form-label">Discount (%) <sup class="text-danger">*</sup><code>Discount percentages are apply for all product selling price</code></label>
+                            <input type="number" class="form-control" name="discount" id="discount" placeholder="Enter campaign discount" required>
                         </div>
 
                         <div class="form-group">
@@ -136,10 +138,11 @@
                 ajax:"{{ route('campaign.index') }}",
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
-                    {data:'brnad_name', name:'brnad_name'},
-                    {data:'brand_logo', name:'brand_logo', render: function(data, type, full, meta){
-                        return "<img src=\""+data+"\" height=\"30\" />";
-                    }},
+                    {data:'title', name:'title'},
+                    {data:'image', name:'image'},
+                    {data:'start_date', name:'start_date'},
+                    {data:'discount', name:'discount'},
+                    {data:'status', name:'status'},
                     {data:'action', name:'action',orderable:true,searchable:true},
                 ]
             });
