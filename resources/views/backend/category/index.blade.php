@@ -13,7 +13,9 @@
                     <thead>
                         <tr>
                             <th class="text-center">SL</th>
+                            <th class="text-center">Icon</th>
                             <th class="text-center">Category</th>
+                            <th class="text-center">Home Page</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -22,7 +24,13 @@
                         @foreach ($categories as $key => $category)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
+                                <td class="text-center"><i class="{{ $category->icon }}"></i></td>
                                 <td class="text-center">{{ $category->name }}</td>
+                                <td class="text-center">
+                                    @if ($category->home_page == '1')
+                                        <span class="badge badge-success">Home Page</span>
+                                    @endif
+                                </td>
                                 <td class="text-center">
                                     @if ($category->status == '1')
                                         <span class="badge badge-success">Active</span>
@@ -72,8 +80,19 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="cat_name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" name="name" id="cat_name"
-                                placeholder="Enter category name" required>
+                            <input type="text" class="form-control" name="name" id="cat_name" placeholder="Enter category name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="icon" class="col-form-label">Icon: (<code>Class Name</code>)</label>
+                            <input type="text" class="form-control" name="icon" id="icon" placeholder="Enter category icon" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="home_page" id="home_page" >
+                                <label class="custom-control-label" for="home_page">Home Page</label>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -107,6 +126,18 @@
                                 placeholder="Enter category name" required>
                             <input type="hidden"  name="category_id" id="category_id">
                         </div>
+
+                        <div class="form-group">
+                            <label for="icon" class="col-form-label">Icon: (<code>Class Name</code>)</label>
+                            <input type="text" class="form-control" name="icon" id="category_icon" placeholder="Enter category icon" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="home_page" id="home_page" >
+                                <label class="custom-control-label" for="home_page">Home Page</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -135,6 +166,7 @@
                 $.get("category/"+id+"/edit", function(data){
                     // console.log(data);
                     $('#category_name').val(data.name);
+                    $('#category_icon').val(data.icon);
                     $('#category_id').val(data.id);
                 });
             });
