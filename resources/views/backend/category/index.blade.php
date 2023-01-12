@@ -89,10 +89,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" name="home_page" id="home_page" >
-                                <label class="custom-control-label" for="home_page">Home Page</label>
-                            </div>
+                            <label for="home_page" class="col-form-label">Home Page:</label>
+                            <select name="home_page" id="home_page" class="form-control" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -133,10 +134,11 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" name="home_page" id="home_page" >
-                                <label class="custom-control-label" for="home_page">Home Page</label>
-                            </div>
+                            <label for="home_page" class="col-form-label">Home Page:</label>
+                            <select name="home_page" id="home_page" class="form-control home_page" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -167,6 +169,11 @@
                     // console.log(data);
                     $('#category_name').val(data.name);
                     $('#category_icon').val(data.icon);
+                    // if (data.home_page == 1) {
+                    //     $('.home_page option[value="1"]').attr('selected', true)
+                    // } else if (data.home_page == 0){
+                    //     $('.home_page option[value="0"]').attr('selected', true)
+                    // }
                     $('#category_id').val(data.id);
                 });
             });

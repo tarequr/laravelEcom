@@ -16,7 +16,7 @@
                         <ul class="cat_menu">
                             @foreach ($categories as $category)
                             <li class="hassubs">
-                                <a href="#">{{ $category->name }}<i class="fas fa-chevron-right"></i></a>
+                                <a href="#"><span class="{{ $category->icon }}"></span> {{ $category->name }}<i class="fas fa-chevron-right"></i></a>
                                 <ul>
                                     @if (!empty($category->subCategory))
                                     @foreach ($category->subCategory as $subCategory)

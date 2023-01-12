@@ -49,7 +49,7 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'icon'  => $request->icon,
                 'slug'    => Str::slug($request->name,'-'),
-                'home_page' => $request->filled('home_page'),
+                'home_page' => $request->home_page,
             ]);
 
             notify()->success("Category Created Successfully.", "Success");
@@ -100,7 +100,7 @@ class CategoryController extends Controller
                 'name' => $request->name,
                 'slug'   => Str::slug($request->name,'-'),
                 'icon'    => $request->icon,
-                'home_page' => $request->filled('home_page'),
+                'home_page' => $request->home_page,
             ]);
 
             notify()->success("Category Updated Successfully.", "Success");

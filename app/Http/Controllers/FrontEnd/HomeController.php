@@ -16,7 +16,8 @@ class HomeController extends Controller
         $featureds = Product::where('status',1)->where('featured',1)->orderBy('id','desc')->take(16)->get();
         $popular_products = Product::where('status',1)->orderBy('product_view','desc')->take(16)->get();
         $trendy_products = Product::with('category')->where('status',1)->where('trendy',1)->orderBy('id','desc')->take(8)->get();
+        $home_categories = Category::with('subCategory','subCategory.childCategory','product')->where('home_page',1)->orderBy('name','asc')->get();
 
-        return view('frontend.home.index',compact('categories','banner_product','featureds','popular_products','trendy_products'));
+        return view('frontend.home.index',compact('categories','banner_product','featureds','popular_products','trendy_products','home_categories'));
     }
 }
