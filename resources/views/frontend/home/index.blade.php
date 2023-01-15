@@ -883,7 +883,7 @@
                                                         @else
                                                             <div class="product_price discount">{{$setting->currency}}{{$product->discount_price}}<span><del>{{$setting->currency}}{{$product->selling_price}}</del></span></div>
                                                         @endif
-                                                        <div class="product_name"><div><a href="#">{{ $product->name }}</a></div></div>
+                                                        <div class="product_name"><div><a href="{{ route('single.product',$product->slug) }}">{{ $product->name }}</a></div></div>
                                                         <div class="product_extras">
                                                             {{-- <div class="product_color">
                                                                 <input type="radio" checked name="product_color" style="background:#b19c83">
@@ -2376,7 +2376,9 @@
                                 @foreach ($trendy_products as $trendy_product)
                                 <div class="owl-item">
                                     <div class="trends_item is_new">
-                                        <div class="trends_image d-flex flex-column align-items-center justify-content-center"><img src="{{ asset('upload/product/'.$trendy_product->thumbnail) }}" alt=""></div>
+                                        <div class="trends_image d-flex flex-column align-items-center justify-content-center">
+                                            <img src="{{ asset('upload/product/'.$trendy_product->thumbnail) }}" alt="{{ $trendy_product->name }}">
+                                        </div>
                                         <div class="trends_content">
                                             <div class="trends_category">
                                                 <a href="#">{{ $trendy_product->category->name }}</a>
@@ -2537,7 +2539,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="viewed_title_container">
-						<h3 class="viewed_title">Recently Viewed</h3>
+						<h3 class="viewed_title">Products for you</h3>
 						<div class="viewed_nav_container">
 							<div class="viewed_nav viewed_prev"><i class="fas fa-chevron-left"></i></div>
 							<div class="viewed_nav viewed_next"><i class="fas fa-chevron-right"></i></div>
@@ -2551,94 +2553,24 @@
 						<div class="owl-carousel owl-theme viewed_slider">
 
 							<!-- Recently Viewed Item -->
+                            @foreach ($random_products as $random_product)
 							<div class="owl-item">
 								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_1.jpg') }}" alt=""></div>
+									<div class="viewed_image">
+                                        <img src="{{ asset('upload/product/'.$random_product->thumbnail) }}" alt="{{ $random_product->name }}">
+                                    </div>
 									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Beoplay H7</a></div>
+                                        @if ($random_product->discount_price == NULL)
+                                            <div class="viewed_price">{{$setting->currency}}{{$random_product->selling_price}}</span></div>
+                                        @else
+                                            <div class="viewed_price">{{$setting->currency}}{{$random_product->discount_price}}<span>{{$setting->currency}}{{$trendy_product->selling_price}}</span></div>
+                                        @endif
+										<div class="viewed_name"><a href="{{ route('single.product',$random_product->slug) }}">{{ substr($random_product->name,'0','30') }}...</a></div>
 									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
 								</div>
 							</div>
+                            @endforeach
 
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_2.jpg') }}" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">LUNA Smartphone</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_3.jpg') }}" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225</div>
-										<div class="viewed_name"><a href="#">Samsung J730F...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item is_new d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_4.jpg') }}" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$379</div>
-										<div class="viewed_name"><a href="#">Huawei MediaPad...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_5.jpg') }}" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$225<span>$300</span></div>
-										<div class="viewed_name"><a href="#">Sony PS4 Slim</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
-
-							<!-- Recently Viewed Item -->
-							<div class="owl-item">
-								<div class="viewed_item d-flex flex-column align-items-center justify-content-center text-center">
-									<div class="viewed_image"><img src="{{ asset('frontend/images/view_6.jpg') }}" alt=""></div>
-									<div class="viewed_content text-center">
-										<div class="viewed_price">$375</div>
-										<div class="viewed_name"><a href="#">Speedlink...</a></div>
-									</div>
-									<ul class="item_marks">
-										<li class="item_mark item_discount">-25%</li>
-										<li class="item_mark item_new">new</li>
-									</ul>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>

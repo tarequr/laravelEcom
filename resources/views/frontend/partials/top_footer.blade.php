@@ -9,16 +9,13 @@
                     <!-- Brands Slider -->
 
                     <div class="owl-carousel owl-theme brands_slider">
-
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_1.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_2.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_3.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_4.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_5.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_6.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_7.jpg') }}" alt=""></div></div>
-                        <div class="owl-item"><div class="brands_item d-flex flex-column justify-content-center"><img src="{{ asset('frontend/images/brands_8.jpg') }}" alt=""></div></div>
-
+                        @foreach ($brands as $brand)
+                        <div class="owl-item">
+                            <div class="brands_item d-flex flex-column justify-content-center">
+                                <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="50" width="40">
+                            </div>
+                        </div>
+                        @endforeach
                     </div>
 
                     <!-- Brands Slider Navigation -->
