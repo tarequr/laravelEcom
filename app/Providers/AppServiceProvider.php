@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function($view){
             $view->with('setting', Setting::first());
-            $view->with('brands', Brand::inRandomOrder()->limit(12)->get());
+            $view->with('brands', Brand::inRandomOrder()->limit(24)->get());
             $view->with('categories', Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get());
         });
     }

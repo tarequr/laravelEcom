@@ -32,9 +32,16 @@
 	<div class="characteristics">
 		<div class="container">
 			<div class="row">
+                @foreach ($brands as $brand)
+                    <div class="col-lg-1 col-md-6 char_col" style="border: 1px solid grey; padding: 5px;">
+                        <div class="brands_item">
+                            <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="100%" width="100%">
+                        </div>
+                    </div>
+                @endforeach
 
 				<!-- Char. Item -->
-				<div class="col-lg-3 col-md-6 char_col">
+				{{-- <div class="col-lg-3 col-md-6 char_col">
 
 					<div class="char_item d-flex flex-row align-items-center justify-content-start">
 						<div class="char_icon"><img src="{{ asset('frontend/images/char_1.png') }}" alt=""></div>
@@ -79,7 +86,7 @@
 							<div class="char_subtitle">from $50</div>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</div>
 		</div>
 	</div>
