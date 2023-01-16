@@ -27,17 +27,75 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('products')
-                ->orderBy('id','desc')
-                ->get();
 
+            $data = "";
+            // $data = Product::orderBy('id','desc')->get();
+            $query = Product::query();
+
+            if ($request->category_id) {
+                $query->where('category_id',$request->category_id);
+            }
+
+            if ($request->brand_id) {
+                $query->where('brand_id',$request->brand_id);
+            }
+
+            if ($request->status == '1') {
+                $query->where('status','1');
+            }
+
+            if ($request->status == '0') {
+                $query->where('status','0');
+            }
+
+            $data = $query->orderBy('id','desc')->get();
+
+            $imagePath = asset('upload/product');
             return DataTables::of($data)
                     ->addIndexColumn()
+                    ->editColumn('thumbnail', function($row) use($imagePath) {
+                        return '<img src="'.$imagePath.'/'.$row->thumbnail.'" height="50" width="70" >';
+                    })
+                    ->editColumn('category_name', function($row){
+                        return $row->category->name;
+                    })
+                    ->editColumn('subcategory_name', function($row){
+                        return $row->subCategories->subcategory_name;
+                    })
+                    ->editColumn('brnad_name', function($row){
+                        return $row->brand->brnad_name;
+                    })
+                    ->editColumn('featured', function($row){
+                        if ($row->featured == 1) {
+                            return '<a href="#" data-id="'.$row->id.'" class="deactive_featured"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#" data-id="'.$row->id.'" class="active_featured"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
+                    ->editColumn('toady_deal_id', function($row){
+                        if ($row->toady_deal_id == 1) {
+                            return '<a href="#" data-id="'.$row->id.'" class="deactive_toadydeal"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#" data-id="'.$row->id.'" class="active_toadydeal"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
+                    ->editColumn('status', function($row){
+                        if ($row->status == 1) {
+                            return '<a href="#" data-id="'.$row->id.'" class="deactive_status"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                        } else{
+                            return '<a href="#" data-id="'.$row->id.'" class="active_status"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                        }
+                    })
                     ->addColumn('action', function($row){
-                        $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                        data-target="#editModal" data-id="'.$row->id.'">
+                        $actionbtn = '
+                        <a href="'.route('product.edit',[$row->id]).'" class="btn btn-success btn-sm edit" title="Edit">
                             <i class="fa fa-pen"></i>
                             Edit
+                        </a>
+
+                        <a href="#" class="btn btn-info btn-sm edit" title="Show">
+                            <i class="fa fa-eye"></i>
+                            Show
                         </a>
 
                         <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
@@ -45,18 +103,21 @@ class ProductController extends Controller
                             <span>Delete</span>
                         </button>
 
-                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('coupon.destroy',[$row->id]).'" style="display: none;">
+                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('product.destroy',[$row->id]).'" style="display: none;">
                             '.csrf_field().'
                             '.method_field("DELETE").'
                         </form>';
 
                         return $actionbtn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','category_name','subcategory_name','brnad_name','thumbnail','featured','toady_deal_id','status'])
                     ->make(true);
         }
 
-        return view('backend.product.index');
+        $categories = Category::orderBy('id','desc')->get();
+        $brands = Brand::orderBy('id','desc')->get();
+
+        return view('backend.product.index',compact('categories','brands'));
     }
 
     /**
@@ -103,16 +164,18 @@ class ProductController extends Controller
             if ($request->hasFile('thumbnail')) {
                 $file = $request->file('thumbnail');
                 $filename = $slug . '.' . $file->getClientOriginalExtension();
-                // $path = public_path('upload/product/').$filename;
-                // Image::make($file)->resize(240,120)->save($path);
+                $path = public_path('upload/product/').$filename;
+                Image::make($file->getRealPath())->resize(600,600)->save($path);
             }
 
             $images = [];
 
             if ($request->hasFile('images')) {
-                foreach ($request->file('images') as $key => $value) {
-                    $filename = 'IMG'. time() . '.' . $file->getClientOriginalExtension();
-                    array_push($images,$filename);
+                foreach ($request->file('images') as $key => $image) {
+                    $filename2 = 'IMG'. time(). $key . '.' . $image->getClientOriginalExtension();
+                    $path2 = public_path('upload/product_images/').$filename2;
+                    Image::make($image->getRealPath())->resize(600,600)->save($path2);
+                    array_push($images,$filename2);
                 }
 
                 $all_images = json_encode($images);
@@ -144,6 +207,8 @@ class ProductController extends Controller
                 "images" => $all_images,
                 "featured" => $request->filled('featured'),
                 "toady_deal_id" => $request->filled('toady_deal_id'),
+                "slider" => $request->filled('slider'),
+                "trendy" => $request->filled('trendy'),
                 "status" => $request->filled('status'),
                 "created_by" => Auth::user()->id,
                 "date" => date('Y-m-d'),
@@ -179,7 +244,13 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.product.edit');
+        $product = Product::find($id);
+        $brands = Brand::orderBy('id','desc')->get();
+        $pickups = PickupPoint::orderBy('id','desc')->get();
+        $categories = Category::orderBy('id','desc')->get();
+        $wareHouses = Warehouse::orderBy('id','desc')->get();
+
+        return view('backend.product.edit',compact('product','brands','pickups','categories','wareHouses'));
     }
 
     /**
@@ -202,6 +273,81 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $product = Product::find($id);
+
+            if ($product->thumbnail != NULL) {
+                @unlink(public_path('upload/product/' . $product->thumbnail));
+            }
+
+            if ($product->images != NULL) {
+                foreach (json_decode($product->images) as $key => $image) {
+                    @unlink(public_path('upload/product_images/' . $image));
+                }
+            }
+            $product->delete();
+
+            notify()->success("Product Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Product Delete Failed.", "Error");
+            return back();
+        }
+    }
+
+    public function notFeatured($id)
+    {
+        Product::find($id)->update([
+            'featured' => 0
+        ]);
+
+        return response()->json('Poduct Featured Deactive');
+    }
+
+    public function activeFeatured($id)
+    {
+        Product::find($id)->update([
+            'featured' => 1
+        ]);
+
+        return response()->json('Poduct Featured Active');
+    }
+
+    public function notToadydeal($id)
+    {
+        Product::find($id)->update([
+            'toady_deal_id' => 0
+        ]);
+
+        return response()->json('Poduct Toady Deal Deactive');
+    }
+
+    public function activeToadydeal($id)
+    {
+        Product::find($id)->update([
+            'toady_deal_id' => 1
+        ]);
+
+        return response()->json('Poduct Toady Deal Active');
+    }
+
+    public function notStatus($id)
+    {
+        Product::find($id)->update([
+            'status' => 0
+        ]);
+
+        return response()->json('Poduct Toady Deal Deactive');
+    }
+
+    public function activeStatus($id)
+    {
+        Product::find($id)->update([
+            'status' => 1
+        ]);
+
+        return response()->json('Poduct Toady Deal Active');
     }
 }

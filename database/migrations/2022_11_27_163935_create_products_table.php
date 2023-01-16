@@ -39,11 +39,14 @@ class CreateProductsTable extends Migration
             $table->integer('featured')->nullable();
             $table->integer('toady_deal_id')->nullable();
             $table->boolean('status')->default(1);
+            $table->boolean('slider')->default(0);
             $table->integer('flash_deal_id')->nullable();
             $table->integer('cash_on_delivery')->nullable();
             $table->integer('created_by')->nullable();
             $table->date('date')->nullable();
             $table->string('month')->nullable();
+            $table->integer('product_view')->default(0);
+            $table->integer('trendy')->default(0);
             $table->timestamps();
         });
     }

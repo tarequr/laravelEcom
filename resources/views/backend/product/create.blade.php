@@ -143,8 +143,8 @@
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
-                                                    <label class="col-form-label">Video Embed Code</label>
-                                                    <textarea name="video" rows="3" class="form-control">{{ old('video') }}</textarea>
+                                                    <label class="col-form-label">Video Embed Code <code>(Only code after embed word)</code></label>
+                                                    <input name="video" class="form-control" value="{{ old('video') }}" placeholder="Only code after embed word">
                                                 </div>
 
                                                 <div class="form-group col-md-12 mt-4">
@@ -186,12 +186,28 @@
                                                         <label class="custom-control-label" for="featured">Featured Product</label>
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group col-sm-12">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" name="trendy" id="trendy" >
+                                                        <label class="custom-control-label" for="trendy">Trendy Product</label>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input" name="toady_deal_id" id="toady_deal_id" >
                                                         <label class="custom-control-label" for="toady_deal_id">Toady Deal</label>
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group col-sm-12">
+                                                    <div class="custom-control custom-switch">
+                                                        <input type="checkbox" class="custom-control-input" name="slider" id="slider" >
+                                                        <label class="custom-control-label" for="slider">Slider</label>
+                                                    </div>
+                                                </div>
+
                                                 <div class="form-group col-sm-12">
                                                     <div class="custom-control custom-switch">
                                                         <input type="checkbox" class="custom-control-input" name="status" id="status" >
