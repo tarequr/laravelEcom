@@ -112,6 +112,7 @@
 
                     $("#add_to_cart_form")[0].reset();
                     $('.loading').addClass('d-none');
+                    cart(); //add to cart show data
                 }
             });
         });

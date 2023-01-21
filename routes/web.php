@@ -34,3 +34,4 @@ Route::get('customer/dashboard', function () {
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
 Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuickView'])->name('add.to.cart.quickview');
+Route::get('all-cart', [AddToCartController::class, 'allCart'])->name('all.cart');

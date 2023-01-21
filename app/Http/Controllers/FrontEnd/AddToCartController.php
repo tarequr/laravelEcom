@@ -28,4 +28,12 @@ class AddToCartController extends Controller
 
         return response()->json();
     }
+
+    public function allCart()
+    {
+        $data['cat_qty'] = Cart::count();
+        $data['cat_total'] = Cart::total();
+
+        return response()->json($data);
+    }
 }
