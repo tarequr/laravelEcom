@@ -211,7 +211,7 @@
                                                             <input type="radio" name="product_color" style="background:#000000">
                                                             <input type="radio" name="product_color" style="background:#999999">
                                                         </div> --}}
-                                                        <button class="product_cart_button">Add to Cart</button>
+                                                        <button class="product_cart_button quick_view" id="{{ $featured->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                     </div>
                                                 </div>
 
@@ -271,7 +271,7 @@
                                                         <input type="radio" name="product_color" style="background:#000000">
                                                         <input type="radio" name="product_color" style="background:#999999">
                                                     </div> --}}
-                                                    <button class="product_cart_button">Add to Cart</button>
+                                                    <button class="product_cart_button quick_view" id="{{ $popularProduct->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                 </div>
                                             </div>
 
@@ -817,7 +817,7 @@
                                                             <div class="mt-1">
                                                                 <span class="badge badge-success p-1 quick_view" id="{{ $product->id }}" data-toggle="modal" data-target="#exampleModalCenter">Quick View</span>
                                                             </div>
-                                                            <button class="product_cart_button">Add to Cart</button>
+                                                            <button class="product_cart_button quick_view" id="{{ $product->id }}" data-toggle="modal" data-target="#exampleModalCenter">Add to Cart</button>
                                                         </div>
                                                     </div>
                                                     @auth
