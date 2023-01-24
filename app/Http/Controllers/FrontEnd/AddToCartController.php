@@ -36,4 +36,11 @@ class AddToCartController extends Controller
 
         return response()->json($data);
     }
+
+    public function myCart()
+    {
+        $contents = Cart::content();
+        // return response()->json($data);
+        return view('frontend.cart.cart', compact('contents'));
+    }
 }

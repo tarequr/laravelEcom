@@ -112,7 +112,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Size:</label>
-                                        <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;>
+                                        <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;">
                                             @foreach ($sizes as $size)
                                                 <option value="{{$size}}">{{$size}}</option>
                                             @endforeach
@@ -126,7 +126,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Color:</label>
-                                        <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;>
+                                        <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;">
                                             @foreach ($colors as $color)
                                                 <option value="{{$color}}">{{$color}}</option>
                                             @endforeach

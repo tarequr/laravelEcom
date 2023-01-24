@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\FrontEnd\CustomerController;
-use App\Http\Controllers\FrontEnd\HomeController;
-use App\Http\Controllers\FrontEnd\ProductController;
-use App\Http\Controllers\FrontEnd\ReviewController;
-use App\Http\Controllers\FrontEnd\AddToCartController;
 use Illuminate\Support\Facades\Route;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Http\Controllers\FrontEnd\HomeController;
+use App\Http\Controllers\FrontEnd\ReviewController;
+use App\Http\Controllers\FrontEnd\ProductController;
+use App\Http\Controllers\FrontEnd\CustomerController;
+use App\Http\Controllers\FrontEnd\AddToCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +36,8 @@ Route::post('review/store', [ReviewController::class, 'store'])->name('review.st
 Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
 Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuickView'])->name('add.to.cart.quickview');
 Route::get('all-cart', [AddToCartController::class, 'allCart'])->name('all.cart');
+Route::get('my-cart', [AddToCartController::class, 'myCart'])->name('my.cart');
+
+Route::get('cart-destroy', function (){
+    Cart::destroy();
+});
