@@ -18,33 +18,46 @@
                     <div class="cart_title">Shopping Cart</div>
                     <div class="cart_items">
                         <ul class="cart_list">
-                            @foreach ($contents as $content)
+                            {{-- @dd($contents) --}}
+                            @foreach ($contents as $data)
+
+                            @php
+                                $product = App\Models\Product::where('id', $data->id)->first();
+                                $sizes  = explode(',',$product->size);
+                                $colors = explode(',',$product->color);
+                            @endphp
                             <li class="cart_item clearfix">
-                                <div class="cart_item_image"><img src="{{ asset('frontend/images/shopping_cart.jpg') }}" alt=""></div>
+                                <div class="cart_item_image" style="height: 80px; width: 110px;">
+                                    <img src="{{ asset('upload/product/'.$data->options->thumbnail) }}" alt="" >
+                                </div>
                                 <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                     <div class="cart_item_name cart_info_col">
                                         <div class="cart_item_title">Name</div>
-                                        <div class="cart_item_text">MacBook Air 13</div>
+                                        <div class="cart_item_text">{{ $data->name }}</div>
                                     </div>
                                     <div class="cart_item_color cart_info_col">
                                         <div class="cart_item_title">Color</div>
-                                        <div class="cart_item_text">
-                                            <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;">
-                                                <option value="">red</option>
-                                                <option value="">white</option>
-                                                <option value="">black</option>
-                                            </select>
-                                        </div>
+                                        @if ($data->options->color != null)
+                                            <div class="cart_item_text">
+                                                <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;">
+                                                    @foreach ($colors as $color)
+                                                        <option value="{{$color}}" {{ $color == $data->options->color ? "selected" : "" }}>{{$color}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="cart_item_color cart_info_col">
                                         <div class="cart_item_title">Size</div>
-                                        <div class="cart_item_text">
-                                            <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;">
-                                                <option value="">12</option>
-                                                <option value="">13</option>
-                                                <option value="">14</option>
-                                            </select>
-                                        </div>
+                                        @if ($data->options->size != null)
+                                            <div class="cart_item_text">
+                                                <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;">
+                                                    @foreach ($sizes as $size)
+                                                        <option value="{{$size}}" {{ $size == $data->options->size ? "selected" : "" }}>{{$size}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="cart_item_quantity cart_info_col">
                                         <div class="cart_item_title">Quantity</div>
@@ -54,11 +67,11 @@
                                     </div>
                                     <div class="cart_item_price cart_info_col">
                                         <div class="cart_item_title">Price</div>
-                                        <div class="cart_item_text">$2000</div>
+                                        <div class="cart_item_text">{{$setting->currency}}{{ $data->price }} x {{ $data->qty }}</div>
                                     </div>
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_title">Total</div>
-                                        <div class="cart_item_text">$2000</div>
+                                        <div class="cart_item_text">{{$setting->currency}}{{ $data->price * $data->qty }}</div>
                                     </div>
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_title">Action</div>
@@ -93,4 +106,5 @@
 
 @push('js')
     <script src="{{ asset('frontend/js/cart_custom.js') }}"></script>
+
 @endpush

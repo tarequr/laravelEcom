@@ -2525,25 +2525,25 @@
 @push('js')
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script>
-        function cart(){
-            $.ajax({
-                type : 'get',
-                url: "{{ route('all.cart') }}",
-                // url: "{{ url('all-cart') }}",
-                success: function(data) {
-                    console.log(data);
-                    $('.cart_qty').empty();
-                    $('.cat_total').empty();
+        // function cart(){
+        //     $.ajax({
+        //         type : 'get',
+        //         url: "{{ route('all.cart') }}",
+        //         // url: "{{ url('all-cart') }}",
+        //         success: function(data) {
+        //             console.log(data);
+        //             $('.cart_qty').empty();
+        //             $('.cat_total').empty();
 
-                    $('.cart_qty').append(data.cat_qty);
-                    $('.cat_total').append(data.cat_total);
-                }
-            })
-        }
+        //             $('.cart_qty').append(data.cat_qty);
+        //             $('.cat_total').append(data.cat_total);
+        //         }
+        //     })
+        // }
 
-        $(document).ready(function() {
-            cart();
-        });
+        // $(document).ready(function() {
+        //     cart();
+        // });
 
 
         $(document).on('click','.quick_view', function(e){
