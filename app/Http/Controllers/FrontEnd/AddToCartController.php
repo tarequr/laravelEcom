@@ -43,4 +43,13 @@ class AddToCartController extends Controller
         // return response()->json($data);
         return view('frontend.cart.cart', compact('contents'));
     }
+
+    public function cartRemove($rowId)
+    {
+        Cart::remove($rowId);
+        return response()->json();
+
+        // notify()->success("Cart Remove Successfully.", "Success");
+        // return back();
+    }
 }

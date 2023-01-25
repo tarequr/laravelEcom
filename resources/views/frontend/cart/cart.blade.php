@@ -33,7 +33,7 @@
                                 <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                     <div class="cart_item_name cart_info_col">
                                         <div class="cart_item_title">Name</div>
-                                        <div class="cart_item_text">{{ $data->name }}</div>
+                                        <div class="cart_item_text">{{ substr($data->name, '0', '15') }}...</div>
                                     </div>
                                     <div class="cart_item_color cart_info_col">
                                         <div class="cart_item_title">Color</div>
@@ -76,7 +76,7 @@
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_title">Action</div>
                                         <div class="cart_item_text">
-                                            <a href="" class="btn btn-sm btn-danger">X</a>
+                                            <a href="#" data-id="{{ $data->rowId }}" id="removeCart" class="btn btn-sm btn-danger">X</a>
                                         </div>
                                     </div>
                                 </div>
@@ -106,5 +106,22 @@
 
 @push('js')
     <script src="{{ asset('frontend/js/cart_custom.js') }}"></script>
-
+    <script>
+        $(document).on('click','#removeCart', function(e){
+            e.preventDefault();
+            let id = $(this).data('id');
+            $.ajax({
+                url: "{{ url('product-cart/remove') }}/"+id,
+                type: 'get',
+                success: function(data) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Cart remove successfully.',
+                        position: 'topRight'
+                    });
+                    location.reload();
+                }
+            })
+        });
+    </script>
 @endpush
