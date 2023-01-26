@@ -51,7 +51,7 @@
                                         <div class="cart_item_title">Size</div>
                                         @if ($data->options->size != null)
                                             <div class="cart_item_text">
-                                                <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;">
+                                                <select class="form-control form-control-sm size" name="size" data-id="{{$data->rowId}}" id="" style="min-width: 110px;">
                                                     @foreach ($sizes as $size)
                                                         <option value="{{$size}}" {{ $size == $data->options->size ? "selected" : "" }}>{{$size}}</option>
                                                     @endforeach
@@ -134,12 +134,17 @@
                 url: "{{ url('product-cart/qtyupdate') }}/"+rowId+'/'+qty,
                 type: 'get',
                 success: function(data) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Product quantity update successfully.',
+                        position: 'topRight'
+                    });
                     location.reload();
                 }
             })
         });
 
-        /* Product Qty Update*/
+        /* Product Color Update*/
         $(document).on('change','.color', function(e){
             e.preventDefault();
             let color = $(this).val();
@@ -154,6 +159,27 @@
                         message: 'Product color update successfully.',
                         position: 'topRight'
                     });
+                    location.reload();
+                }
+            })
+        });
+
+        /* Product Size Update*/
+        $(document).on('change','.size', function(e){
+            e.preventDefault();
+            let size = $(this).val();
+            let rowId = $(this).data('id');
+            // alert(size);
+            $.ajax({
+                url: "{{ url('product-cart/sizeupdate') }}/"+rowId+'/'+size,
+                type: 'get',
+                success: function(data) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Product size update successfully.',
+                        position: 'topRight'
+                    });
+                    location.reload();
                 }
             })
         });
