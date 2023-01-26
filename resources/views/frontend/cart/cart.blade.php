@@ -39,7 +39,7 @@
                                         <div class="cart_item_title">Color</div>
                                         @if ($data->options->color != null)
                                             <div class="cart_item_text">
-                                                <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;">
+                                                <select class="form-control form-control-sm color" name="color" data-id="{{$data->rowId}}" id="" style="min-width: 110px;">
                                                     @foreach ($colors as $color)
                                                         <option value="{{$color}}" {{ $color == $data->options->color ? "selected" : "" }}>{{$color}}</option>
                                                     @endforeach
@@ -62,7 +62,7 @@
                                     <div class="cart_item_quantity cart_info_col">
                                         <div class="cart_item_title">Quantity</div>
                                         <div class="cart_item_text">
-                                            <input class="form-control form-control-sm" type="number" min="1" name="qty" pattern="[1-9]*" value="1" required style="width: 65px;">
+                                            <input class="form-control form-control-sm qty" type="number" data-id="{{$data->rowId}}" min="1" name="qty" pattern="[1-9]*" value="{{ $data->qty }}" required style="width: 65px;">
                                         </div>
                                     </div>
                                     <div class="cart_item_price cart_info_col">
@@ -120,6 +120,40 @@
                         position: 'topRight'
                     });
                     location.reload();
+                }
+            })
+        });
+
+        /* Product Qty Update*/
+        $(document).on('blur','.qty', function(e){
+            e.preventDefault();
+            let qty = $(this).val();
+            let rowId = $(this).data('id');
+            // alert(rowId);
+            $.ajax({
+                url: "{{ url('product-cart/qtyupdate') }}/"+rowId+'/'+qty,
+                type: 'get',
+                success: function(data) {
+                    location.reload();
+                }
+            })
+        });
+
+        /* Product Qty Update*/
+        $(document).on('change','.color', function(e){
+            e.preventDefault();
+            let color = $(this).val();
+            let rowId = $(this).data('id');
+            // alert(color);
+            $.ajax({
+                url: "{{ url('product-cart/colorupdate') }}/"+rowId+'/'+color,
+                type: 'get',
+                success: function(data) {
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Product color update successfully.',
+                        position: 'topRight'
+                    });
                 }
             })
         });

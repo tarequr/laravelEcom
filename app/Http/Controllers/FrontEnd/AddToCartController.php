@@ -52,4 +52,10 @@ class AddToCartController extends Controller
         // notify()->success("Cart Remove Successfully.", "Success");
         // return back();
     }
+
+    public function qtyUpdate($rowId,$qty)
+    {
+        Cart::update($rowId,['qty' => $qty]);
+        return response()->json();
+    }
 }
