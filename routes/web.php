@@ -37,6 +37,7 @@ Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('ad
 Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuickView'])->name('add.to.cart.quickview');
 Route::get('all-cart', [AddToCartController::class, 'allCart'])->name('all.cart');
 Route::get('my-cart', [AddToCartController::class, 'myCart'])->name('my.cart');
+Route::get('cart-empty', [AddToCartController::class, 'cartEmpty'])->name('cart.empty');
 Route::get('product-cart/qtyupdate/{rowId}/{qty}', [AddToCartController::class, 'qtyUpdate']);
 Route::get('product-cart/colorupdate/{rowId}/{color}', [AddToCartController::class, 'colorUpdate']);
 Route::get('product-cart/sizeupdate/{rowId}/{size}', [AddToCartController::class, 'sizeUpdate']);

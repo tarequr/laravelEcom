@@ -44,13 +44,18 @@ class AddToCartController extends Controller
         return view('frontend.cart.cart', compact('contents'));
     }
 
+    public function cartEmpty()
+    {
+        Cart::destroy();
+
+        notify()->success("Cart Destroy Successfully.", "Success");
+        return redirect()->route('frontend.home');
+    }
+
     public function cartRemove($rowId)
     {
         Cart::remove($rowId);
         return response()->json();
-
-        // notify()->success("Cart Remove Successfully.", "Success");
-        // return back();
     }
 
     public function qtyUpdate($rowId,$qty)
