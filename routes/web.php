@@ -44,6 +44,8 @@ Route::get('product-cart/sizeupdate/{rowId}/{size}', [AddToCartController::class
 Route::get('product-cart/remove/{id}', [AddToCartController::class, 'cartRemove']);
 
 Route::get('wish-list', [AddToCartController::class, 'wishList'])->name('my-wishlist');
+Route::get('clear/wish-list', [AddToCartController::class, 'clearWishList'])->name('clear.wishlist');
+Route::get('single/wishlist/{id}/delete', [AddToCartController::class, 'singleWishListDelete'])->name('single.wishlist.delete');
 
 Route::get('cart-destroy', function (){
     Cart::destroy();

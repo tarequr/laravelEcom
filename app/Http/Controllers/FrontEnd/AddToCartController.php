@@ -87,7 +87,26 @@ class AddToCartController extends Controller
 
     public function wishList()
     {
-        $wishLists = Wishlist::with('product')->where('user_id',Auth::id())->get();
-        return view('frontend.wish_list.my_wishlist',compact('wishLists'));
+        if (Auth::check()) {
+            $wishLists = Wishlist::with('product')->where('user_id',Auth::id())->orderBy('id','desc')->get();
+            return view('frontend.wish_list.my_wishlist',compact('wishLists'));
+        }
+
+        notify()->success("Please login your account.", "Error");
+        return redirect('/');
+    }
+
+    public function singleWishListDelete($id)
+    {
+        Wishlist::where('product_id', $id)->delete();
+        notify()->success("Wishlist delete successfully.", "Success");
+        return redirect('/');
+    }
+
+    public function clearWishList()
+    {
+        Wishlist::where('user_id',Auth::id())->delete();
+        notify()->success("Wishlist clear successfully.", "Success");
+        return redirect('/');
     }
 }

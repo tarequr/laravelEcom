@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-lg-12 offset-lg-1">
                 <div class="cart_container">
-                    <div class="cart_title">Shopping Cart</div>
+                    <div class="cart_title">Your wishlist</div>
                     <div class="cart_items">
                         <ul class="cart_list">
                             @foreach ($wishLists as $data)
@@ -32,7 +32,12 @@
                                     </div>
                                     <div class="cart_item_total cart_info_col">
                                         <div class="cart_item_text">
-                                            <a href="{{ route('cart.empty') }}" class="button cart_button_clear btn-danger">Add to Cart</a>
+                                            <a href="{{ route('single.product',$data->product->slug) }}" class="button cart_button_clear btn-success">Add to Cart</a>
+                                        </div>
+                                    </div>
+                                    <div class="cart_item_total cart_info_col">
+                                        <div class="cart_item_text">
+                                            <a href="{{ route('single.wishlist.delete',$data->product_id) }}" class="btn btn-sm btn-danger">X</a>
                                         </div>
                                     </div>
                                 </div>
@@ -42,6 +47,7 @@
                     </div>
 
                     <div class="cart_buttons">
+                        <a href="{{ route('clear.wishlist') }}" class="button cart_button_clear btn-danger">Clear WishList</a>
                         <a href="{{ url('/') }}" class="button cart_button_checkout">Back To Home</a>
                     </div>
                 </div>
