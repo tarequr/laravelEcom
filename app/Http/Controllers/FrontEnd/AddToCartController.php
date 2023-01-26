@@ -58,4 +58,14 @@ class AddToCartController extends Controller
         Cart::update($rowId,['qty' => $qty]);
         return response()->json();
     }
+
+    public function colorUpdate($rowId,$color)
+    {
+        $product = Cart::get($rowId);
+        $size = $product->options->size;
+        $thumbnail = $product->options->thumbnail;
+
+        Cart::update($rowId, ['options'  => ['color' => $color, 'size' => $size, 'thumbnail' => $thumbnail]]);
+        return response()->json();
+    }
 }

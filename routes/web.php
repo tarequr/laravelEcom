@@ -38,6 +38,7 @@ Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuic
 Route::get('all-cart', [AddToCartController::class, 'allCart'])->name('all.cart');
 Route::get('my-cart', [AddToCartController::class, 'myCart'])->name('my.cart');
 Route::get('product-cart/qtyupdate/{rowId}/{qty}', [AddToCartController::class, 'qtyUpdate']);
+Route::get('product-cart/colorupdate/{rowId}/{qty}', [AddToCartController::class, 'colorUpdate']);
 Route::get('product-cart/remove/{id}', [AddToCartController::class, 'cartRemove']);
 
 Route::get('cart-destroy', function (){
