@@ -50,7 +50,7 @@
                         @endauth
 
                         <div class="wishlist_content">
-                            <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                            <div class="wishlist_text"><a href="{{ route('my-wishlist') }}">Wishlist</a></div>
                             <div class="wishlist_count">{{ @$wishlist ? $wishlist : '0' }}</div>
                         </div>
                     </div>

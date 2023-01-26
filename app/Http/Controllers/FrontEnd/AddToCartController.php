@@ -5,8 +5,9 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Wishlist;
 use Gloudemans\Shoppingcart\Facades\Cart;
-
+use Illuminate\Support\Facades\Auth;
 
 class AddToCartController extends Controller
 {
@@ -82,5 +83,11 @@ class AddToCartController extends Controller
 
         Cart::update($rowId, ['options'  => ['color' => $color, 'size' => $size, 'thumbnail' => $thumbnail]]);
         return response()->json();
+    }
+
+    public function wishList()
+    {
+        $wishLists = Wishlist::with('product')->where('user_id',Auth::id())->get();
+        return view('frontend.wish_list.my_wishlist',compact('wishLists'));
     }
 }

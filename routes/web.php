@@ -43,6 +43,8 @@ Route::get('product-cart/colorupdate/{rowId}/{color}', [AddToCartController::cla
 Route::get('product-cart/sizeupdate/{rowId}/{size}', [AddToCartController::class, 'sizeUpdate']);
 Route::get('product-cart/remove/{id}', [AddToCartController::class, 'cartRemove']);
 
+Route::get('wish-list', [AddToCartController::class, 'wishList'])->name('my-wishlist');
+
 Route::get('cart-destroy', function (){
     Cart::destroy();
 });
