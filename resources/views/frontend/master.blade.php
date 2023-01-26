@@ -57,6 +57,28 @@
 
 @include('vendor.lara-izitoast.toast')
 
+<script>
+    function cart(){
+        $.ajax({
+            type : 'get',
+            url: "{{ route('all.cart') }}",
+            // url: "{{ url('all-cart') }}",
+            success: function(data) {
+                console.log(data);
+                $('.cart_qty').empty();
+                $('.cat_total').empty();
+
+                $('.cart_qty').append(data.cat_qty);
+                $('.cat_total').append(data.cat_total);
+            }
+        })
+    }
+
+    $(document).ready(function() {
+        cart();
+    });
+</script>
+
 @stack('js')
 
 </body>

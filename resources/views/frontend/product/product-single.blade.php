@@ -94,7 +94,16 @@
                     {{-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> --}}
                     {{-- <div class="product_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum. laoreet turpis, nec sollicitudin dolor cursus at. Maecenas aliquet, dolor a faucibus efficitur, nisi tellus cursus urna, eget dictum lacus turpis.</p></div> --}}
                     <div class="order_info d-flex flex-row">
-                        <form action="#">
+                        <form action="{{ route('add.to.cart.quickview') }}" method="POST" id="add_to_cart_form">
+                            @csrf
+
+                            <input type="hidden" name="id" value="{{ $product->id }}">
+                            @if ($product->discount_price == null)
+                                <input type="hidden" name="price" value="{{ $product->selling_price }}">
+                            @else
+                                <input type="hidden" name="price" value="{{ $product->discount_price }}">
+                            @endif
+
                             <div class="form-group">
                                 <div class="row">
                                     @isset($product->size)
@@ -103,7 +112,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Size:</label>
-                                        <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;>
+                                        <select class="form-control form-control-sm" name="size" id="" style="min-width: 110px;">
                                             @foreach ($sizes as $size)
                                                 <option value="{{$size}}">{{$size}}</option>
                                             @endforeach
@@ -117,7 +126,7 @@
                                         @endphp
                                     <div class="col-lg-6">
                                         <label for="">Color:</label>
-                                        <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;>
+                                        <select class="form-control form-control-sm" name="color" id="" style="min-width: 110px;">
                                             @foreach ($colors as $color)
                                                 <option value="{{$color}}">{{$color}}</option>
                                             @endforeach
@@ -132,7 +141,7 @@
                                 <!-- Product Quantity -->
                                 <div class="product_quantity clearfix ml-2">
                                     <span>Quantity: </span>
-                                    <input id="quantity_input" type="text" pattern="[1-9]*" value="1">
+                                    <input id="quantity_input" type="text" name="qty" pattern="[1-9]*" value="1">
                                     <div class="quantity_buttons">
                                         <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
                                         <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
@@ -158,7 +167,9 @@
 
                             {{-- <div class="product_price">$2000</div> --}}
                             <div class="button_container">
-                                <button type="button" class="button cart_button">Add to Cart</button>
+
+
+                                <button type="submit" class="button cart_button">Add to Cart</button>
                                 @auth
                                     @php
                                         $findData = App\Models\Wishlist::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first();
@@ -470,4 +481,59 @@
 
 @push('js')
 <script src="{{ asset('frontend/js/product_custom.js') }}"></script>
+
+<script>
+    // function cart(){
+    //     $.ajax({
+    //         type : 'get',
+    //         url: "{{ route('all.cart') }}",
+    //         // url: "{{ url('all-cart') }}",
+    //         success: function(data) {
+    //             console.log(data);
+    //             $('.cart_qty').empty();
+    //             $('.cat_total').empty();
+
+    //             $('.cart_qty').append(data.cat_qty);
+    //             $('.cat_total').append(data.cat_total);
+    //         }
+    //     })
+    // }
+
+    // $(document).ready(function() {
+    //     cart();
+    // });
+
+    // $('.loader').ready(function(){
+    //     setTimeout(() => {
+    //         $('.product_view').removeClass('');
+    //         $('.loader').css('display', 'none');
+    //     }, 500);
+    // });
+
+    $('body').on('submit',"#add_to_cart_form", function(e){
+            e.preventDefault();
+            $('.loading').removeClass('d-none');
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data){
+                    iziToast.success({
+                        title: 'Success',
+                        message: 'Add To Cart Successfully.',
+                        position: 'topRight'
+                    });
+
+                    $("#add_to_cart_form")[0].reset();
+                    $('.loading').addClass('d-none');
+                    cart(); //add to cart show data
+                }
+            });
+        });
+
+</script>
 @endpush
