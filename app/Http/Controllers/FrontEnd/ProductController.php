@@ -6,7 +6,9 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Review;
+use App\Models\SubCategory;
 
 class ProductController extends Controller
 {
@@ -28,6 +30,15 @@ class ProductController extends Controller
         $product = Product::with('category','subCategories','brand','pickupPoint')->findOrFail($id);
 
         return view('frontend.product.product-quick-view', compact('product'));
+    }
+
+    public function categoryWiseProduct($id)
+    {
+        $brands = Brand::get();
+        $products = Product::where('category_id',$id)->paginate(2);
+        $sub_categories  = SubCategory::where('category_id',$id)->get();
+
+        return view('frontend.product.category_wise_product',compact('brands','products','sub_categories'));
     }
 
 }

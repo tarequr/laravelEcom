@@ -27,6 +27,8 @@ Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->name('single.product');
 Route::get('product-quick-view/{id}',[ProductController::class,'productQuickview']);
 
+Route::get('category-wise-product/{id}',[ProductController::class,'categoryWiseProduct'])->name('category.wise.product');
+
 Route::get('customer/login', [CustomerController::class,'customerLogin'])->name('customer.login');
 Route::get('customer/dashboard', function () {
     return 'hello';

@@ -16,7 +16,7 @@
                         <ul class="cat_menu">
                             @foreach ($categories as $category)
                             <li class="hassubs">
-                                <a href="#"><span class="{{ $category->icon }}"></span> {{ $category->name }}<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ route('category.wise.product',$category->id) }}"><span class="{{ $category->icon }}"></span> {{ $category->name }}<i class="fas fa-chevron-right"></i></a>
                                 <ul>
                                     @if (!empty($category->subCategory))
                                     @foreach ($category->subCategory as $subCategory)
