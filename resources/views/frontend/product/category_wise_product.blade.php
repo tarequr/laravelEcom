@@ -113,13 +113,31 @@
                                         <img src="{{ asset('upload/product/'.$product->thumbnail) }}" alt="" style="width: 115px; height: 115px;">
                                     </div>
                                     <div class="product_content">
-                                        <div class="product_price">$225</div>
-                                        <div class="product_name"><div><a href="#" tabindex="0">Philips BT6900A</a></div></div>
+                                        @if ($product->discount_price == null)
+                                            <div class="product_price">{{$setting->currency}}{{$product->selling_price}}</div>
+                                        @else
+                                            <div class="product_price">{{$setting->currency}}{{$product->discount_price}}<span class="text-danger">{{$setting->currency}}{{$product->selling_price}}</span></div>
+                                        @endif
+                                        <div class="product_name"><div><a href="{{ route('single.product',$product->slug) }}" tabindex="0">{{ $product->name }}</a></div></div>
                                     </div>
-                                    <div class="product_fav"><i class="fas fa-heart"></i></div>
+
+                                    @auth
+                                        @php
+                                            $findData = App\Models\Wishlist::where('user_id', Auth::user()->id)->where('product_id', $product->id)->first();
+                                        @endphp
+                                        <a href="{{ route('add.wishlist',$product->id) }}">
+                                            <div class="product_fav {{ $findData ? 'active' : '' }}"><i class="fas fa-heart"></i></div>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('customer.login') }}">
+                                            <div class="product_fav"><i class="fas fa-heart"></i></div>
+                                        </a>
+                                    @endauth
+
                                     <ul class="product_marks">
-                                        <li class="product_mark product_discount">-25%</li>
-                                        <li class="product_mark product_new">new</li>
+                                        <li class="product_mark product_new quick_view" id="{{ $product->id }}" data-toggle="modal" data-target="#exampleModalCenter">
+                                            <i class="fas fa-eye"></i>
+                                        </li>
                                     </ul>
                                 </div>
                             @endforeach
@@ -287,6 +305,24 @@
 			</div>
 		</div>
 	</div>
+
+    <!-- Modal -->
+    {{-- product quick view --}}
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -296,6 +332,18 @@
 <script src="{{ asset('frontend/js/shop_custom.js') }}"></script>
 
 <script>
+    $(document).on('click','.quick_view', function(e){
+        e.preventDefault();
+        var id = $(this).attr('id');
+        $.ajax({
+            url: "{{ url('product-quick-view') }}/"+id,
+            type: 'get',
+            success: function(data) {
+                $('#modal_body').html(data);
+            }
+        })
+    });
+
     // function cart(){
     //     $.ajax({
     //         type : 'get',

@@ -35,7 +35,7 @@ class ProductController extends Controller
     public function categoryWiseProduct($id)
     {
         $brands = Brand::get();
-        $products = Product::where('category_id',$id)->paginate(2);
+        $products = Product::where('category_id',$id)->paginate(40);
         $sub_categories  = SubCategory::where('category_id',$id)->get();
 
         return view('frontend.product.category_wise_product',compact('brands','products','sub_categories'));
