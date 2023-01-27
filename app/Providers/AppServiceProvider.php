@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Models\Category;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::useBootstrap();
+
         View::composer('*', function($view){
             $view->with('setting', Setting::first());
             $view->with('brands', Brand::inRandomOrder()->limit(24)->get());
