@@ -48,10 +48,11 @@ class ProductController extends Controller
     {
         $branddds = Brand::get();
         $products = Product::where('category_id',$id)->paginate(40);
+        $category = Category::where('id',$id)->first();
         $sub_categories  = SubCategory::with('category')->where('category_id',$id)->get();
         $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
 
-        return view('frontend.product.category_wise_product',compact('branddds','products','sub_categories','random_products'));
+        return view('frontend.product.category_wise_product',compact('branddds','products','category','sub_categories','random_products'));
     }
 
     public function subCategoryWiseProduct($id)

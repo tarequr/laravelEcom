@@ -16,7 +16,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{{ asset('frontend/images/shop_background.jpg') }}"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">{{ $sub_categories[0]->category->name }}</h2>
+			<h2 class="home_title">{{ $category->name }}</h2>
 		</div>
 	</div>
 
@@ -35,7 +35,9 @@
                             @foreach ($branddds as $brand)
                             <div class="owl-item">
                                 <div class="brands_item d-flex flex-column justify-content-center">
-                                    <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="50" width="40">
+                                    <a href="{{ route('brand.wise.product',$brand->id) }}">
+                                        <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="50" width="40">
+                                    </a>
                                 </div>
                             </div>
                             @endforeach

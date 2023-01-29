@@ -755,7 +755,7 @@
                                             "></i>
                                         {{-- <img src="{{ asset('frontend/images/popular_1.png') }}" alt=""> --}}
                                     </div>
-									<div class="popular_category_text"><a href="#">{{ substr($category->name,0,15) }}...</a></div>
+									<div class="popular_category_text"><a href="{{ route('category.wise.product',$category->id) }}">{{ substr($category->name,0,15) }}...</a></div>
 								</div>
 							</div>
                             @endforeach
