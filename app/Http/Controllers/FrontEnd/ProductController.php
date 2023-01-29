@@ -33,6 +33,17 @@ class ProductController extends Controller
         return view('frontend.product.product-quick-view', compact('product'));
     }
 
+    public function brandWiseProduct($id)
+    {
+        $branddds   = Brand::get();
+        $brand       = Brand::where('id', $id)->first();;
+        $categories   = Category::get();
+        $products      = Product::where('brand_id',$id)->paginate(40);
+        $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
+
+        return view('frontend.product.brand_wise_product',compact('branddds','brand','products','categories','random_products'));
+    }
+
     public function categoryWiseProduct($id)
     {
         $branddds = Brand::get();

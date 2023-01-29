@@ -35,7 +35,9 @@
                 @foreach ($brands as $brand)
                     <div class="col-lg-1 col-md-6 char_col" style="border: 1px solid grey; padding: 5px;">
                         <div class="brands_item">
-                            <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="100%" width="100%">
+                            <a href="{{ route('brand.wise.product',$brand->id) }}">
+                                <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="100%" width="100%">
+                            </a>
                         </div>
                     </div>
                 @endforeach

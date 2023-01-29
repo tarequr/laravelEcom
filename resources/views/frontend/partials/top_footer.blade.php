@@ -12,7 +12,9 @@
                         @foreach ($brands as $brand)
                         <div class="owl-item">
                             <div class="brands_item d-flex flex-column justify-content-center">
-                                <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="50" width="40">
+                                <a href="{{ route('brand.wise.product',$brand->id) }}">
+                                    <img src="{{ $brand->brand_logo }}" alt="{{ $brand->brnad_name }}" title="{{ $brand->brnad_name }}" height="50" width="40">
+                                </a>
                             </div>
                         </div>
                         @endforeach
