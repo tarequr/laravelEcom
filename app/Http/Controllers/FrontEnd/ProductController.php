@@ -51,9 +51,18 @@ class ProductController extends Controller
         $child_categories  = ChildCategory::with('subCategory')->where('subcategory_id',$id)->get();
         $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
 
-        // dd($child_categories);
-
         return view('frontend.product.sub_category_wise_product',compact('branddds','products','sub_category','child_categories','random_products'));
+    }
+
+    public function childCategoryWiseProduct($id)
+    {
+        $branddds = Brand::get();
+        $categories  = Category::get();
+        $products = Product::where('childcategory_id',$id)->paginate(40);
+        $child_category = ChildCategory::where('id',$id)->first();
+        $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
+
+        return view('frontend.product.child_category_wise_product',compact('branddds','products','categories','child_category','random_products'));
     }
 
 }

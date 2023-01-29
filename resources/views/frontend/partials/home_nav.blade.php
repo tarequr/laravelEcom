@@ -25,7 +25,7 @@
                                         <ul>
                                             @if (!empty($subCategory->childCategory))
                                             @foreach ($subCategory->childCategory as $childCategory)
-                                            <li><a href="#">{{ $childCategory->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
+                                            <li><a href="{{ route('child.category.product',$childCategory->id) }}">{{ $childCategory->childcategory_name }}<i class="fas fa-chevron-right"></i></a></li>
                                             @endforeach
                                             @endif
                                         </ul>
