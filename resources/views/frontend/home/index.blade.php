@@ -2487,7 +2487,7 @@
                                         @if ($random_product->discount_price == NULL)
                                             <div class="viewed_price">{{$setting->currency}}{{$random_product->selling_price}}</span></div>
                                         @else
-                                            <div class="viewed_price">{{$setting->currency}}{{$random_product->discount_price}}<span>{{$setting->currency}}{{$trendy_product->selling_price}}</span></div>
+                                            <div class="viewed_price">{{$setting->currency}}{{$random_product->discount_price}}<span>{{$setting->currency}}{{$random_product->selling_price}}</span></div>
                                         @endif
 										<div class="viewed_name"><a href="{{ route('single.product',$random_product->slug) }}">{{ substr($random_product->name,'0','30') }}...</a></div>
 									</div>

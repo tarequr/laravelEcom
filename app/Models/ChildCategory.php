@@ -10,4 +10,9 @@ class ChildCategory extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function subCategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
 }

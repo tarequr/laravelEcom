@@ -16,7 +16,7 @@
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{{ asset('frontend/images/shop_background.jpg') }}"></div>
 		<div class="home_overlay"></div>
 		<div class="home_content d-flex flex-column align-items-center justify-content-center">
-			<h2 class="home_title">{{ $sub_categories[0]->category->name }}</h2>
+			<h2 class="home_title">{{ $sub_category->subcategory_name }}</h2>
 		</div>
 	</div>
 
@@ -52,10 +52,10 @@
 					<!-- Shop Sidebar -->
 					<div class="shop_sidebar">
 						<div class="sidebar_section">
-							<div class="sidebar_title">Sub Categories</div>
-                            @foreach ($sub_categories as $sub_category)
+							<div class="sidebar_title">Child Categories</div>
+                            @foreach ($child_categories as $child_category)
                                 <ul class="sidebar_categories">
-                                    <li><a href="{{ route('sub.category.product',$sub_category->id) }}">{{ $sub_category->subcategory_name }}</a></li>
+                                    <li><a href="{{ route('child.category.product',$child_category->id) }}">{{ $child_category->childcategory_name }}</a></li>
                                 </ul>
                             @endforeach
 						</div>

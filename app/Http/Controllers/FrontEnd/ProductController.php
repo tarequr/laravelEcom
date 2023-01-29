@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\ChildCategory;
 use App\Models\Review;
 use App\Models\SubCategory;
 
@@ -34,11 +35,25 @@ class ProductController extends Controller
 
     public function categoryWiseProduct($id)
     {
-        $brands = Brand::get();
+        $branddds = Brand::get();
         $products = Product::where('category_id',$id)->paginate(40);
-        $sub_categories  = SubCategory::where('category_id',$id)->get();
+        $sub_categories  = SubCategory::with('category')->where('category_id',$id)->get();
+        $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
 
-        return view('frontend.product.category_wise_product',compact('brands','products','sub_categories'));
+        return view('frontend.product.category_wise_product',compact('branddds','products','sub_categories','random_products'));
+    }
+
+    public function subCategoryWiseProduct($id)
+    {
+        $branddds = Brand::get();
+        $products = Product::where('subcategory_id',$id)->paginate(40);
+        $sub_category = SubCategory::where('id',$id)->first();
+        $child_categories  = ChildCategory::with('subCategory')->where('subcategory_id',$id)->get();
+        $random_products = Product::where('status',1)->inRandomOrder()->take(16)->get();
+
+        // dd($child_categories);
+
+        return view('frontend.product.sub_category_wise_product',compact('branddds','products','sub_category','child_categories','random_products'));
     }
 
 }

@@ -28,6 +28,8 @@ Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->
 Route::get('product-quick-view/{id}',[ProductController::class,'productQuickview']);
 
 Route::get('category-wise-product/{id}',[ProductController::class,'categoryWiseProduct'])->name('category.wise.product');
+Route::get('sub-category-wise-product/{id}',[ProductController::class,'subCategoryWiseProduct'])->name('sub.category.product');
+Route::get('child-category-wise-product/{id}',[ProductController::class,'childCategoryWiseProduct'])->name('child.category.product');
 
 Route::get('customer/login', [CustomerController::class,'customerLogin'])->name('customer.login');
 Route::get('customer/dashboard', function () {

@@ -21,7 +21,7 @@
                                     @if (!empty($category->subCategory))
                                     @foreach ($category->subCategory as $subCategory)
                                     <li class="hassubs">
-                                        <a href="#">{{ $subCategory->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
+                                        <a href="{{ route('sub.category.product',$subCategory->id) }}">{{ $subCategory->subcategory_name }}<i class="fas fa-chevron-right"></i></a>
                                         <ul>
                                             @if (!empty($subCategory->childCategory))
                                             @foreach ($subCategory->childCategory as $childCategory)
