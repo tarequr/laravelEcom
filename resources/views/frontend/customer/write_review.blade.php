@@ -25,20 +25,20 @@
                         <br>
                         <br>
                         <div>
-                            <form action="#" method="POST">
+                            <form action="{{ route('write.review.store') }}" method="POST">
                                 @csrf
 
                                 <div class="form-group">
                                     <label for="name">Customer Name</label>
-                                    <input type="text" class="form-control" value="{{ Auth::user()->name }}" readonly>
+                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="write_review">Write Review</label>
-                                    <textarea name="write_review" class="form-control" id="write_review" cols="30" rows="5" placeholder="Type here..."></textarea>
+                                    <textarea name="review" class="form-control" id="write_review" cols="30" rows="5" placeholder="Type here..." required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="details">Rating</label>
-                                    <select class="form-control" name="rating" id="" style="min-width: 120px;">
+                                    <select class="form-control" name="rating" id="" style="min-width: 120px;" required>
                                         <option value="">Select Your Rating</option>
                                         <option value="1">1 Star</option>
                                         <option value="2">2 Star</option>

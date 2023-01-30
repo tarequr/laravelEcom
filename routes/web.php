@@ -38,6 +38,7 @@ Route::get('customer/logout', [CustomerController::class,'logout'])->name('custo
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('write-review', [ReviewController::class, 'writeReview'])->name('write.review');
+Route::post('write-review/store', [ReviewController::class, 'writeReviewStore'])->name('write.review.store');
 
 Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
 Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuickView'])->name('add.to.cart.quickview');

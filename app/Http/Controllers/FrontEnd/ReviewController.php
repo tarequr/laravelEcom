@@ -48,6 +48,11 @@ class ReviewController extends Controller
         return view('frontend.customer.write_review');
     }
 
+    public function writeReviewStore(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function wishlist($id)
     {
         try {
