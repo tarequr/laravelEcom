@@ -43,6 +43,11 @@ class ReviewController extends Controller
         }
     }
 
+    public function writeReview()
+    {
+        return view('frontend.customer.write_review');
+    }
+
     public function wishlist($id)
     {
         try {

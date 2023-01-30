@@ -34,8 +34,11 @@ Route::get('child-category-wise-product/{id}',[ProductController::class,'childCa
 
 Route::get('customer/login', [CustomerController::class,'customerLogin'])->name('customer.login');
 Route::get('customer/dashboard', [CustomerController::class,'dashboard'])->name('customer.dashboard');
+Route::get('customer/logout', [CustomerController::class,'logout'])->name('customer.logout');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
+Route::get('write-review', [ReviewController::class, 'writeReview'])->name('write.review');
+
 Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
 Route::post('add-to-cart-quickview', [AddToCartController::class, 'addToCartQuickView'])->name('add.to.cart.quickview');
 Route::get('all-cart', [AddToCartController::class, 'allCart'])->name('all.cart');

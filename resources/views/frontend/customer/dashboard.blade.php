@@ -9,65 +9,14 @@
     <div class="container p-5">
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">Profile</div>
-                    <div class="card-body">
-                        <img class="card-img-top"
-                            src="https://thumbs.dreamstime.com/b/businessman-icon-vector-male-avatar-profile-image-profile-businessman-icon-vector-male-avatar-profile-image-182095609.jpg"
-                            alt="" style="height: 200px; width: 200px;">
-                        <ul class="list-group list-group-flush">
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fas fa-home"></i>
-                                    Dashboard
-                                </li>
-                            </a>
-
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fas fa-heart"></i>
-                                    Wishlist
-                                </li>
-                            </a>
-
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fas fa-file-alt"></i>
-                                    My Order
-                                </li>
-                            </a>
-
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fas fa-edit"></i>
-                                    Setting
-                                </li>
-                            </a>
-
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fab fa-telegram-plane"></i>
-                                    Open Ticket
-                                </li>
-                            </a>
-
-                            <a href="#" class="text-muted">
-                                <li class="list-group-item">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    Logout
-                                </li>
-                            </a>
-
-                        </ul>
-                    </div>
-                </div>
+                @include('frontend.customer.customer_sidebar')
             </div>
 
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
                         Dashboard
-                        <a href="#" style="float: right;"><i class="fas fa-pencil-alt"></i> Write a review</a>
+                        <a href="{{ route('write.review') }}" style="float: right;"><i class="fas fa-pencil-alt"></i> Write a review</a>
                     </div>
 
                     <div class="card-body">
