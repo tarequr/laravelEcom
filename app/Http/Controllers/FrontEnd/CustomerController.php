@@ -12,4 +12,9 @@ class CustomerController extends Controller
         return view('frontend.customer.login');
     }
 
+    public function dashboard()
+    {
+        return view('frontend.customer.dashboard');
+    }
+
 }

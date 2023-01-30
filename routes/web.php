@@ -33,9 +33,7 @@ Route::get('sub-category-wise-product/{id}',[ProductController::class,'subCatego
 Route::get('child-category-wise-product/{id}',[ProductController::class,'childCategoryWiseProduct'])->name('child.category.product');
 
 Route::get('customer/login', [CustomerController::class,'customerLogin'])->name('customer.login');
-Route::get('customer/dashboard', function () {
-    return 'hello';
-})->name('customer.dashboard');
+Route::get('customer/dashboard', [CustomerController::class,'dashboard'])->name('customer.dashboard');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('add/{id}/wishlist', [ReviewController::class, 'wishlist'])->name('add.wishlist');
