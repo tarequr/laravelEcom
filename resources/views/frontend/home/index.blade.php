@@ -2369,7 +2369,7 @@
                             @foreach ($latest_reviews as $latest_review)
 							<div class="owl-item">
 								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_1.jpg') }}" alt=""></div></div>
+									<div><div class="review_image"><img src="{{ asset('upload/demo.jpg') }}" alt=""></div></div>
 									<div class="review_content">
 										<div class="review_name">{{ $latest_review->name }}</div>
 										<div class="review_rating_container">
