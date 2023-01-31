@@ -24,4 +24,9 @@ class CustomerController extends Controller
         return redirect()->route('frontend.home');
     }
 
+    public function setting()
+    {
+        return view('frontend.customer.setting');
+    }
+
 }

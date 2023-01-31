@@ -26,7 +26,7 @@
                 </li>
             </a>
 
-            <a href="#" class="text-muted">
+            <a href="{{ route('customer.setting') }}" class="text-muted">
                 <li class="list-group-item">
                     <i class="fas fa-edit"></i>
                     Setting
