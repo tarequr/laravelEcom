@@ -23,41 +23,116 @@
                     <div class="card-body">
                         <h4>Your Default Shipping Credentials.</h4>
                         <br>
+                        <div>
+                            <form action="{{ route('write.review.store') }}" method="POST">
+                                @csrf
+
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter shipping name">
+
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Enter shipping email">
+
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" placeholder="Enter shipping phone">
+
+                                        @error('phone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="address">Address</label>
+                                        <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" placeholder="Enter shipping address">
+
+                                        @error('address')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="country">Country</label>
+                                        <input type="text" class="form-control" id="country" name="country" placeholder="Country">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" name="city" placeholder="City">
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="zipcode">Zip Code</label>
+                                        <input type="text" class="form-control" name="zipcode" placeholder="Zip Code">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="card-body">
+                        <h4>Change Your Password.</h4>
                         <br>
                         <div>
                             <form action="{{ route('write.review.store') }}" method="POST">
                                 @csrf
 
-                                <div class="form-group">
-                                    <label for="name">Customer Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="write_review">Write Review</label>
-                                    <textarea name="review" class="form-control @error('review') is-invalid @enderror" id="write_review" cols="30" rows="5" placeholder="Type here..." required></textarea>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <label for="old_password">Old Password</label>
+                                        <input type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password" placeholder="Enter old password">
 
-                                    @error('review')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label for="details">Rating</label>
-                                    <select class="form-control @error('rating') is-invalid @enderror" name="rating" id="" style="min-width: 120px; margin-left: 0px !important;" required>
-                                        <option value="">Select Your Rating</option>
-                                        <option value="1">1 Star</option>
-                                        <option value="2">2 Star</option>
-                                        <option value="3">3 Star</option>
-                                        <option value="4">4 Star</option>
-                                        <option value="5" selected>5 Star</option>
-                                    </select>
+                                        @error('old_password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                    @error('rating')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <div class="form-group col-md-12">
+                                        <label for="password">New Password</label>
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter new password">
+
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="password_confirmation">Confirm Password</label>
+                                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Re-type password">
+
+                                        @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
