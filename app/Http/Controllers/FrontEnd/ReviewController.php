@@ -6,6 +6,7 @@ use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\WebsiteReview;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,7 +51,35 @@ class ReviewController extends Controller
 
     public function writeReviewStore(Request $request)
     {
-        dd($request->all());
+        $this->validate($request, [
+            'review' => 'required',
+            'rating' => 'required',
+        ]);
+
+        try {
+            $checkExists = WebsiteReview::where('user_id',Auth::user()->id)->first();
+
+            if ($checkExists) {
+                notify()->error("Sorry! Review already exist.", "Error");
+                return back();
+            }
+
+            WebsiteReview::create([
+                'user_id' => Auth::id(),
+                'name'    => Auth::user()->name,
+                'review'  => $request->review,
+                'rating'  => $request->rating,
+                'status'  => 0
+            ]);
+
+            notify()->success("Review submited successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Review Submit Failed.", "Error");
+            return back();
+        }
     }
 
     public function wishlist($id)

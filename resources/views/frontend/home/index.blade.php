@@ -2,6 +2,11 @@
 
 @push('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
+    <style>
+        .checked{
+            color: gold;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -2361,94 +2366,61 @@
 						<div class="owl-carousel owl-theme reviews_slider">
 
 							<!-- Reviews Slider Item -->
+                            @foreach ($latest_reviews as $latest_review)
 							<div class="owl-item">
 								<div class="review d-flex flex-row align-items-start justify-content-start">
 									<div><div class="review_image"><img src="{{ asset('frontend/images/review_1.jpg') }}" alt=""></div></div>
 									<div class="review_content">
-										<div class="review_name">Roberto Sanchez</div>
+										<div class="review_name">{{ $latest_review->name }}</div>
 										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
+                                                @if ($latest_review->rating == 5)
+                                                <div>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                </div>
+                                                @elseif ($latest_review->rating == 4)
+                                                <div>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                @elseif ($latest_review->rating == 3)
+                                                <div>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                @elseif ($latest_review->rating == 2)
+                                                <div>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                @elseif ($latest_review->rating == 1)
+                                                <div>
+                                                    <i class="fa fa-star checked"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                @endif
+											<div class="review_time">{{ $latest_review->created_at->diffForHumans() }}</div>
 										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
+										<div class="review_text"><p style="text-align: justify">{{ substr($latest_review->review,'0','100') }}...</p></div>
 									</div>
 								</div>
 							</div>
-
-							<!-- Reviews Slider Item -->
-							<div class="owl-item">
-								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_2.jpg') }}" alt=""></div></div>
-									<div class="review_content">
-										<div class="review_name">Brandon Flowers</div>
-										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Reviews Slider Item -->
-							<div class="owl-item">
-								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_3.jpg') }}" alt=""></div></div>
-									<div class="review_content">
-										<div class="review_name">Emilia Clarke</div>
-										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Reviews Slider Item -->
-							<div class="owl-item">
-								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_1.jpg') }}" alt=""></div></div>
-									<div class="review_content">
-										<div class="review_name">Roberto Sanchez</div>
-										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Reviews Slider Item -->
-							<div class="owl-item">
-								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_2.jpg') }}" alt=""></div></div>
-									<div class="review_content">
-										<div class="review_name">Brandon Flowers</div>
-										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
-									</div>
-								</div>
-							</div>
-
-							<!-- Reviews Slider Item -->
-							<div class="owl-item">
-								<div class="review d-flex flex-row align-items-start justify-content-start">
-									<div><div class="review_image"><img src="{{ asset('frontend/images/review_3.jpg') }}" alt=""></div></div>
-									<div class="review_content">
-										<div class="review_name">Emilia Clarke</div>
-										<div class="review_rating_container">
-											<div class="rating_r rating_r_4 review_rating"><i></i><i></i><i></i><i></i><i></i></div>
-											<div class="review_time">2 day ago</div>
-										</div>
-										<div class="review_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas fermentum laoreet.</p></div>
-									</div>
-								</div>
-							</div>
+                            @endforeach
 
 						</div>
 						<div class="reviews_dots"></div>

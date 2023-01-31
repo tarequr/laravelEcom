@@ -34,11 +34,17 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="write_review">Write Review</label>
-                                    <textarea name="review" class="form-control" id="write_review" cols="30" rows="5" placeholder="Type here..." required></textarea>
+                                    <textarea name="review" class="form-control @error('review') is-invalid @enderror" id="write_review" cols="30" rows="5" placeholder="Type here..." required></textarea>
+
+                                    @error('review')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="details">Rating</label>
-                                    <select class="form-control" name="rating" id="" style="min-width: 120px;" required>
+                                    <select class="form-control @error('rating') is-invalid @enderror" name="rating" id="" style="min-width: 120px; margin-left: 0px !important;" required>
                                         <option value="">Select Your Rating</option>
                                         <option value="1">1 Star</option>
                                         <option value="2">2 Star</option>
@@ -46,6 +52,12 @@
                                         <option value="4">4 Star</option>
                                         <option value="5" selected>5 Star</option>
                                     </select>
+
+                                    @error('rating')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
