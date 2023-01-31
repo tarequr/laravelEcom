@@ -37,6 +37,7 @@ Route::get('customer/dashboard', [CustomerController::class,'dashboard'])->name(
 Route::get('customer/logout', [CustomerController::class,'logout'])->name('customer.logout');
 
 Route::get('customer/setting', [CustomerController::class,'setting'])->name('customer.setting');
+Route::post('customer/password-update', [CustomerController::class,'passwordUpdate'])->name('customer.password.update');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('write-review', [ReviewController::class, 'writeReview'])->name('write.review');

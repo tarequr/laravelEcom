@@ -97,15 +97,15 @@
                         <h4>Change Your Password.</h4>
                         <br>
                         <div>
-                            <form action="{{ route('write.review.store') }}" method="POST">
+                            <form action="{{ route('customer.password.update') }}" method="POST">
                                 @csrf
 
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <label for="old_password">Old Password</label>
-                                        <input type="password" class="form-control @error('old_password') is-invalid @enderror" name="old_password" placeholder="Enter old password">
+                                        <label for="current_password">Current Password</label>
+                                        <input type="password" class="form-control @error('current_password') is-invalid @enderror" name="current_password" placeholder="Enter old password">
 
-                                        @error('old_password')
+                                        @error('current_password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -134,7 +134,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Change Password</button>
                             </form>
                         </div>
                     </div>
