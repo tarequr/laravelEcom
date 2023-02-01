@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\Product;
 use App\Models\WebsiteReview;
 use Illuminate\Http\Request;
@@ -24,5 +25,11 @@ class HomeController extends Controller
         $home_categories = Category::with('subCategory','subCategory.childCategory','product')->where('home_page',1)->orderBy('name','asc')->get();
 
         return view('frontend.home.index',compact('latest_reviews','categories','banner_product','featureds','toady_deals','popular_products','random_products','trendy_products','home_categories'));
+    }
+
+    public function pageView($slug)
+    {
+        $page = Page::where('page_slug',$slug)->first();
+        return view('frontend.page.index', compact('page'));
     }
 }

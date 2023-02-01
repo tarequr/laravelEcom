@@ -45,11 +45,11 @@
                     </div>
                     <div class="footer_social">
                         <ul>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-                            <li><a href="#"><i class="fab fa-google"></i></a></li>
-                            <li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                            <li><a href="{{ $setting->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="{{ $setting->twitter }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="{{ $setting->youtube }}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                            <li><a href="{{ $setting->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="{{ $setting->linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                     <ul class="footer_list">
                         @if (!empty($page_ones))
                             @foreach ($page_ones as $page_one)
-                                <li><a href="#">{{ $page_one->page_name }}</a></li>
+                                <li><a href="{{ route('page.view',$page_one->page_slug) }}">{{ $page_one->page_name }}</a></li>
                             @endforeach
                         @endif
                     </ul>
@@ -73,7 +73,7 @@
                     <ul class="footer_list footer_list_2">
                         @if (!empty($page_twos))
                             @foreach ($page_twos as $page_two)
-                                <li><a href="#">{{ $page_two->page_name }}</a></li>
+                                <li><a href="{{ route('page.view',$page_two->page_slug) }}">{{ $page_two->page_name }}</a></li>
                             @endforeach
                         @endif
                     </ul>
@@ -87,10 +87,9 @@
                         <li><a href="#">My Account</a></li>
                         <li><a href="#">Order Tracking</a></li>
                         <li><a href="#">Wish List</a></li>
-                        <li><a href="#">Customer Services</a></li>
-                        <li><a href="#">Returns / Exchange</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Product Support</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Become a Vendor</a></li>
                     </ul>
                 </div>
             </div>

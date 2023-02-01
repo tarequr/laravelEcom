@@ -24,6 +24,8 @@ Route::get('/', function () {
 });
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.home');
+Route::get('page/{slug}',[HomeController::class,'pageView'])->name('page.view');
+
 Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->name('single.product');
 Route::get('product-quick-view/{id}',[ProductController::class,'productQuickview']);
 
