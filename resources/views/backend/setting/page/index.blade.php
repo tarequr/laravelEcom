@@ -15,7 +15,6 @@
                             <th class="text-center">Page Position</th>
                             <th class="text-center">Page Name</th>
                             <th class="text-center">Page Title</th>
-                            <th class="text-center">Page Description</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -32,7 +31,6 @@
                                 </td>
                                 <td class="text-center">{{ $page->page_name }}</td>
                                 <td class="text-center">{{ $page->page_title }}</td>
-                                <td class="text-center">{{ $page->page_description }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('page.edit',$page->id) }}" class="btn btn-success btn-sm edit" title="Edit">
                                         <i class="fa fa-pen"></i>

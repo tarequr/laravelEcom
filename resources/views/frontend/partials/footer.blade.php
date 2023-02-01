@@ -23,6 +23,10 @@
     </div>
 </div>
 
+@php
+    $page_ones = App\Models\Page::where('page_position',1)->get();
+    $page_twos = App\Models\Page::where('page_position',2)->get();
+@endphp
 
 <footer class="footer">
     <div class="container">
@@ -55,15 +59,11 @@
                 <div class="footer_column">
                     <div class="footer_title">Find it Fast</div>
                     <ul class="footer_list">
-                        <li><a href="#">Computers & Laptops</a></li>
-                        <li><a href="#">Cameras & Photos</a></li>
-                        <li><a href="#">Hardware</a></li>
-                        <li><a href="#">Smartphones & Tablets</a></li>
-                        <li><a href="#">TV & Audio</a></li>
-                    </ul>
-                    <div class="footer_subtitle">Gadgets</div>
-                    <ul class="footer_list">
-                        <li><a href="#">Car Electronics</a></li>
+                        @if (!empty($page_ones))
+                            @foreach ($page_ones as $page_one)
+                                <li><a href="#">{{ $page_one->page_name }}</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -71,11 +71,11 @@
             <div class="col-lg-2">
                 <div class="footer_column">
                     <ul class="footer_list footer_list_2">
-                        <li><a href="#">Video Games & Consoles</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Cameras & Photos</a></li>
-                        <li><a href="#">Hardware</a></li>
-                        <li><a href="#">Computers & Laptops</a></li>
+                        @if (!empty($page_twos))
+                            @foreach ($page_twos as $page_two)
+                                <li><a href="#">{{ $page_two->page_name }}</a></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
