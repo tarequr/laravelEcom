@@ -93,28 +93,28 @@
     // });
 
     $('body').on('submit',"#add_to_cart_form", function(e){
-            e.preventDefault();
-            $('.loading').removeClass('d-none');
-            var url = $(this).attr('action');
-            var request = $(this).serialize();
+        e.preventDefault();
+        $('.loading').removeClass('d-none');
+        var url = $(this).attr('action');
+        var request = $(this).serialize();
 
-            $.ajax({
-                url: url,
-                type: 'post',
-                async: false,
-                data: request,
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Add To Cart Successfully.',
-                        position: 'topRight'
-                    });
+        $.ajax({
+            url: url,
+            type: 'post',
+            async: false,
+            data: request,
+            success: function(data){
+                iziToast.success({
+                    title: 'Success',
+                    message: 'Add To Cart Successfully.',
+                    position: 'topRight'
+                });
 
-                    $("#add_to_cart_form")[0].reset();
-                    $('.loading').addClass('d-none');
-                    cart(); //add to cart show data
-                }
-            });
+                $("#add_to_cart_form")[0].reset();
+                $('.loading').addClass('d-none');
+                cart(); //add to cart show data
+            }
         });
+    });
 
 </script>

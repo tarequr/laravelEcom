@@ -2536,5 +2536,36 @@
                 }
             })
         });
+
+        $('body').on('submit',".newsletter_form", function(e){
+            e.preventDefault();
+            var url = $(this).attr('action');
+            var request = $(this).serialize();
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                async: false,
+                data: request,
+                success: function(data){
+                    if (data.status == 1) {
+                        iziToast.success({
+                            title: 'Success',
+                            message: 'Thanks for subscribe us!.',
+                            position: 'topRight'
+                        });
+                    } else if (data.status == 0){
+                        iziToast.error({
+                            title: 'Error',
+                            message: 'Sorry! Email already exit.',
+                            position: 'topRight'
+                        });
+                    }
+
+
+                    $(".newsletter_form")[0].reset();
+                }
+            });
+        });
     </script>
 @endpush

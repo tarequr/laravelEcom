@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\NewsLetter;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\WebsiteReview;
@@ -31,5 +32,21 @@ class HomeController extends Controller
     {
         $page = Page::where('page_slug',$slug)->first();
         return view('frontend.page.index', compact('page'));
+    }
+
+    public function newsletterStore(Request $request)
+    {
+        $check = NewsLetter::where('email',$request->email)->first();
+
+        if (!$check) {
+            NewsLetter::create([
+                'email' => $request->email
+            ]);
+
+            return response()->json(['status' => 1]);
+        } else {
+            return response()->json(['status' => 0]);
+        }
+
     }
 }
