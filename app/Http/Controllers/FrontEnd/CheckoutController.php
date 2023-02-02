@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CheckoutController extends Controller
 {
@@ -14,7 +15,8 @@ class CheckoutController extends Controller
             notify()->success("Please login your account.", "Error");
             return redirect()->back();
         } else {
-            return view('frontend.cart.checkout');
+            $contents = Cart::content();
+            return view('frontend.cart.checkout',compact('contents'));
         }
 
 
