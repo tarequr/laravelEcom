@@ -12,13 +12,16 @@ class CheckoutController extends Controller
     public function checkout()
     {
         if (!Auth::check()) {
-            notify()->success("Please login your account.", "Error");
+            notify()->error("Please login your account.", "Error");
             return redirect()->back();
         } else {
             $contents = Cart::content();
             return view('frontend.cart.checkout',compact('contents'));
         }
+    }
 
-
+    public function applyCoupon(Request $request)
+    {
+        # code...
     }
 }

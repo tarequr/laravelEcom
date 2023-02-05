@@ -62,6 +62,7 @@ Route::get('clear/wish-list', [AddToCartController::class, 'clearWishList'])->na
 Route::get('single/wishlist/{id}/delete', [AddToCartController::class, 'singleWishListDelete'])->name('single.wishlist.delete');
 
 Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::post('apply/coupon', [CheckoutController::class, 'applyCoupon'])->name('apply.coupon');
 
 Route::get('cart-destroy', function (){
     Cart::destroy();

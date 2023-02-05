@@ -81,11 +81,21 @@
 
             <div class="col-lg-4">
                 <div class="card">
-                    <form action="">
+                    <div class="pl-4 pt-2">
+                        <p style="color: black;">Sub Total: {{ Cart::subtotal() }} {{$setting->currency}}</p>
+                        <p style="color: black;">Coupon: 0000</p>
+                        <p style="color: black;">Tax: 0.00 %</p>
+                        <p style="color: black;">Shipping: 0.00 {{$setting->currency}}</p>
+                        <p style="color: black;"><b>Total: {{ Cart::total() }} {{$setting->currency}}</b></p>
+                    </div>
+
+                    <form action="{{ route('apply.coupon') }}" method="POST">
+                        @csrf
+
                         <div class="p-4">
                             <div class="form-group">
                                 <label for="">Coupon Apply</label>
-                                <input type="text" name="coupon" class="form-control" placeholder="Enter coupon code">
+                                <input type="text" name="coupon" class="form-control" placeholder="Enter coupon code" required>
                             </div>
 
                             <div class="form-group">
