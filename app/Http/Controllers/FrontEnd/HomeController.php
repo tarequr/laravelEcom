@@ -36,16 +36,20 @@ class HomeController extends Controller
 
     public function newsletterStore(Request $request)
     {
-        $check = NewsLetter::where('email',$request->email)->first();
+        if($request->ajax()){
+            $check = NewsLetter::where('email',$request->email)->first();
 
-        if (!$check) {
-            NewsLetter::create([
-                'email' => $request->email
-            ]);
+            if (!$check) {
+                NewsLetter::create([
+                    'email' => $request->email
+                ]);
 
-            return response()->json(['status' => 1]);
+                return response()->json(['status' => 1]);
+            } else {
+                return response()->json(['status' => 0]);
+            }
         } else {
-            return response()->json(['status' => 0]);
+            return redirect()->back();
         }
 
     }

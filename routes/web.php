@@ -63,6 +63,7 @@ Route::get('single/wishlist/{id}/delete', [AddToCartController::class, 'singleWi
 
 Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::post('apply/coupon', [CheckoutController::class, 'applyCoupon'])->name('apply.coupon');
+Route::get('coupon/remove', [CheckoutController::class, 'couponRemove'])->name('coupon.remove');
 
 Route::get('cart-destroy', function (){
     Cart::destroy();

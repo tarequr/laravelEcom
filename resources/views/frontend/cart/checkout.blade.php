@@ -58,6 +58,21 @@
                                     <input type="text" name="c_extra_phone" class="form-control" value="" required placeholder="Enter extra phone">
                                 </div>
 
+                                <div class="form-group col-lg-4">
+                                    <label for="">Paypal</label>
+                                    <input type="radio" name="payment_type" value="paypal">
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="">SSL Commerce</label>
+                                    <input type="radio" name="payment_type" value="ssl_commerce">
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="">Hand Cash</label>
+                                    <input type="radio" name="payment_type" value="hand_cash" checked>
+                                </div>
+
                                 <div class="form-group col-md-12">
                                     <button type="submit" class="btn btn-info">Apply Coupon</button>
                                 </div>
@@ -84,11 +99,11 @@
                     <div class="pl-4 pt-2">
                         <p style="color: black;">Sub Total: <span style="float: right; padding-right: 5px;">{{ Cart::subtotal() }} {{$setting->currency}}</span></p>
                         @if (Session::has('coupon'))
-                        <p style="color: black;">Coupon: ({{Session::get('coupon')['name'] }}) <a href="#" class="badge badge-danger">X</a> <span style="float: right; padding-right: 5px;">{{Session::get('coupon')['discount'] }} {{$setting->currency}}</span></p>
+                        <p style="color: black;">Coupon: ({{Session::get('coupon')['name'] }}) <a href="{{ route('coupon.remove') }}" class="badge badge-danger">X</a> <span style="float: right; padding-right: 5px;">{{Session::get('coupon')['discount'] }} {{$setting->currency}}</span></p>
                         @endif
                         <p style="color: black;">Tax: <span style="float: right; padding-right: 5px;">0.00 %</span></p>
                         <p style="color: black;">Shipping: <span style="float: right; padding-right: 5px;">0.00 {{$setting->currency}}</span></p>
-                        <p style="color: black;"><b>Total: <span style="float: right; padding-right: 5px;">{{ Cart::total() }} {{$setting->currency}}</span></b></p>
+                        <p style="color: black;"><b>Total: <span style="float: right; padding-right: 5px;">{{ Session::has('coupon') ? Session::get('coupon')['after_discount'] : Cart::total() }} {{$setting->currency}}</span></b></p>
                     </div>
 
                     @if (!Session::has('coupon'))
