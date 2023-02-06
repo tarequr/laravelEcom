@@ -49,8 +49,8 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="">Extra Address</label>
-                                    <input type="text" name="c_extra_address" class="form-control" value="" required placeholder="Enter extra address">
+                                    <label for="">City</label>
+                                    <input type="text" name="c_city" class="form-control" value="" required placeholder="Enter city">
                                 </div>
 
                                 <div class="form-group col-md-6">

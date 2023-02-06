@@ -48,7 +48,7 @@ class CheckoutController extends Controller
     public function couponRemove()
     {
         Session::forget('coupon');
-        notify()->success("Session remove successfully", "Success");
+        notify()->success("Session removed successfully", "Success");
         return redirect()->back();
     }
 }
