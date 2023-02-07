@@ -8,6 +8,7 @@ use App\Http\Controllers\FrontEnd\ProductController;
 use App\Http\Controllers\FrontEnd\CustomerController;
 use App\Http\Controllers\FrontEnd\AddToCartController;
 use App\Http\Controllers\FrontEnd\CheckoutController;
+use App\Http\Controllers\FrontEnd\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,3 +69,5 @@ Route::get('coupon/remove', [CheckoutController::class, 'couponRemove'])->name('
 Route::get('cart-destroy', function (){
     Cart::destroy();
 });
+
+Route::post('order/place', [OrderController::class, 'orderPlace'])->name('order.place');

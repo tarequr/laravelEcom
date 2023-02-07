@@ -16,7 +16,9 @@
             <div class="col-lg-8">
                 <div class="cart_container card p-2">
                     <div class="cart_title text-center">Billing Address</div>
-                        <form action="">
+                        <form action="{{ route('order.place') }}" method="POST">
+                            @csrf
+
                             <div class="form-row p-4">
                                 <div class="form-group col-md-6">
                                     <label for="">Customer Name <sup class="text-danger">*</sup></label>

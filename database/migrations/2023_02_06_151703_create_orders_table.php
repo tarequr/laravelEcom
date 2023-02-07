@@ -31,8 +31,9 @@ class CreateOrdersTable extends Migration
             $table->string('coupon_discount')->nullable();
             $table->string('after_discount')->nullable();
             $table->string('payment_type')->nullable();
-            $table->string('tax')->nullable();
-            $table->string('shipping_charge')->nullable();
+            $table->integer('tax')->nullable();
+            $table->integer('shipping_charge')->nullable();
+            $table->date('date')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
