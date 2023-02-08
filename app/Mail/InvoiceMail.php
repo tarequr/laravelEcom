@@ -7,20 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Invoice extends Mailable
+class InvoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details;
+    public $orderMail;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($orderMail)
     {
-        $this->details = $details;
+        $this->orderMail = $orderMail;
     }
 
     /**
