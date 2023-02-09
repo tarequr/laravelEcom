@@ -23,12 +23,12 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <a href="#">
-                                    <div class="card">
+                                    <div class="card bg-success">
                                         <div class="card-body">
                                             <div class="card-title">
-                                                <h5>My Total Order</h5>
+                                                <h5 class="text-center text-light">Total Order</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-muted text-center">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -36,35 +36,35 @@
                             <div class="col-lg-3">
                                 <a href="#">
                                     <div class="card">
-                                        <div class="card-body">
+                                        <div class="card-body bg-primary">
                                             <div class="card-title">
-                                                <h5>My Total Order</h5>
+                                                <h5 class="text-center text-light">Complete</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-muted text-center">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-3">
                                 <a href="#">
-                                    <div class="card">
+                                    <div class="card bg-danger">
                                         <div class="card-body">
                                             <div class="card-title">
-                                                <h5>My Total Order</h5>
+                                                <h5 class="text-center text-light">Cancel</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-muted text-center">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
                                         </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-3">
                                 <a href="#">
-                                    <div class="card">
+                                    <div class="card bg-warning">
                                         <div class="card-body">
                                             <div class="card-title">
-                                                <h5>My Total Order</h5>
+                                                <h5 class="text-center text-light">Retun</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-muted text-center">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -79,30 +79,36 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Payment Type</th>
+                                <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($orders as $order)
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                                <th scope="row">{{ $loop->iteration }}</th>
+                                <td>{{ $order->order_id }}</td>
+                                <td>{{ date('d-M-Y', strtotime($order->date)) }}</td>
+                                <td>{{ ucwords(str_replace("_"," ",$order->payment_type)) }}</td>
+                                <td>
+                                    @if ($order->status == 0)
+                                        <span class="badge badge-danger">Order Pending</span>
+                                    @elseif ($order->status == 1)
+                                        <span class="badge badge-info">Order Received</span>
+                                    @elseif ($order->status == 2)
+                                        <span class="badge badge-primary">Order Shipping</span>
+                                    @elseif ($order->status == 3)
+                                        <span class="badge badge-success">Order Done</span>
+                                    @elseif ($order->status == 4)
+                                        <span class="badge badge-warning">Order Return</span>
+                                    @else
+                                        <span class="badge badge-danger">Order Cancle</span>
+                                    @endif
+                                </td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

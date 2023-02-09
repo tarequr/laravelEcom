@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +17,8 @@ class CustomerController extends Controller
 
     public function dashboard()
     {
-        return view('frontend.customer.dashboard');
+        $orders = Order::where('user_id', Auth::id())->orderBy('id','DESC')->get();
+        return view('frontend.customer.dashboard',compact('orders'));
     }
 
     public function logout()
