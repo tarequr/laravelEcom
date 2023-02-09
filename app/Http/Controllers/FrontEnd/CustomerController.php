@@ -17,8 +17,12 @@ class CustomerController extends Controller
 
     public function dashboard()
     {
-        $orders = Order::where('user_id', Auth::id())->orderBy('id','DESC')->get();
-        return view('frontend.customer.dashboard',compact('orders'));
+        $orders          = Order::where('user_id', Auth::id())->orderBy('id','DESC')->take(10)->get();
+        $complete_orders = Order::where('user_id', Auth::id())->where('status',3)->count();
+        $return_orders   = Order::where('user_id', Auth::id())->where('status',4)->count();
+        $cancel_orders   = Order::where('user_id', Auth::id())->where('status',5)->count();
+
+        return view('frontend.customer.dashboard',compact('orders','complete_orders','return_orders','cancel_orders'));
     }
 
     public function logout()

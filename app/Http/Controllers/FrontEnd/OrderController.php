@@ -95,4 +95,10 @@ class OrderController extends Controller
             return back();
         }
     }
+
+    public function myOrder()
+    {
+        $orders = Order::where('user_id', Auth::id())->orderBy('id','DESC')->get();
+        return view('frontend.customer.my_order', compact('orders'));
+    }
 }

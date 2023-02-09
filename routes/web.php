@@ -71,3 +71,4 @@ Route::get('cart-destroy', function (){
 });
 
 Route::post('order/place', [OrderController::class, 'orderPlace'])->name('order.place');
+Route::get('my/order', [OrderController::class, 'myOrder'])->name('my.order');

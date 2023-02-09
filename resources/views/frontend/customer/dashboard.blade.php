@@ -28,7 +28,7 @@
                                             <div class="card-title">
                                                 <h5 class="text-center text-light">Total Order</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">{{ count($orders) }}</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -40,7 +40,7 @@
                                             <div class="card-title">
                                                 <h5 class="text-center text-light">Complete</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">{{ $complete_orders }}</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -52,7 +52,7 @@
                                             <div class="card-title">
                                                 <h5 class="text-center text-light">Cancel</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">{{ $return_orders }}</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -64,7 +64,7 @@
                                             <div class="card-title">
                                                 <h5 class="text-center text-light">Retun</h5>
                                             </div>
-                                            <h6 class="card-subtitle mb-2 text-center text-light">16</h6>
+                                            <h6 class="card-subtitle mb-2 text-center text-light">{{ $cancel_orders }}</h6>
                                         </div>
                                     </div>
                                 </a>
@@ -103,7 +103,7 @@
                                         <span class="badge badge-success">Order Done</span>
                                     @elseif ($order->status == 4)
                                         <span class="badge badge-warning">Order Return</span>
-                                    @else
+                                    @elseif ($order->status == 5)
                                         <span class="badge badge-danger">Order Cancle</span>
                                     @endif
                                 </td>
