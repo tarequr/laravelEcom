@@ -17,6 +17,7 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('subject')->nullable();
+            $table->string('image')->nullable();
             $table->string('service')->nullable();
             $table->string('priority')->nullable();
             $table->text('message')->nullable();
