@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -61,6 +62,17 @@ class CustomerController extends Controller
         }
 
         return back();
+    }
+
+    public function newTicket()
+    {
+        return view('frontend.customer.new_ticket');
+    }
+
+    public function openTicket()
+    {
+        $tickets = Ticket::where('user_id',Auth::id())->orderBy('id','desc')->take(10)->get();
+        return view('frontend.customer.open_ticket',compact('tickets'));
     }
 
 }

@@ -34,7 +34,7 @@ class CreateOrdersTable extends Migration
             $table->integer('tax')->nullable();
             $table->integer('shipping_charge')->nullable();
             $table->date('date')->nullable();
-            $table->boolean('status')->default(0);
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

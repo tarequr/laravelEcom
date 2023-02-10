@@ -43,6 +43,8 @@ Route::get('customer/logout', [CustomerController::class,'logout'])->name('custo
 
 Route::get('customer/setting', [CustomerController::class,'setting'])->name('customer.setting');
 Route::post('customer/password-update', [CustomerController::class,'passwordUpdate'])->name('customer.password.update');
+Route::get('new/ticket', [CustomerController::class,'newTicket'])->name('new.ticket');
+Route::get('open/ticket', [CustomerController::class,'openTicket'])->name('open.ticket');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('write-review', [ReviewController::class, 'writeReview'])->name('write.review');

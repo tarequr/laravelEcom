@@ -33,7 +33,7 @@
                 </li>
             </a>
 
-            <a href="#" class="text-muted">
+            <a href="{{ route('open.ticket') }}" class="text-muted">
                 <li class="list-group-item">
                     <i class="fab fa-telegram-plane"></i>
                     Open Ticket

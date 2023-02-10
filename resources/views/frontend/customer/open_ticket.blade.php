@@ -15,43 +15,36 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        Order
+                        All Tickets
+                        <a href="{{ route('new.ticket') }}" style="float: right;" class="btn btn-sm btn-primary"> Open Ticket</a>
                     </div>
                 </div>
-                <br>
-                <h4>My Order</h4>
                 <div class="table-responsive">
                     <table class="table table-borderd table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Order Id</th>
                                 <th scope="col">Date</th>
-                                <th scope="col">Payment Type</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Subject</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($orders as $order)
+                            @foreach ($tickets as $ticket)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
-                                <td>{{ $order->order_id }}</td>
-                                <td>{{ date('d-M-Y', strtotime($order->date)) }}</td>
-                                <td>{{ ucwords(str_replace("_"," ",$order->payment_type)) }}</td>
+                                <td>{{ date('d-M-Y', strtotime($ticket->date)) }}</td>
+                                <td>{{ $ticket->service }}</td>
+                                <td>{{ $ticket->subject }}</td>
                                 <td>
-                                    @if ($order->status == 0)
-                                        <span class="badge badge-danger">Order Pending</span>
-                                    @elseif ($order->status == 1)
-                                        <span class="badge badge-info">Order Received</span>
-                                    @elseif ($order->status == 2)
-                                        <span class="badge badge-primary">Order Shipping</span>
-                                    @elseif ($order->status == 3)
-                                        <span class="badge badge-success">Order Done</span>
-                                    @elseif ($order->status == 4)
-                                        <span class="badge badge-warning">Order Return</span>
-                                    @elseif ($order->status == 5)
-                                        <span class="badge badge-danger">Order Cancle</span>
+                                    @if ($ticket->status == 0)
+                                        <span class="badge badge-danger">Pending</span>
+                                    @elseif ($ticket->status == 1)
+                                        <span class="badge badge-success">Replied</span>
+                                    @elseif ($ticket->status == 2)
+                                        <span class="badge badge-muted">Closed</span>
                                     @endif
                                 </td>
                                 <td>
