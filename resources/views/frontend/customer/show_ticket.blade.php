@@ -13,57 +13,62 @@
             </div>
 
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        New Ticket
-                        <a href="{{ route('open.ticket') }}" style="float: right;" class="btn btn-sm btn-primary">All Tickets</a>
+                <div class="card p-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a href="{{ asset('upload/ticket/'.$ticket->image) }}" target="_blank">
+                                <img src="{{ asset('upload/ticket/'.$ticket->image) }}" alt="" style="width: 120px; height: 80px;">
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <h3>Your ticket details.</h3>
+                            <span><strong>Subject:</strong> {{ $ticket->subject }}</span><br>
+                            <span><strong>Service:</strong> {{ $ticket->service }}</span><br>
+                            <span><strong>Priority:</strong> {{ $ticket->priority }}</span><br>
+                            <span><strong>Message:</strong> {{ $ticket->message }}</span><br>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="card-body">
-                        <strong>Submit your ticket we will reply</strong>
-                        <br>
+                <div class="card p-2 mt-2">
+                    <strong>All Reply Message</strong><br>
+                    <div class="card-body" style="height: 450px; overflow-y: scroll;">
+                        <div class="card mt-1">
+                            <div class="card-header">
+                                <i class="fa fa-user"></i> {{ Auth::user()->name }}
+                            </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div class="card mt-1 ml-4">
+                            <div class="card-header">
+                                <span style="float: right"><i class="fa fa-user"></i> Admin</span>
+                            </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">
+                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                                  <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body mt-2">
+                        <strong>Reply Message.</strong><br>
                         <div>
                             <form action="{{ route('ticket.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
-                                    <label for="subject">Subject</label>
-                                    <input type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" placeholder="Enter subject" required>
-
-                                    @error('subject')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <div class="form-group">
                                     <label for="image">Image</label>
                                     <input type="file" class="form-control" name="image" required>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="service">Service</label>
-                                        <select class="form-control" name="service" id="service" style="min-width: 220px; margin-left: 0px !important;" required>
-                                            <option value="">Select service</option>
-                                            <option value="Technical">Technical</option>
-                                            <option value="Payment">Payment</option>
-                                            <option value="Affiliate">Affiliate</option>
-                                            <option value="Return">Return</option>
-                                            <option value="Refund">Refund</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-md-6">
-                                        <label for="priority">Priority</label>
-                                        <select class="form-control" name="priority" id="priority" style="min-width: 220px; margin-left: 0px !important;" required>
-                                            <option value="">Select priority</option>
-                                            <option value="Low">Low</option>
-                                            <option value="Medium">Medium</option>
-                                            <option value="Heigh">Heigh</option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Message</label>
