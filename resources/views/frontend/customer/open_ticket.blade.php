@@ -48,7 +48,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-sm btn-info" title="Ticket Details">
+                                    <a href="{{ route('show.ticket',$ticket->id) }}" class="btn btn-sm btn-info" title="Ticket Details">
                                         <i class="fa fa-eye"></i>
                                     </a>
 

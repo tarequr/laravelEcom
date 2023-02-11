@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontEnd\CustomerController;
 use App\Http\Controllers\FrontEnd\AddToCartController;
 use App\Http\Controllers\FrontEnd\CheckoutController;
 use App\Http\Controllers\FrontEnd\OrderController;
+use App\Http\Controllers\FrontEnd\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +44,6 @@ Route::get('customer/logout', [CustomerController::class,'logout'])->name('custo
 
 Route::get('customer/setting', [CustomerController::class,'setting'])->name('customer.setting');
 Route::post('customer/password-update', [CustomerController::class,'passwordUpdate'])->name('customer.password.update');
-Route::get('new/ticket', [CustomerController::class,'newTicket'])->name('new.ticket');
-Route::post('ticket/store', [CustomerController::class,'ticketStore'])->name('ticket.store');
-Route::get('open/ticket', [CustomerController::class,'openTicket'])->name('open.ticket');
 
 Route::post('review/store', [ReviewController::class, 'store'])->name('review.store');
 Route::get('write-review', [ReviewController::class, 'writeReview'])->name('write.review');
@@ -75,3 +73,8 @@ Route::get('cart-destroy', function (){
 
 Route::post('order/place', [OrderController::class, 'orderPlace'])->name('order.place');
 Route::get('my/order', [OrderController::class, 'myOrder'])->name('my.order');
+
+Route::get('new/ticket', [TicketController::class,'newTicket'])->name('new.ticket');
+Route::post('ticket/store', [TicketController::class,'ticketStore'])->name('ticket.store');
+Route::get('open/ticket', [TicketController::class,'openTicket'])->name('open.ticket');
+Route::get('show/{id}/ticket', [TicketController::class,'showTicket'])->name('show.ticket');
