@@ -13,6 +13,7 @@ use App\Http\Controllers\BackEnd\PickupController;
 use App\Http\Controllers\BackEnd\ProductController;
 use App\Http\Controllers\BackEnd\SettingController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
+use App\Http\Controllers\BackEnd\TicketController;
 use App\Http\Controllers\BackEnd\WarehouseController;
 
 /*
@@ -40,6 +41,8 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('coupon', CouponController::class);
     Route::resource('campaign', CampaignController::class);
     Route::resource('pickup', PickupController::class);
+
+    Route::get('ticket/index', [TicketController::class,'index'])->name('ticket.index');
 
     Route::resource('product', ProductController::class);
     Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
