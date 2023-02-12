@@ -147,6 +147,20 @@
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ticketPoint"
+            aria-expanded="true" aria-controls="ticketPoint">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Ticket</span>
+        </a>
+        <div id="ticketPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Ticket Components:</h6>
+                <a class="collapse-item" href="{{ route('ticket.index') }}">Manage Ticket</a>
+            </div>
+        </div>
+    </li>
     <!-- Heading -->
     <div class="sidebar-heading">
         Setting
