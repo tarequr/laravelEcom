@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Ticket;
-use App\Http\Controllers\Controller;
+use App\Models\TicketReply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
 
 class TicketController extends Controller
@@ -52,7 +56,6 @@ class TicketController extends Controller
                 $query->where('date',$request->date);
             }
 
-
             $data = $query->orderBy('id','desc')->get();
 
             return DataTables::of($data)
@@ -73,10 +76,10 @@ class TicketController extends Controller
                         }
                     })
                     ->addColumn('action', function($row){
-                        $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
-                        data-target="#editModal" data-id="'.$row->id.'">
-                            <i class="fa fa-pen"></i>
-                            Edit
+                        $actionbtn = '
+                        <a href="'.route('ticket.show',[$row->id]).'" class="btn btn-info btn-sm" title="Show">
+                            <i class="fa fa-eye"></i>
+                            Show
                         </a>
 
                         <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" title="Delete">
@@ -92,7 +95,6 @@ class TicketController extends Controller
                         return $actionbtn;
                     })
                     ->rawColumns(['action','name','status','date'])
-                    // ->rawColumns(['action','status','date'])
                     ->make(true);
         }
 
@@ -128,7 +130,8 @@ class TicketController extends Controller
      */
     public function show($id)
     {
-        //
+        $ticket = Ticket::findOrFail($id);
+        return view('backend.ticket.show',compact('ticket'));
     }
 
     /**
@@ -163,5 +166,37 @@ class TicketController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ticketReply(Request $request)
+    {
+        $this->validate($request, [
+            'message' => 'required',
+        ]);
+
+        try {
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $filename = 'IMG_' . time() . '.' . $file->getClientOriginalExtension();
+                $path = public_path('upload/ticket/').$filename;
+                Image::make($file)->resize(240,120)->save($path);
+            }
+
+            TicketReply::create([
+                'user_id'    => Auth::id(),
+                'image'      => $request->hasFile('image') ? $filename : null,
+                'ticket_id'  => $request->ticket_id,
+                'message'    => $request->message,
+                'reply_date' => date('Y-m-d')
+            ]);
+
+            notify()->success("Ticket Reply Successfully.", "Success");
+            return redirect()->route('ticket.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Ticket Reply Failed.", "Error");
+            return back();
+        }
     }
 }

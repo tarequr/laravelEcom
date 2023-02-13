@@ -27,6 +27,10 @@
             font-size: 1rem;
             color: red
         }
+        .dropify-message p {
+            font-size: 18px;
+        }
+
     </style>
     @stack('css')
 </head>

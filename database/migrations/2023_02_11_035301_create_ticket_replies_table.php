@@ -15,9 +15,11 @@ class CreateTicketRepliesTable extends Migration
     {
         Schema::create('ticket_replies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade');
             $table->text('message')->nullable();
             $table->string('image')->nullable();
+            $table->date('reply_date')->nullable();
             $table->timestamps();
         });
     }

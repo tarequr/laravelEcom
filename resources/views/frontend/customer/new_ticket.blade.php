@@ -23,7 +23,7 @@
                         <strong>Submit your ticket we will reply</strong>
                         <br>
                         <div>
-                            <form action="{{ route('ticket.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('customer.ticket.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
