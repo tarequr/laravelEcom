@@ -165,7 +165,18 @@ class TicketController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            TicketReply::where('ticket_id',$id)->delete();
+            Ticket::find($id)->delete();
+
+            notify()->success("Ticket Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Ticket Delete Failed.", "Error");
+            return back();
+        }
     }
 
     public function ticketReply(Request $request)
