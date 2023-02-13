@@ -76,5 +76,6 @@ Route::get('my/order', [OrderController::class, 'myOrder'])->name('my.order');
 
 Route::get('new/ticket', [TicketController::class,'newTicket'])->name('new.ticket');
 Route::post('customer/ticket/store', [TicketController::class,'ticketStore'])->name('customer.ticket.store');
+Route::post('customer/reply/ticket', [TicketController::class,'replyTicket'])->name('customer.reply.ticket');
 Route::get('open/ticket', [TicketController::class,'openTicket'])->name('open.ticket');
 Route::get('show/{id}/ticket', [TicketController::class,'showTicket'])->name('show.ticket');

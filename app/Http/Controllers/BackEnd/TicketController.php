@@ -68,7 +68,7 @@ class TicketController extends Controller
                     })
                     ->editColumn('status', function($row){
                         if ($row->status == 1) {
-                            return '<span class="badge badge-warning">Running</span>';
+                            return '<span class="badge badge-success">Replied</span>';
                         } elseif ($row->status == 2) {
                             return '<span class="badge badge-muted">Close</span>';
                         } else{
@@ -183,12 +183,14 @@ class TicketController extends Controller
             }
 
             TicketReply::create([
-                'user_id'    => Auth::id(),
+                'user_id'    => 1,
                 'image'      => $request->hasFile('image') ? $filename : null,
                 'ticket_id'  => $request->ticket_id,
                 'message'    => $request->message,
                 'reply_date' => date('Y-m-d')
             ]);
+
+            Ticket::where('id', $request->ticket_id)->update(['status' => 1]);
 
             notify()->success("Ticket Reply Successfully.", "Success");
             return redirect()->route('ticket.index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Models\Ticket;
+use App\Models\TicketReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
@@ -61,5 +62,37 @@ class TicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         return view('frontend.customer.show_ticket',compact('ticket'));
+    }
+
+    public function replyTicket(Request $request)
+    {
+        $this->validate($request, [
+            'message' => 'required',
+        ]);
+
+        try {
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $filename = 'IMG_' . time() . '.' . $file->getClientOriginalExtension();
+                $path = public_path('upload/ticket/').$filename;
+                Image::make($file)->resize(240,120)->save($path);
+            }
+
+            TicketReply::create([
+                'user_id'    => Auth::id(),
+                'image'      => $request->hasFile('image') ? $filename : null,
+                'ticket_id'  => $request->ticket_id,
+                'message'    => $request->message,
+                'reply_date' => date('Y-m-d')
+            ]);
+
+            notify()->success("Ticket Reply Successfully.", "Success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Ticket Reply Failed.", "Error");
+            return back();
+        }
     }
 }

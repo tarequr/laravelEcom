@@ -47,7 +47,7 @@
 
                                                     <div class="form-group">
                                                         <label class="col-form-label">Image</label>
-                                                        <input type="file" class="form-control dropify image" name="image" id="image" data-height="150" required>
+                                                        <input type="file" class="form-control dropify image" name="image" id="image" data-height="150">
                                                     </div>
 
                                                     <div class="form-group">
@@ -58,33 +58,43 @@
                                         </div>
                                     </div>
 
+                                    @php
+                                        $ticket_repleis = App\Models\TicketReply::where('ticket_id',$ticket->id)->get();
+                                    @endphp
+
                                     <div class="col-md-6">
                                         <div class="card">
                                             <div class="card-header bg-primary text-light">All Replies</div>
                                             <div class="card-body" style="height: 500px; overflow-y: scroll;">
-                                                <div class="card mt-1">
-                                                    <div class="card-header">
-                                                        <i class="fa fa-user"></i> {{ Auth::user()->name }}
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <blockquote class="blockquote mb-0">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                                                        </blockquote>
-                                                    </div>
-                                                </div>
-
-                                                <div class="card mt-1 ml-4">
-                                                    <div class="card-header">
-                                                        <span style="float: right"><i class="fa fa-user"></i> Admin</span>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <blockquote class="blockquote mb-0">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                                                            <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                                                        </blockquote>
-                                                    </div>
-                                                </div>
+                                                @isset($ticket_repleis)
+                                                    @foreach ($ticket_repleis as $ticket_reply)
+                                                        @if ($ticket_reply->user_id != 1)
+                                                            <div class="card mt-1">
+                                                                <div class="card-header bg-primary text-light">
+                                                                    <i class="fa fa-user"></i> {{ $ticket->user->name }}
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <blockquote class="blockquote mb-0">
+                                                                    <p>{{ $ticket_reply->message }}</p>
+                                                                    <footer class="blockquote-footer">{{ date('d-M-Y', strtotime($ticket_reply->reply_date)) }}</footer>
+                                                                    </blockquote>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="card mt-1 ml-4">
+                                                                <div class="card-header bg-success text-light">
+                                                                    <span style="float: right"><i class="fa fa-user"></i> Me</span>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <blockquote class="blockquote mb-0">
+                                                                    <p>{{ $ticket_reply->message }}</p>
+                                                                    <footer class="blockquote-footer">{{ date('d-M-Y', strtotime($ticket_reply->reply_date)) }}</footer>
+                                                                    </blockquote>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+                                                @endisset
                                             </div>
                                         </div>
                                     </div>
