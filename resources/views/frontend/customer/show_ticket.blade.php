@@ -31,7 +31,7 @@
                 </div>
 
                 @php
-                    $ticket_repleis = App\Models\TicketReply::where('ticket_id',$ticket->id)->get();
+                    $ticket_repleis = App\Models\TicketReply::where('ticket_id',$ticket->id)->orderBy('id','desc')->get();
                 @endphp
 
                 <div class="card p-2 mt-2">
@@ -79,13 +79,15 @@
                                 <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
 
                                 <div class="form-group">
-                                    <label for="image">Image</label>
-                                    <input type="file" class="form-control" name="image" required>
-                                </div>
-                                <div class="form-group">
                                     <label for="message">Message</label>
                                     <textarea name="message" class="form-control" id="message" cols="30" rows="5" placeholder="Type here..." required></textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <input type="file" class="form-control" name="image" required>
+                                </div>
+
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>

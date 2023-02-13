@@ -43,6 +43,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('pickup', PickupController::class);
     Route::resource('ticket', TicketController::class);
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
+    Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
 
 
     Route::resource('product', ProductController::class);

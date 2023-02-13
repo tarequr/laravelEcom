@@ -51,10 +51,6 @@
                                     <a href="{{ route('show.ticket',$ticket->id) }}" class="btn btn-sm btn-info" title="Ticket Details">
                                         <i class="fa fa-eye"></i>
                                     </a>
-
-                                    <a href="" class="btn btn-sm btn-danger" title="Ticket Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
                                 </td>
                             </tr>
                             @endforeach

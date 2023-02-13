@@ -56,10 +56,11 @@
                                                 </form>
                                             </div>
                                         </div>
+                                        <a href="{{ route('ticket.close',$ticket->id) }}" class="btn btn-sm btn-danger mt-2 float-right">Close Ticket</a>
                                     </div>
 
                                     @php
-                                        $ticket_repleis = App\Models\TicketReply::where('ticket_id',$ticket->id)->get();
+                                        $ticket_repleis = App\Models\TicketReply::where('ticket_id',$ticket->id)->orderBy('id','desc')->get();
                                     @endphp
 
                                     <div class="col-md-6">

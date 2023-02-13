@@ -193,11 +193,26 @@ class TicketController extends Controller
             Ticket::where('id', $request->ticket_id)->update(['status' => 1]);
 
             notify()->success("Ticket Reply Successfully.", "Success");
-            return redirect()->route('ticket.index');
+            return redirect()->back();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
             notify()->error("Ticket Reply Failed.", "Error");
+            return back();
+        }
+    }
+
+    public function ticketClose($id)
+    {
+        try {
+            Ticket::where('id', $id)->update(['status' => 2]);
+
+            notify()->success("Ticket Closed Successfully.", "Success");
+            return redirect()->route('ticket.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Ticket Close Failed.", "Error");
             return back();
         }
     }
