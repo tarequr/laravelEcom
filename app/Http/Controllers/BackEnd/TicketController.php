@@ -17,7 +17,44 @@ class TicketController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Ticket::orderBy('id','desc')->get();
+            $query = Ticket::query();
+
+            //___________SERVEICE FILTERING__________//
+            if ($request->service == 'Technical') {
+                $query->where('service',$request->service);
+            }
+            if ($request->service == 'Payment') {
+                $query->where('service',$request->service);
+            }
+            if ($request->service == 'Affiliate') {
+                $query->where('service',$request->service);
+            }
+            if ($request->service == 'Return') {
+                $query->where('service',$request->service);
+            }
+            if ($request->service == 'Refund') {
+                $query->where('service',$request->service);
+            }
+
+            //___________STATUS FILTERING__________//
+            if ($request->status == '0') {
+                $query->where('status',$request->status);
+            }
+            if ($request->status == '1') {
+                $query->where('status',$request->status);
+            }
+            if ($request->status == '2') {
+                $query->where('status',$request->status);
+            }
+
+            //___________DATE FILTERING__________//
+            if ($request->date) {
+                $query->where('date',$request->date);
+            }
+
+
+            $data = $query->orderBy('id','desc')->get();
+
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->editColumn('name', function($row){

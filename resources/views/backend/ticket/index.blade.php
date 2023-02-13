@@ -12,7 +12,36 @@
                 <i class="fa fa-plus-circle"></i>
                 Create Brand
             </a> --}}
-            <div class="table-responsive">
+            <div class="row">
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Service Type</label>
+                    <select name="service" id="service" class="form-control submitable">
+                        <option value="">All Service</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Payment">Payment</option>
+                        <option value="Affiliate">Affiliate</option>
+                        <option value="Return">Return</option>
+                        <option value="Refund">Refund</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Status</label>
+                    <select name="status" id="status" class="form-control submitable">
+                        <option value="">All status</option>
+                        <option value="0">Pending</option>
+                        <option value="1">Replied</option>
+                        <option value="2">Closed</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Date</label>
+                    <input type="date" class="form-control submitable" name="date" id="date">
+                </div>
+            </div>
+
+            <div class="table-responsive mt-2">
                 <table class="table table-bordered ytable" id="" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -39,9 +68,17 @@
     <script>
         $(function ticket(){
             var table = $('.ytable').DataTable({
+                responsive: true,
                 processing:true,
                 serverSide:true,
-                ajax:"{{ route('ticket.index') }}",
+                ajax: {
+                    "url" : "{{ route('ticket.index') }}",
+                    "data" : function(e) {
+                        e.service = $("#service").val();
+                        e.status = $("#status").val();
+                        e.date = $("#date").val();
+                    }
+                },
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
                     {data:'name', name:'name'},
@@ -61,5 +98,10 @@
         //         $('.modal_body').html(data);
         //     });
         // });
+
+        /*submitable on change*/
+        $(document).on('change','.submitable', function(){
+            $('.ytable').DataTable().ajax.reload();
+        })
     </script>
 @endpush
