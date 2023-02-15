@@ -74,6 +74,8 @@ Route::get('cart-destroy', function (){
 Route::post('order/place', [OrderController::class, 'orderPlace'])->name('order.place');
 Route::get('my/order', [OrderController::class, 'myOrder'])->name('my.order');
 Route::get('view/{id}/order', [OrderController::class, 'viewOrder'])->name('view.order');
+Route::get('order/tracking', [OrderController::class, 'orderTracking'])->name('order.tracking');
+Route::post('check/order', [OrderController::class, 'checkOrder'])->name('check.order');
 
 Route::get('new/ticket', [TicketController::class,'newTicket'])->name('new.ticket');
 Route::post('customer/ticket/store', [TicketController::class,'ticketStore'])->name('customer.ticket.store');

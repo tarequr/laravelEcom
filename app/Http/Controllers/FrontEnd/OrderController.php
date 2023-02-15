@@ -109,4 +109,20 @@ class OrderController extends Controller
 
         return view('frontend.customer.order_details', compact('order','order_details'));
     }
+
+    public function orderTracking()
+    {
+        return view('frontend.customer.order_tracking');
+    }
+
+    public function checkOrder(Request $request)
+    {
+        $check = Order::where('order_id',$request->order_id)->first();
+        if ($check) {
+            # code...
+        } else {
+            notify()->error("Invalid Order ID!", "Error");
+            return back();
+        }
+    }
 }
