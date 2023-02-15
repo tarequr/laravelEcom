@@ -105,8 +105,8 @@ class OrderController extends Controller
     public function viewOrder($id)
     {
         $order = Order::findOrFail($id);
-        $order_details = OrderDetail::where('order_id',$id)->get();
+        $order_details = OrderDetail::with('order')->where('order_id',$id)->get();
 
-        return view('frontend.customer.order_details', compact('orders'));
+        return view('frontend.customer.order_details', compact('order','order_details'));
     }
 }

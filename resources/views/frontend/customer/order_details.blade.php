@@ -15,25 +15,37 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        Order
+                        Order Details
                     </div>
                 </div>
                 <br>
-                <h4>My Order</h4>
+                <div class="card">
+                    <div class="card-body">
+                        Name:
+                        Phone:
+                        Order ID:
+                        Status:
+                        Date:
+                        Subtotal:
+                        Total:
+                    </div>
+                </div>
+                <h4>My Order Details</h4>
                 <div class="table-responsive">
                     <table class="table table-borderd table-striped">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Order Id</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Payment Type</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Color</th>
+                                <th scope="col">Size</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">SubTotal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($orders as $order)
+                            {{-- @foreach ($order_details as $order_detail)
                             <tr>
                                 <th scope="row">{{ $loop->iteration }}</th>
                                 <td>{{ $order->order_id }}</td>
@@ -60,7 +72,7 @@
                                     </a>
                                 </td>
                             </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>
