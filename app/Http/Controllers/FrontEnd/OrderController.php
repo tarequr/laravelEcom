@@ -117,9 +117,11 @@ class OrderController extends Controller
 
     public function checkOrder(Request $request)
     {
-        $check = Order::where('order_id',$request->order_id)->first();
-        if ($check) {
-            # code...
+        $order = Order::where('order_id',$request->order_id)->first();
+        if ($order) {
+            $order_details = OrderDetail::where('order_id',$order->id)->get();
+
+            return view('frontend.customer.order_tracking_details',compact('order','order_details'));
         } else {
             notify()->error("Invalid Order ID!", "Error");
             return back();
