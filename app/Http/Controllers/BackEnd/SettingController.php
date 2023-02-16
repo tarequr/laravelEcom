@@ -6,6 +6,7 @@ use App\Models\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\PaymentGatewayBD;
 use App\Models\Setting;
 use App\Models\Smtp;
 use Illuminate\Support\Facades\URL;
@@ -132,5 +133,14 @@ class SettingController extends Controller
             notify()->error("Setting Update Failed.", "Error");
             return back();
         }
+    }
+
+    public function paymentGateway()
+    {
+        $aamarpay = PaymentGatewayBD::first();
+        $surjopay  = PaymentGatewayBD::skip(1)->first();
+        $sslcommerz = PaymentGatewayBD::skip(2)->first();
+
+        return view('backend.payment_gateway.edit',compact('aamarpay','surjopay','sslcommerz'));
     }
 }

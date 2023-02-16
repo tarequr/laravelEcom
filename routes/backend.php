@@ -67,6 +67,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
         Route::put('smtp/{id}/update',[SettingController::class,'smtpUpdate'])->name('setting.smtp.update');
         Route::get('website',[SettingController::class,'websiteIndex'])->name('setting.website');
         Route::put('website/{id}/update',[SettingController::class,'websiteUpdate'])->name('setting.website.update');
+        Route::get('payment-gateway',[SettingController::class,'paymentGateway'])->name('payment.gateway');
         Route::resource('page', PageController::class);
     });
 

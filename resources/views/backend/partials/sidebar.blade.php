@@ -180,6 +180,7 @@
                 <a class="collapse-item" href="{{ route('setting.smtp') }}">Manage SMTP</a>
                 <a class="collapse-item" href="{{ route('setting.website') }}">Manage Website</a>
                 <a class="collapse-item" href="{{ route('page.index') }}">Manage Page</a>
+                <a class="collapse-item" href="{{ route('payment.gateway') }}">Payment Gateway</a>
             </div>
         </div>
     </li>
