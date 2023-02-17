@@ -74,7 +74,7 @@
                     <div class="card col-lg-4 p-2">
                         <div class="card-header bg-primary text-light">SSLCommerz Gateway</div>
                         <div class="card-body">
-                            <form class="user" method="POST" action="#" enctype="multipart/form-data">
+                            <form class="user" method="POST" action="{{ route('sslcommerz.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
