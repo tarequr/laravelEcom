@@ -63,6 +63,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     /* ~~~~~~~~~~~~PAYMENT GATEWAY~~~~~~~~~~~~~~~ */
     Route::get('payment-gateway', [PaymentGatewayController::class,'paymentGateway'])->name('payment.gateway');
     Route::put('aamarpay/update', [PaymentGatewayController::class,'aamarpayUpdate'])->name('aamarpay.update');
+    Route::put('shurjopay/update', [PaymentGatewayController::class,'shurjopayUpdate'])->name('shurjopay.update');
 
     /* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
     Route::group(['prefix' => 'setting'], function(){

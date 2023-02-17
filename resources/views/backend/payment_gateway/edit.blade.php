@@ -41,7 +41,7 @@
                     <div class="card col-lg-4 p-2">
                         <div class="card-header bg-primary text-light">ShurjoPay Gateway</div>
                         <div class="card-body">
-                            <form class="user" method="POST" action="#" enctype="multipart/form-data">
+                            <form class="user" method="POST" action="{{ route('shurjopay.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
@@ -58,8 +58,8 @@
                                     </div>
 
                                     <div class="form-group col-sm-12">
-                                        <input type="checkbox" name="status" value="1" {{ $sslcommerz->status == 1 ? 'checked' : '' }} id="status">
-                                        <label class="col-form-label" for="status">Live Server</label><br>
+                                        <input type="checkbox" name="status" value="1" {{ $shurjopay->status == 1 ? 'checked' : '' }} id="status2">
+                                        <label class="col-form-label" for="status2">Live Server</label><br>
                                         <small style="font-size: 76.5%;">(If checkbox are not checked it working for sandbox only)</small>
                                     </div>
 
@@ -91,8 +91,8 @@
                                     </div>
 
                                     <div class="form-group col-sm-12">
-                                        <input type="checkbox" name="status" value="1" {{ $sslcommerz->status == 1 ? 'checked' : '' }} id="status">
-                                        <label class="col-form-label" for="status">Live Server</label><br>
+                                        <input type="checkbox" name="status" value="1" {{ $sslcommerz->status == 1 ? 'checked' : '' }} id="status3">
+                                        <label class="col-form-label" for="status3">Live Server</label><br>
                                         <small style="font-size: 76.5%;">(If checkbox are not checked it working for sandbox only)</small>
                                     </div>
 
