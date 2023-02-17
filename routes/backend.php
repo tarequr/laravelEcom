@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\BackEnd\BrandController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BackEnd\CategoryController;
-use App\Http\Controllers\BackEnd\ChildCategoryController;
-use App\Http\Controllers\BackEnd\CouponController;
-use App\Http\Controllers\BackEnd\CampaignController;
-use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\PageController;
+use App\Http\Controllers\BackEnd\BrandController;
+use App\Http\Controllers\BackEnd\CouponController;
 use App\Http\Controllers\BackEnd\PickupController;
+use App\Http\Controllers\BackEnd\TicketController;
 use App\Http\Controllers\BackEnd\ProductController;
 use App\Http\Controllers\BackEnd\SettingController;
-use App\Http\Controllers\BackEnd\SubCategoryController;
-use App\Http\Controllers\BackEnd\TicketController;
+use App\Http\Controllers\BackEnd\CampaignController;
+use App\Http\Controllers\BackEnd\CategoryController;
+use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\WarehouseController;
+use App\Http\Controllers\BackEnd\SubCategoryController;
+use App\Http\Controllers\BackEnd\ChildCategoryController;
+use App\Http\Controllers\BackEnd\PaymentGatewayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,10 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     /* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
     Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 
+    /* ~~~~~~~~~~~~PAYMENT GATEWAY~~~~~~~~~~~~~~~ */
+    Route::get('payment-gateway', [PaymentGatewayController::class,'paymentGateway'])->name('payment.gateway');
+    Route::put('aamarpay/update', [PaymentGatewayController::class,'aamarpayUpdate'])->name('aamarpay.update');
+
     /* ~~~~~~~~~~~~SETTING~~~~~~~~~~~~~~~ */
     Route::group(['prefix' => 'setting'], function(){
         Route::get('seo',[SettingController::class,'seoIndex'])->name('setting.seo');
@@ -67,7 +72,6 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
         Route::put('smtp/{id}/update',[SettingController::class,'smtpUpdate'])->name('setting.smtp.update');
         Route::get('website',[SettingController::class,'websiteIndex'])->name('setting.website');
         Route::put('website/{id}/update',[SettingController::class,'websiteUpdate'])->name('setting.website.update');
-        Route::get('payment-gateway',[SettingController::class,'paymentGateway'])->name('payment.gateway');
         Route::resource('page', PageController::class);
     });
 

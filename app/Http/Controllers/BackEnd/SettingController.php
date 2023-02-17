@@ -135,12 +135,4 @@ class SettingController extends Controller
         }
     }
 
-    public function paymentGateway()
-    {
-        $aamarpay = PaymentGatewayBD::first();
-        $surjopay  = PaymentGatewayBD::skip(1)->first();
-        $sslcommerz = PaymentGatewayBD::skip(2)->first();
-
-        return view('backend.payment_gateway.edit',compact('aamarpay','surjopay','sslcommerz'));
-    }
 }
