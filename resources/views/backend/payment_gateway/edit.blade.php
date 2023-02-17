@@ -8,7 +8,7 @@
                     <div class="card col-lg-4 p-2">
                         <div class="card-header bg-primary text-light">Aamarpay Gateway</div>
                         <div class="card-body">
-                            <form class="user" method="POST" action="#" enctype="multipart/form-data">
+                            <form class="user" method="POST" action="{{ route('aamarpay.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
@@ -16,12 +16,18 @@
                                 <div class="form-row">
                                     <div class="form-group col-sm-12">
                                         <label class="col-form-label">Store ID</label>
-                                        <input type="text" name="store_id" class="form-control" value="{{ $aamarpay->store_id }}" placeholder="Enter Store ID">
+                                        <input type="text" name="store_id" class="form-control" value="{{ $aamarpay->store_id }}" placeholder="Enter Store ID" required>
                                     </div>
 
                                     <div class="form-group col-sm-12">
                                         <label class="col-form-label">Signature KEY</label>
-                                        <input type="text" name="signature_key" class="form-control" value="{{ $aamarpay->signature_key }}" placeholder="Enter Signature KEY">
+                                        <input type="text" name="signature_key" class="form-control" value="{{ $aamarpay->signature_key }}" placeholder="Enter Signature KEY" required>
+                                    </div>
+
+                                    <div class="form-group col-sm-12">
+                                        <input type="checkbox" name="status" value="1" {{ $aamarpay->status == 1 ? 'checked' : '' }} id="status">
+                                        <label class="col-form-label" for="status">Live Server</label><br>
+                                        <small style="font-size: 76.5%;">(If checkbox are not checked it working for sandbox only)</small>
                                     </div>
 
                                     <div class="form-group col-sm-12">
@@ -52,6 +58,12 @@
                                     </div>
 
                                     <div class="form-group col-sm-12">
+                                        <input type="checkbox" name="status" value="1" {{ $sslcommerz->status == 1 ? 'checked' : '' }} id="status">
+                                        <label class="col-form-label" for="status">Live Server</label><br>
+                                        <small style="font-size: 76.5%;">(If checkbox are not checked it working for sandbox only)</small>
+                                    </div>
+
+                                    <div class="form-group col-sm-12">
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
                                 </div>
@@ -76,6 +88,12 @@
                                     <div class="form-group col-sm-12">
                                         <label class="col-form-label">Signature KEY</label>
                                         <input type="text" name="signature_key" class="form-control" value="{{ $sslcommerz->signature_key }}" placeholder="Enter Signature KEY">
+                                    </div>
+
+                                    <div class="form-group col-sm-12">
+                                        <input type="checkbox" name="status" value="1" {{ $sslcommerz->status == 1 ? 'checked' : '' }} id="status">
+                                        <label class="col-form-label" for="status">Live Server</label><br>
+                                        <small style="font-size: 76.5%;">(If checkbox are not checked it working for sandbox only)</small>
                                     </div>
 
                                     <div class="form-group col-sm-12">

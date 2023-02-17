@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEnd;
 
 use Illuminate\Http\Request;
 use App\Models\PaymentGatewayBD;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 
 class PaymentGatewayController extends Controller
@@ -19,6 +20,21 @@ class PaymentGatewayController extends Controller
 
     public function aamarpayUpdate(Request $request)
     {
-        # code...
+        try {
+            $aamarpay = PaymentGatewayBD::findOrFail($request->id);
+            $aamarpay->update([
+                'store_id' => $request->store_id,
+                'signature_key' => $request->signature_key,
+                'status' => $request->filled('status')
+            ]);
+
+            notify()->success("Payment Updated Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Payment Update Failed.", "Error");
+            return back();
+        }
     }
 }
