@@ -66,17 +66,17 @@
                                 </div>
 
                                 <div class="form-group col-lg-4">
-                                    <label for="">SSL Commerce</label>
-                                    <input type="radio" name="payment_type" value="ssl_commerce">
+                                    <label for="">Bkash/Rocket/Nagad</label>
+                                    <input type="radio" name="payment_type" value="aamarpay" checked>
                                 </div>
 
                                 <div class="form-group col-lg-4">
                                     <label for="">Hand Cash</label>
-                                    <input type="radio" name="payment_type" value="hand_cash" checked>
+                                    <input type="radio" name="payment_type" value="hand_cash">
                                 </div>
 
                                 <div class="form-group col-md-12">
-                                    <button type="submit" class="btn btn-info">Apply Coupon</button>
+                                    <button type="submit" class="btn btn-info">Order Place</button>
                                 </div>
                             </div>
                         </form>

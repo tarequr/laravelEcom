@@ -51,4 +51,5 @@ class CheckoutController extends Controller
         notify()->success("Session removed successfully", "Success");
         return redirect()->back();
     }
+
 }
