@@ -131,10 +131,10 @@ class OrderController extends Controller
                         'success_url' => route('success'), //your success route
                         'fail_url' => route('fail'), //your fail route
                         'cancel_url' => 'http://localhost/foldername/cancel.php', //your cancel url
-                        'opt_a' => Session::has('coupon') ? Cart::subtotal() : Cart::total(),  //optional paramter
-                        'opt_b' => $request->payment_type,
-                        'opt_c' => Auth::id(),
-                        'opt_d' => $randNumber,
+                        'opt_a' => $request->c_country,  //optional paramter
+                        'opt_b' => $request->c_city,
+                        'opt_c' => $request->c_phone,
+                        'opt_d' => $request->c_address,
                         'signature_key' => $aamarpay->signature_key
                     ); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
 
@@ -185,7 +185,69 @@ class OrderController extends Controller
 
     public function success(Request $request)
     {
-        return $request;
+        // return $request;
+
+        DB::beginTransaction();
+
+        $randNumber = rand(100000,999999);
+
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'order_id' => $randNumber,
+            'c_name' => $request->cus_name,
+            'c_email' => $request->cus_email,
+            'c_phone' => $request->opt_c,
+            'c_country' => $request->opt_a,
+            'c_address' => $request->opt_d,
+            'c_city' => $request->opt_b,
+            'total' => Cart::total(),
+            'subtotal' => Session::has('coupon') ? Cart::subtotal() : null,
+            'coupon_code' => Session::has('coupon') ? Session::get('coupon')['name'] : null,
+            'coupon_discount' => Session::has('coupon') ? Session::get('coupon')['discount'] : null,
+            'after_discount' => Session::has('coupon') ? Session::get('coupon')['after_discount'] : null,
+            'payment_type' => 'aamarpay',
+            'tax' => 0,
+            'shipping_charge' => 0,
+            'date' => date('Y-m-d'),
+            'status' => 1
+        ]);
+
+        $orderMail['order_id'] = $randNumber;
+        $orderMail['date'] = date('Y-m-d');
+        $orderMail['total'] = Cart::total();
+        $orderMail['c_name'] = $request->cus_name;
+        $orderMail['c_phone'] = $request->opt_c;
+        $orderMail['c_address'] = $request->opt_d;
+
+        Mail::to(Auth::user()->email)->send(new InvoiceMail($orderMail));
+
+        if ($order){
+            $contents = Cart::content();
+            if ($contents) {
+                foreach ($contents as $key => $row) {
+                    OrderDetail::create([
+                        'order_id' => $order->id,
+                        'product_id' => $row->id,
+                        'product_name' => $row->name,
+                        'color' => $row->options->color,
+                        'size' => $row->options->size,
+                        'quantity' => $row->qty,
+                        'single_price' => $row->price,
+                        'subtotal_price' => $row->price * $row->qty
+                    ]);
+                }
+            }
+        }
+
+        DB::commit();
+
+        Cart::destroy();
+        if (Session::has('coupon')){
+            Session::forget('coupon');
+        }
+
+        notify()->success("Order placed successfully!", "Success");
+        return redirect()->route('customer.dashboard');
     }
 
     public function fail(Request $request)
