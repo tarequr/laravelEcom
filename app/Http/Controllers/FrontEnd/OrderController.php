@@ -25,11 +25,11 @@ class OrderController extends Controller
                 return redirect()->back();
             }
 
+            $randNumber = rand(100000,999999);
+
             if ($request->payment_type == "hand_cash") {
 
                 DB::beginTransaction();
-
-                $randNumber = rand(100000,999999);
 
                 $order = Order::create([
                     'user_id' => Auth::id(),
@@ -110,16 +110,16 @@ class OrderController extends Controller
                         'payment_type' => 'VISA', //no need to change
                         'currency' => 'BDT',  //currenct will be USD/BDT
                         'tran_id' => rand(1111111,9999999), //transaction id must be unique from your end
-                        'cus_name' => 'customer name',  //customer name
-                        'cus_email' => 'customeremail@mail.com', //customer email address
-                        'cus_add1' => 'Dhaka',  //customer address
+                        'cus_name' => $request->c_name,  //customer name
+                        'cus_email' => $request->c_email, //customer email address
+                        'cus_add1' => $request->c_address,  //customer address
                         'cus_add2' => 'Mohakhali DOHS', //customer address
-                        'cus_city' => 'Dhaka',  //customer city
+                        'cus_city' => $request->c_city,  //customer city
                         'cus_state' => 'Dhaka',  //state
-                        'cus_postcode' => '1206', //postcode or zipcode
-                        'cus_country' => 'Bangladesh',  //country
-                        'cus_phone' => '1231231231231', //customer phone number
-                        'cus_fax' => 'Not¬Applicable',  //fax
+                        'cus_postcode' =>  $request->c_zipcode, //postcode or zipcode
+                        'cus_country' => $request->c_country, //country
+                        'cus_phone' => $request->c_phone, //customer phone number
+                        'cus_fax' => $request->c_extra_phone,  //fax
                         'ship_name' => 'ship name', //ship name
                         'ship_add1' => 'House B-121, Road 21',  //ship address
                         'ship_add2' => 'Mohakhali',
@@ -131,11 +131,12 @@ class OrderController extends Controller
                         'success_url' => route('success'), //your success route
                         'fail_url' => route('fail'), //your fail route
                         'cancel_url' => 'http://localhost/foldername/cancel.php', //your cancel url
-                        'opt_a' => 'Reshad',  //optional paramter
-                        'opt_b' => 'Akil',
-                        'opt_c' => 'Liza',
-                        'opt_d' => 'Sohel',
-                        'signature_key' => $aamarpay->signature_key); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
+                        'opt_a' => Session::has('coupon') ? Cart::subtotal() : Cart::total(),  //optional paramter
+                        'opt_b' => $request->payment_type,
+                        'opt_c' => Auth::id(),
+                        'opt_d' => $randNumber,
+                        'signature_key' => $aamarpay->signature_key
+                    ); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
 
                         $fields_string = http_build_query($fields);
 
