@@ -32,6 +32,19 @@
 		</div>
 	</div>
 
+    @isset($campaign)
+        <div class="characteristics">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-8">
+                        <h5 class="text-center">{{ $campaign->title }}</h5>
+                        <img src="{{ asset('upload/campaign/'.$campaign->image) }}" alt="" style="width: 100%; height: 80px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endisset
+
 	<!-- Characteristics -->
 
 	<div class="characteristics">
