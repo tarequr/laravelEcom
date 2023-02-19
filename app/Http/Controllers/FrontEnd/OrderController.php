@@ -130,7 +130,7 @@ class OrderController extends Controller
                         'desc' => 'payment description',
                         'success_url' => route('success'), //your success route
                         'fail_url' => route('fail'), //your fail route
-                        'cancel_url' => 'http://localhost/foldername/cancel.php', //your cancel url
+                        'cancel_url' => route('cancel'), //your cancel url
                         'opt_a' => $request->c_country,  //optional paramter
                         'opt_b' => $request->c_city,
                         'opt_c' => $request->c_phone,
@@ -253,6 +253,11 @@ class OrderController extends Controller
     public function fail(Request $request)
     {
         return $request;
+    }
+
+    public function cancel()
+    {
+        return redirect()->route('frontend.home');
     }
 
     public function myOrder()

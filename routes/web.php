@@ -74,6 +74,7 @@ Route::get('cart-destroy', function (){
 //___________________PAYMENT GETWAY__________________________//
 Route::post('success',[OrderController::class, 'success'])->name('success');
 Route::post('fail',[OrderController::class, 'fail'])->name('fail');
+Route::post('cancel',[OrderController::class, 'cancel'])->name('cancel');
 
 Route::post('order/place', [OrderController::class, 'orderPlace'])->name('order.place');
 Route::get('my/order', [OrderController::class, 'myOrder'])->name('my.order');
