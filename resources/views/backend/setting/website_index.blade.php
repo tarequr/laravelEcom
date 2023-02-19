@@ -58,12 +58,12 @@
 
                                         <div class="form-group col-sm-6">
                                             <label class="col-form-label">Logo</label>
-                                            <input type="file" name="logo" class="form-control">
+                                            <input type="file" name="logo" class="form-control dropify" data-default-file="{{ @$websiteSetting ? asset('upload/setting/'.$websiteSetting->logo) : '' }}">
                                         </div>
 
                                         <div class="form-group col-sm-6">
                                             <label class="col-form-label">Favicon</label>
-                                            <input type="file" name="favicon" class="form-control">
+                                            <input type="file" name="favicon" class="form-control dropify" data-default-file="{{ @$websiteSetting ? asset('upload/setting/'.$websiteSetting->favicon) : '' }}">
                                         </div>
 
                                         <div class="form-group col-sm-12" style="margin: 0px">
