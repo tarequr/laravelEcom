@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\BackEnd;
 
-use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
@@ -20,13 +21,13 @@ class OrderController extends Controller
             $data = "";
             $query = Order::query();
 
-            if ($request->category_id) {
-                $query->where('category_id',$request->category_id);
-            }
+            // if ($request->category_id) {
+            //     $query->where('category_id',$request->category_id);
+            // }
 
-            if ($request->brand_id) {
-                $query->where('brand_id',$request->brand_id);
-            }
+            // if ($request->brand_id) {
+            //     $query->where('brand_id',$request->brand_id);
+            // }
 
             if ($request->status == '1') {
                 $query->where('status','1');
@@ -38,45 +39,18 @@ class OrderController extends Controller
 
             $data = $query->orderBy('id','desc')->get();
 
-            $imagePath = asset('upload/product');
             return DataTables::of($data)
                     ->addIndexColumn()
-                    ->editColumn('thumbnail', function($row) use($imagePath) {
-                        return '<img src="'.$imagePath.'/'.$row->thumbnail.'" height="50" width="70" >';
-                    })
-                    ->editColumn('category_name', function($row){
-                        return $row->category->name;
-                    })
-                    ->editColumn('subcategory_name', function($row){
-                        return $row->subCategories->subcategory_name;
-                    })
-                    ->editColumn('brnad_name', function($row){
-                        return $row->brand->brnad_name;
-                    })
-                    ->editColumn('featured', function($row){
-                        if ($row->featured == 1) {
-                            return '<a href="#" data-id="'.$row->id.'" class="deactive_featured"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
-                        } else{
-                            return '<a href="#" data-id="'.$row->id.'" class="active_featured"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
-                        }
-                    })
-                    ->editColumn('toady_deal_id', function($row){
-                        if ($row->toady_deal_id == 1) {
-                            return '<a href="#" data-id="'.$row->id.'" class="deactive_toadydeal"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
-                        } else{
-                            return '<a href="#" data-id="'.$row->id.'" class="active_toadydeal"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
-                        }
-                    })
                     ->editColumn('status', function($row){
                         if ($row->status == 1) {
-                            return '<a href="#" data-id="'.$row->id.'" class="deactive_status"><i class="fa fa-thumbs-down text-danger"></i> <span class="badge badge-success">Active</span></a>';
+                            return '<span class="badge badge-success">Active</span>';
                         } else{
-                            return '<a href="#" data-id="'.$row->id.'" class="active_status"><i class="fa fa-thumbs-up text-success"></i> <span class="badge badge-danger">Deactive</span></a>';
+                            return '<span class="badge badge-danger">Deactive</span>';
                         }
                     })
                     ->addColumn('action', function($row){
                         $actionbtn = '
-                        <a href="'.route('product.edit',[$row->id]).'" class="btn btn-success btn-sm edit" title="Edit">
+                        <a href="'.route('order.edit',[$row->id]).'" class="btn btn-success btn-sm edit" title="Edit">
                             <i class="fa fa-pen"></i>
                             Edit
                         </a>
@@ -91,7 +65,7 @@ class OrderController extends Controller
                             <span>Delete</span>
                         </button>
 
-                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('product.destroy',[$row->id]).'" style="display: none;">
+                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('order.destroy',[$row->id]).'" style="display: none;">
                             '.csrf_field().'
                             '.method_field("DELETE").'
                         </form>';
@@ -102,10 +76,7 @@ class OrderController extends Controller
                     ->make(true);
         }
 
-        $categories = Category::orderBy('id','desc')->get();
-        $brands = Brand::orderBy('id','desc')->get();
-
-        return view('backend.product.index',compact('categories','brands'));
+        return view('backend.order.index');
     }
 
     /**
