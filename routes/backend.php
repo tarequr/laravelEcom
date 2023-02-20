@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\BrandController;
+use App\Http\Controllers\BackEnd\OrderController;
 use App\Http\Controllers\BackEnd\CouponController;
 use App\Http\Controllers\BackEnd\PickupController;
 use App\Http\Controllers\BackEnd\TicketController;
@@ -43,6 +44,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('campaign', CampaignController::class);
     Route::resource('pickup', PickupController::class);
     Route::resource('ticket', TicketController::class);
+    Route::resource('order', OrderController::class);
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
 
