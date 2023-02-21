@@ -16,24 +16,23 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="col-md-3 p-2">
-                    <label class="col-form-label">Brand</label>
-                    <select name="brand_id" id="brand_id" class="form-control submitable">
-                        <option value="">All brand</option>
-                        @foreach ($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->brnad_name }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
+                    <label class="col-form-label">Date</label>
+                    <input type="date" name="date" id="date" class="form-control submitable">
+                </div>
 
                 <div class="col-md-3 p-2">
                     <label class="col-form-label">Status</label>
                     <select name="status" id="status" class="form-control submitable">
                         <option value="">All status</option>
-                        <option value="1">Active</option>
-                        <option value="0">Deactive</option>
+                        <option value="0">Order Pending</option>
+                        <option value="1">Order Received</option>
+                        <option value="2">Order Shipping</option>
+                        <option value="3">Order Done</option>
+                        <option value="4">Order Return</option>
+                        <option value="5">Order Cancle</option>
                     </select>
                 </div>
             </div>
@@ -66,27 +65,6 @@
 
 @push('js')
     <script>
-        // $(document).ready(function() {
-        //     // $('#myform').validate({
-        //     //     rules: {
-        //     //         name: {
-        //     //             required: true
-        //     //         }
-        //     //     }
-        //     // });
-
-        //     $('body').on('click','.edit', function(){
-        //         let subcat_id = $(this).data('id');
-        //         $.get("subcategory/"+subcat_id+"/edit", function(data){
-        //             $('.modal_body').html(data);
-        //         });
-        //     });
-        // });
-
-        // $('.ytable').DataTable({
-        //     responsive: true,
-        // });
-
         $(function product(){
             var table = $('.ytable').DataTable({
                 responsive: true,
@@ -95,11 +73,11 @@
                 // ajax:"{{ route('product.index') }}",
                 ajax: {
                     "url" : "{{ route('order.index') }}",
-                    // "data" : function(e) {
-                    //     e.category_id = $("#category_id").val();
-                    //     e.brand_id = $("#brand_id").val();
-                    //     e.status = $("#status").val();
-                    // }
+                    "data" : function(e) {
+                        // e.category_id = $("#category_id").val();
+                        e.date = $("#date").val();
+                        e.status = $("#status").val();
+                    }
                 },
                 aoColumns:[
                     {data:'DT_RowIndex', name:'DT_RowIndex'},
@@ -114,105 +92,6 @@
                     {data:'action', name:'action',orderable:true,searchable:true},
                 ]
             });
-        });
-
-
-        //featured
-        $('body').on('click','.deactive_featured', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('not-featured') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Featured Deactive Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
-        });
-
-        $('body').on('click','.active_featured', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('active-featured') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Featured Active Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
-        });
-
-        //toadydeal
-        $('body').on('click','.deactive_toadydeal', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('not-toadydeal') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Toady Deal Deactive Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
-        });
-
-        $('body').on('click','.active_toadydeal', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('active-toadydeal') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Toady Deal Active Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
-        });
-
-        //status
-        $('body').on('click','.deactive_status', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('not-status') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Status Deactive Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
         });
 
         $('body').on('click','.active_status', function(e){
