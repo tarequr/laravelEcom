@@ -34,7 +34,7 @@ class CreateOrdersTable extends Migration
             $table->integer('tax')->nullable();
             $table->integer('shipping_charge')->nullable();
             $table->date('date')->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(0)->comment('here 0 = panding, 1 = Received, 2 = Shipping, 3 = Done, 4 = Return, 5 = Cancle');
             $table->timestamps();
         });
     }
