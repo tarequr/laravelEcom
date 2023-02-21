@@ -8,15 +8,15 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row">
-                {{-- <div class="col-md-3 p-2">
-                    <label class="col-form-label">Category</label>
-                    <select name="category_id" id="category_id" class="form-control submitable">
-                        <option value="">All category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
+                <div class="col-md-3 p-2">
+                    <label class="col-form-label">Payment Type</label>
+                    <select name="payment_type" id="payment_type" class="form-control submitable">
+                        <option value="">All payment type</option>
+                        <option value="hand_cash">Hand Cash</option>
+                        <option value="aamarpay">Aamarpay</option>
+                        <option value="paypal">Paypal</option>
                     </select>
-                </div> --}}
+                </div>
 
                 <div class="col-md-3 p-2">
                     <label class="col-form-label">Date</label>
@@ -46,8 +46,8 @@
                             <th class="text-center">Name</th>
                             <th class="text-center">Email</th>
                             <th class="text-center">Phone</th>
-                            <th class="text-center">Subtotal</th>
-                            <th class="text-center">Total</th>
+                            <th class="text-center">Subtotal ({{ $setting->currency }})</th>
+                            <th class="text-center">Total ({{ $setting->currency }})</th>
                             <th class="text-center">Payment Type</th>
                             <th class="text-center">Date</th>
                             <th class="text-center">Status</th>
@@ -70,11 +70,10 @@
                 responsive: true,
                 processing:true,
                 serverSide:true,
-                // ajax:"{{ route('product.index') }}",
                 ajax: {
                     "url" : "{{ route('order.index') }}",
                     "data" : function(e) {
-                        // e.category_id = $("#category_id").val();
+                        e.payment_type = $("#payment_type").val();
                         e.date = $("#date").val();
                         e.status = $("#status").val();
                     }
@@ -92,25 +91,6 @@
                     {data:'action', name:'action',orderable:true,searchable:true},
                 ]
             });
-        });
-
-        $('body').on('click','.active_status', function(e){
-            e.preventDefault();
-
-            let id = $(this).data('id');
-            let url = "{{ url('active-status') }}/"+id;
-            $.ajax({
-                url: url,
-                type: 'get',
-                success: function(data){
-                    iziToast.success({
-                        title: 'Success',
-                        message: 'Poduct Status Active Successfully.',
-                        position: 'topRight'
-                    });
-                    $('.ytable').DataTable().ajax.reload();
-                }
-            })
         });
 
         /*submitable on change*/

@@ -21,9 +21,9 @@ class OrderController extends Controller
             $data = "";
             $query = Order::query();
 
-            // if ($request->category_id) {
-            //     $query->where('category_id',$request->category_id);
-            // }
+            if ($request->payment_type) {
+                $query->where('payment_type',$request->payment_type);
+            }
 
             if ($request->date) {
                 $query->where('date', date('Y-m-d', strtotime($request->date)));
