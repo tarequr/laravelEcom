@@ -77,25 +77,25 @@ class OrderController extends Controller
                     })
                     ->addColumn('action', function($row){
                         $actionbtn = '
-                        <a href="'.route('order.edit',[$row->id]).'" class="btn btn-success btn-sm edit" title="Edit">
-                            <i class="fa fa-pen"></i>
-                            Edit
-                        </a>
+                        <div class="d-flex">
+                            <a href="'.route('order.edit',[$row->id]).'" class="btn btn-success btn-sm edit mr-1" title="Edit" >
+                                <i class="fa fa-pen"></i>
+                            </a>
 
-                        <a href="#" class="btn btn-info btn-sm edit" title="Show">
-                            <i class="fa fa-eye"></i>
-                            Show
-                        </a>
+                            <a href="#" class="btn btn-info btn-sm edit mr-1" title="Show">
+                                <i class="fa fa-eye"></i>
+                            </a>
 
-                        <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
-                            <i class="fa fa-trash"></i>
-                            <span>Delete</span>
-                        </button>
+                            <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
+                                <i class="fa fa-trash"></i>
+                            </button>
 
-                        <form id="delete-form-'.$row->id.'" method="POST" action="'.route('order.destroy',[$row->id]).'" style="display: none;">
-                            '.csrf_field().'
-                            '.method_field("DELETE").'
-                        </form>';
+                            <form id="delete-form-'.$row->id.'" method="POST" action="'.route('order.destroy',[$row->id]).'" style="display: none;">
+                                '.csrf_field().'
+                                '.method_field("DELETE").'
+                            </form>
+                        </div>
+                        ';
 
                         return $actionbtn;
                     })
