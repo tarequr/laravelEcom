@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -159,7 +160,30 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'c_name' => 'required',
+            'c_phone' => 'required',
+            'c_address' => 'required',
+            'status' => 'required'
+        ]);
+
+        try {
+            $order = Order::findOrFail($id);
+            $order->update([
+                "c_name" => $request->c_name,
+                "c_phone" => $request->c_phone,
+                "c_address" => $request->c_address,
+                "status" => $request->status,
+            ]);
+
+            notify()->success("Order Updated Successfully.", "Success");
+            return redirect()->route('order.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Order Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**
