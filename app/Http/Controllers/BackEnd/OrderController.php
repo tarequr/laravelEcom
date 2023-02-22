@@ -78,12 +78,12 @@ class OrderController extends Controller
                     ->addColumn('action', function($row){
                         $actionbtn = '
                         <div class="d-flex">
-                            <a href="'.route('order.edit',[$row->id]).'" class="btn btn-success btn-sm edit mr-1" title="Edit" >
-                                <i class="fa fa-pen"></i>
-                            </a>
-
                             <a href="#" class="btn btn-info btn-sm edit mr-1" title="Show">
                                 <i class="fa fa-eye"></i>
+                            </a>
+
+                            <a href="#" class="btn btn-success btn-sm edit mr-1" title="Edit" data-toggle="modal" data-target="#editModal" data-id="'.$row->id.'">
+                                <i class="fa fa-pen"></i>
                             </a>
 
                             <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" data-id="'.$row->id.'" title="Delete" >
@@ -146,7 +146,8 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('backend.order.edit',compact('order'));
     }
 
     /**

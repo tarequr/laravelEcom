@@ -61,6 +61,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('js')
@@ -97,5 +115,13 @@
         $(document).on('change','.submitable', function(){
             $('.ytable').DataTable().ajax.reload();
         })
+
+        $('body').on('click','.edit', function(){
+            let id = $(this).data('id');
+            $.get("order/"+id+"/edit", function(data){
+                console.log(data);
+                $('.modal_body').html(data);
+            });
+        });
     </script>
 @endpush
