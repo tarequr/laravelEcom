@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Models\Order;
+use App\Mail\ReceivedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
@@ -171,10 +173,16 @@ class OrderController extends Controller
             $order = Order::findOrFail($id);
             $order->update([
                 "c_name" => $request->c_name,
+                "c_email" => $request->c_email,
                 "c_phone" => $request->c_phone,
                 "c_address" => $request->c_address,
                 "status" => $request->status,
             ]);
+
+            if ($request->status == "1") {
+                $orderMail = "";
+                Mail::to($request->c_email)->send(new ReceivedMail($orderMail));
+            }
 
             notify()->success("Order Updated Successfully.", "Success");
             return redirect()->route('order.index');

@@ -9,6 +9,11 @@
         </div>
 
         <div class="form-group">
+            <label for="c_email" class="col-form-label">Email</label>
+            <input type="email" class="form-control" name="c_email" id="c_email" value="{{ $order->c_email }}" placeholder="Enter email" required>
+        </div>
+
+        <div class="form-group">
             <label for="c_phone" class="col-form-label">Phone</label>
             <input type="text" class="form-control" name="c_phone" id="c_phone" value="{{ $order->c_phone }}" placeholder="Enter phone" required>
         </div>
