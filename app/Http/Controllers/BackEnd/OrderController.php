@@ -209,7 +209,18 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Order::findOrFail($id)->delete();
+            OrderDetail::where('order_id', $id)->delete();
+
+            notify()->success("Order Deleted Successfully.", "Success");
+            return redirect()->route('order.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Order Delete Failed.", "Error");
+            return back();
+        }
     }
 
     public function orderDetails($id)
