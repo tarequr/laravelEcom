@@ -7,6 +7,7 @@ use App\Mail\ReceivedMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -139,7 +140,12 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = Order::findOrFail($id);
-        return view('backend.order.show',compact('order'));
+        return response()->json($order);
+
+
+        // $order_details = OrderDetail::where('order_id', $id)->get();
+
+        // return view('backend.order.show',compact('order','order_details'));
     }
 
     /**
@@ -204,5 +210,13 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function orderDetails($id)
+    {
+        $order = Order::findOrFail($id);
+        $order_details = OrderDetail::where('order_id', $id)->get();
+
+        return view('backend.order.show',compact('order','order_details'));
     }
 }

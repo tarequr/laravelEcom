@@ -85,7 +85,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="showModalLabel">Show</h5>
+                    <h5 class="modal-title" id="showModalLabel"><strong>Order Details</strong></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -143,7 +143,7 @@
 
         $('body').on('click','.show', function(){
             let id = $(this).data('id');
-            $.get("order/"+id+"/show", function(data){
+            $.get("order/"+id+"/details", function(data){
                 console.log(data);
                 $('.show_modal_body').html(data);
             });
