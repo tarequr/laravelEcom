@@ -81,7 +81,7 @@ class OrderController extends Controller
                     ->addColumn('action', function($row){
                         $actionbtn = '
                         <div class="d-flex">
-                            <a href="#" class="btn btn-info btn-sm edit mr-1" title="Show">
+                            <a href="#" class="btn btn-info btn-sm show mr-1" title="Show" data-toggle="modal" data-target="#showModal" data-id="'.$row->id.'">
                                 <i class="fa fa-eye"></i>
                             </a>
 
@@ -138,7 +138,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('backend.order.show',compact('order'));
     }
 
     /**
