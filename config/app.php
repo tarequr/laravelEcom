@@ -168,6 +168,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,  //using yajra database for lots of data
         Intervention\Image\ImageServiceProvider::class,  //image resize package
         LaraIzitoast\LaraIzitoastServiceProvider::class,  //success message
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -233,6 +234,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
