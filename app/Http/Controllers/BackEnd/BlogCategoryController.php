@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\BackEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 
 class BlogCategoryController extends Controller
@@ -14,7 +15,8 @@ class BlogCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $blog_categories = BlogCategory::all();
+        return view('backend.blog_category.index',compact('blog_categories'));
     }
 
     /**

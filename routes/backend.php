@@ -54,7 +54,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
 
-    Route::resource('blog-category', [BlogCategoryController::class]);
+    Route::resource('blog-category', BlogCategoryController::class);
     Route::resource('product', ProductController::class);
     Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
     Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);

@@ -177,15 +177,15 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#orderPoint"
-            aria-expanded="true" aria-controls="orderPoint">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#blogPoint"
+            aria-expanded="true" aria-controls="blogPoint">
             <i class="fas fa-light fa-gem"></i>
             <span>Blog</span>
         </a>
-        <div id="orderPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="blogPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Blog Components:</h6>
-                <a class="collapse-item" href="{{ route('order.index') }}">Manage Blog Category</a>
+                <a class="collapse-item" href="{{ route('blog-category.index') }}">Manage Blog Category</a>
                 <a class="collapse-item" href="{{ route('order.index') }}">Manage Blog</a>
             </div>
         </div>
