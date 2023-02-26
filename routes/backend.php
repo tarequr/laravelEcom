@@ -16,6 +16,7 @@ use App\Http\Controllers\BackEnd\CategoryController;
 use App\Http\Controllers\BackEnd\DashboardController;
 use App\Http\Controllers\BackEnd\WarehouseController;
 use App\Http\Controllers\BackEnd\SubCategoryController;
+use App\Http\Controllers\BackEnd\BlogCategoryController;
 use App\Http\Controllers\BackEnd\ChildCategoryController;
 use App\Http\Controllers\BackEnd\PaymentGatewayController;
 
@@ -53,7 +54,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
 
-
+    Route::resource('blog-category', [BlogCategoryController::class]);
     Route::resource('product', ProductController::class);
     Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
     Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);
