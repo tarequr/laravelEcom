@@ -65,6 +65,12 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="text-center mt-2">
+                        <p><strong>Or Sign in with</strong></p>
+                        <a href="{{ route('login.provider','github') }}" class="btn btn-outline-secondary">Github</a>
+                        <a href="{{ route('login.provider','google') }}" class="btn btn-outline-primary">Google</a>
+                    </div>
                 </div>
             </div>
         </div>

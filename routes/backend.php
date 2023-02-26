@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\BrandController;
+use App\Http\Controllers\BackEnd\LoginController;
 use App\Http\Controllers\BackEnd\OrderController;
 use App\Http\Controllers\BackEnd\CouponController;
 use App\Http\Controllers\BackEnd\PickupController;
@@ -30,6 +31,9 @@ use App\Http\Controllers\BackEnd\PaymentGatewayController;
 */
 
 Auth::routes();
+
+Route::get('login/{provider}', [LoginController::class,'redirectToProvider'])->name('login.provider');
+Route::get('login/{provider}/callback', [LoginController::class,'handleProviderCallback'])->name('login.callback');
 
 Route::group(['middleware'=>['auth','is_admin']],function(){
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
