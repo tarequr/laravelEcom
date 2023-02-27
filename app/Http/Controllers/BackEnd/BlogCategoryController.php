@@ -118,6 +118,17 @@ class BlogCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $blogCategory = BlogCategory::find($id);
+            $blogCategory->delete();
+
+            notify()->success("Blog Category Deleted Successfully.", "Success");
+            return back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Blog Category Delete Failed.", "Error");
+            return back();
+        }
     }
 }
