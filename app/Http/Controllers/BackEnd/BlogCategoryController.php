@@ -79,7 +79,8 @@ class BlogCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = BlogCategory::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -91,7 +92,22 @@ class BlogCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $blogCategory = BlogCategory::find($request->blogcategory_id);
+            $blogCategory->update([
+                'name' => $request->name,
+                'slug'  => Str::slug($request->name,'-'),
+                'status' => $request->status,
+            ]);
+
+            notify()->success("Blog Category Updated Successfully.", "Success");
+            return redirect()->route('blog-category.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Blog Category Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**

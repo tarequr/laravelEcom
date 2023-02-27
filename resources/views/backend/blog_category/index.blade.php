@@ -100,29 +100,23 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('category.update',1) }}" class="formData" id="myform">
+                <form method="POST" action="{{ route('blog-category.update',1) }}" class="formData" id="myform">
                     @csrf
 
                     @method('PUT')
 
+                    <input type="hidden"  name="blogcategory_id" id="blogcategory_id">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="category_name" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" name="name" id="category_name"
-                                placeholder="Enter category name" required>
-                            <input type="hidden"  name="category_id" id="category_id">
+                            <label for="blogcategory_name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" name="name" id="blogcategory_name" placeholder="Enter blog category name" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="icon" class="col-form-label">Icon: (<code>Class Name</code>)</label>
-                            <input type="text" class="form-control" name="icon" id="category_icon" placeholder="Enter category icon" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="home_page" class="col-form-label">Home Page:</label>
-                            <select name="home_page" id="home_page" class="form-control home_page" required>
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
+                            <label for="status" class="col-form-label">Status:</label>
+                            <select name="status" id="status" class="form-control status" required>
+                                <option value="1">Active</option>
+                                <option value="0">InActive</option>
                             </select>
                         </div>
                     </div>
@@ -150,16 +144,16 @@
 
             $('body').on('click','.edit', function(){
                 let id = $(this).data('id');
-                $.get("category/"+id+"/edit", function(data){
+                $.get("blog-category/"+id+"/edit", function(data){
                     // console.log(data);
-                    $('#category_name').val(data.name);
-                    $('#category_icon').val(data.icon);
-                    // if (data.home_page == 1) {
-                    //     $('.home_page option[value="1"]').attr('selected', true)
-                    // } else if (data.home_page == 0){
-                    //     $('.home_page option[value="0"]').attr('selected', true)
-                    // }
-                    $('#category_id').val(data.id);
+                    $('#blogcategory_name').val(data.name);
+                    // $('#status').val(data.status);
+                    if (data.status == 1) {
+                        $('.status option[value="1"]').attr('selected', true)
+                    } else if (data.status == 0){
+                        $('.status option[value="0"]').attr('selected', true)
+                    }
+                    $('#blogcategory_id').val(data.id);
                 });
             });
         });
