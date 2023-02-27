@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BackEnd\BlogController;
 use App\Http\Controllers\BackEnd\PageController;
 use App\Http\Controllers\BackEnd\BrandController;
 use App\Http\Controllers\BackEnd\LoginController;
@@ -55,6 +56,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
 
     Route::resource('blog-category', BlogCategoryController::class);
+    Route::resource('blog', BlogController::class);
     Route::resource('product', ProductController::class);
     Route::get('not-featured/{id}', [ProductController::class,'notFeatured']);
     Route::get('active-featured/{id}', [ProductController::class,'activeFeatured']);

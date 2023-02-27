@@ -186,7 +186,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Blog Components:</h6>
                 <a class="collapse-item" href="{{ route('blog-category.index') }}">Manage Blog Category</a>
-                <a class="collapse-item" href="{{ route('order.index') }}">Manage Blog</a>
+                <a class="collapse-item" href="{{ route('blog.index') }}">Manage Blog</a>
             </div>
         </div>
     </li>
