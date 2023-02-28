@@ -67,6 +67,9 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::get('not-status/{id}', [ProductController::class,'notStatus']);
     Route::get('active-status/{id}', [ProductController::class,'activeStatus']);
 
+    /* ~~~~~~~~~~~~REPORT ROUTE~~~~~~~~~~~~~~~ */
+    Route::get('order-report', [ReportController::class, 'orderReport'])->name('order.report');
+
     /* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
     Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
 

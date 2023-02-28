@@ -177,6 +177,24 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reportPoint"
+            aria-expanded="true" aria-controls="reportPoint">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Reports</span>
+        </a>
+        <div id="reportPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Report Components:</h6>
+                <a class="collapse-item" href="">Order Report</a>
+                <a class="collapse-item" href="">Customer Report</a>
+                <a class="collapse-item" href="">Stock Report</a>
+                <a class="collapse-item" href="">Product Report</a>
+                <a class="collapse-item" href="">Ticket Report</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#blogPoint"
             aria-expanded="true" aria-controls="blogPoint">
             <i class="fas fa-light fa-gem"></i>
