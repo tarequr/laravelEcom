@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-md-3 p-2">
-                    <button class="btn btn-primary" style="margin-top: 37px;"><i class="fas fa-print"></i> Order Print</button>
+                    <button class="btn btn-primary orderPrint" style="margin-top: 37px;"><i class="fas fa-print"></i> Order Print</button>
                 </div>
             </div>
 
@@ -67,6 +67,7 @@
 @endsection
 
 @push('js')
+    <script src="{{ asset('backend/js/printThis.min.js') }}"></script>
     <script>
         $(function product(){
             var table = $('.ytable').DataTable({
@@ -99,5 +100,9 @@
         $(document).on('change','.submitable', function(){
             $('.ytable').DataTable().ajax.reload();
         })
+
+        $('.orderPrint').on('click',function(e){
+            e.preventDefault(); //
+        });
     </script>
 @endpush

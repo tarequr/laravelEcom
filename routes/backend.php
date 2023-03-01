@@ -70,6 +70,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
 
     /* ~~~~~~~~~~~~REPORT ROUTE~~~~~~~~~~~~~~~ */
     Route::get('order-report', [ReportController::class, 'orderReport'])->name('order.report');
+    Route::get('order/report/print', [ReportController::class, 'orderReportPrint'])->name('order.report.print');
 
     /* ~~~~~~~~~~~~GLOBAL ROUTE~~~~~~~~~~~~~~~ */
     Route::get('get-child-category/{id}',[CategoryController::class,'getChildCategory']);
