@@ -116,29 +116,10 @@ class ReportController extends Controller
             }
 
             $orders = $query->orderBy('id','desc')->get();
-                    ->addIndexColumn()
-                    ->editColumn('date', function($row){
-                        return date('d-M-Y',strtotime($row->date));
-                    })
-                    ->editColumn('status', function($row){
-                        if ($row->status == 0) {
-                            return '<span class="badge badge-danger">Order Pending</span>';
-                        } elseif ($row->status == 1) {
-                            return '<span class="badge badge-info">Order Received</span>';
-                        } elseif ($row->status == 2) {
-                            return '<span class="badge badge-primary">Order Shipping</span>';
-                        } elseif ($row->status == 3) {
-                            return '<span class="badge badge-success">Order Done</span>';
-                        } elseif ($row->status == 4) {
-                            return '<span class="badge badge-warning">Order Return</span>';
-                        } elseif ($row->status == 5) {
-                            return '<span class="badge badge-danger">Order Cancle</span>';
-                        }
-                    })
-                    ->rawColumns(['category_name','subcategory_name','brnad_name','thumbnail','featured','toady_deal_id','status'])
-                    ->make(true);
+            // return response()->json($orders);
         }
 
         return view('backend.report.order.print', compact('orders'));
+
     }
 }

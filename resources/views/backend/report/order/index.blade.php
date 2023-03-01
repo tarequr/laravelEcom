@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="col-md-3 p-2">
-                    <button class="btn btn-primary orderPrint" style="margin-top: 37px;"><i class="fas fa-print"></i> Order Print</button>
+                    <button class="btn btn-primary orderPrint" id="orderPrint" style="margin-top: 37px;"><i class="fas fa-print"></i> Order Print</button>
                 </div>
             </div>
 
@@ -67,7 +67,8 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('backend/js/printThis.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/js/printThis.min.js') }}"></script> --}}
+    <script src="{{ asset('backend/js/printThis.js') }}"></script>
     <script>
         $(function product(){
             var table = $('.ytable').DataTable({
@@ -101,8 +102,59 @@
             $('.ytable').DataTable().ajax.reload();
         })
 
-        $('.orderPrint').on('click',function(e){
-            e.preventDefault(); //
+
+
+        $(document).on('click','#orderPrint', function(e){
+
+            // alert('Please select');
+            // e.preventDefault(); //
+            // $.ajax({
+            //     url: "{{ route('order.report.print') }}",
+            //     type: 'get',
+            //     data: {
+            //         date: $("#date").val(),
+            //         status: $('#status').val(),
+            //         payment_type: $('#payment_type').val()
+            //     },
+                // success: function(data) {
+                //     $(data).printThis({
+                //         debug: false,
+                //         importCSS: true,
+                //         importStyle: true,
+                //         removeInline: false,
+                //         printDelay: 500,
+                //         header: null,
+                //         footer: null
+                //     });
+                // }
+            // });
+
+            e.preventDefault(); // prevent default form submission behavior
+            $.ajax({
+                url: "{{ route('order.report.print') }}",
+                type: 'get',
+                data: {
+                    date: $("#date").val(),
+                    status: $('#status').val(),
+                    payment_type: $('#payment_type').val()
+                },
+                success: function(data) {
+                    // print the fetched data using the printThis() plugin
+                    $(data).printThis({
+                        debug: false,
+                        importCSS: true,
+                        importStyle: true,
+                        removeInline: false,
+                        printDelay: 500,
+                        header: null,
+                        footer: null
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // handle errors if any
+                    console.log("Error: " + error);
+                }
+            });
         });
     </script>
 @endpush
