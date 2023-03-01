@@ -9,6 +9,7 @@ use App\Http\Controllers\BackEnd\LoginController;
 use App\Http\Controllers\BackEnd\OrderController;
 use App\Http\Controllers\BackEnd\CouponController;
 use App\Http\Controllers\BackEnd\PickupController;
+use App\Http\Controllers\BackEnd\ReportController;
 use App\Http\Controllers\BackEnd\TicketController;
 use App\Http\Controllers\BackEnd\ProductController;
 use App\Http\Controllers\BackEnd\SettingController;

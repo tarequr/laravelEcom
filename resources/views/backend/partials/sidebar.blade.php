@@ -177,6 +177,20 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#contactPoint"
+            aria-expanded="true" aria-controls="contactPoint">
+            <i class="fas fa-light fa-gem"></i>
+            <span>Contact Message</span>
+        </a>
+        <div id="contactPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Contact Components:</h6>
+                <a class="collapse-item" href="#">Manage Contact</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reportPoint"
             aria-expanded="true" aria-controls="reportPoint">
             <i class="fas fa-light fa-gem"></i>
@@ -185,7 +199,7 @@
         <div id="reportPoint" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Report Components:</h6>
-                <a class="collapse-item" href="">Order Report</a>
+                <a class="collapse-item" href="{{ route('order.report') }}">Order Report</a>
                 <a class="collapse-item" href="">Customer Report</a>
                 <a class="collapse-item" href="">Stock Report</a>
                 <a class="collapse-item" href="">Product Report</a>
