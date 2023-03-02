@@ -63,7 +63,9 @@
                                                 <div class="form-group col-sm-6">
                                                     <label class="col-form-label">Child Category</label>
                                                     <select name="childcategory_id" id="childcategory_id" class="form-control">
-
+                                                        @foreach ($childCategories as $childCategory)
+                                                            <option value="{{ $childCategory->id }}" {{ $childCategory->id == $product->childcategory_id ? "selected" : "" }}>{{ $childCategory->childcategory_name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
 
@@ -158,7 +160,7 @@
                                             <div class="form-row card p-2">
                                                 <div class="form-group col-sm-12">
                                                     <label for="thumbnail" class="col-form-label ">Main Thumbnail:</label>
-                                                    <input type="file" class="form-control dropify image" name="thumbnail" id="thumbnail" required>
+                                                    <input type="file" class="form-control dropify image" name="thumbnail" id="thumbnail" data-default-file="{{ !empty($product->thumbnail) ? asset('upload/product/' . $product->thumbnail) : '' }}" >
                                                 </div>
 
                                                 <div class="form-group col-sm-12">
@@ -177,6 +179,22 @@
                                                                 <button type="button" class="btn btn-sm btn-success" name="add" id="add">+</button>
                                                             </td>
                                                         </tr>
+
+                                                        @php
+                                                            $images == json_decode($product->images, true);
+                                                        @endphp
+
+                                                        @if (!empty($images))
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+                                                                    @foreach ($images as $image)
+                                                                        <img src="{{ asset('upload/product_images/'.$image) }}" alt="" style="width: 100px; height: 80px; padding: 10px;">
+                                                                        <input type="hidden" name="old_images[]" value="{{$image}}">
+                                                                        <button type="button" class="remove-files" style="border: none;">X</button>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     </table>
 
                                                 </div>

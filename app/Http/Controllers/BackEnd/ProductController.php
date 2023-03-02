@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\ChildCategory;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -245,12 +246,13 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        $brands = Brand::orderBy('id','desc')->get();
-        $pickups = PickupPoint::orderBy('id','desc')->get();
-        $categories = Category::orderBy('id','desc')->get();
-        $wareHouses = Warehouse::orderBy('id','desc')->get();
+        $brands    = Brand::orderBy('id','desc')->get();
+        $pickups    = PickupPoint::orderBy('id','desc')->get();
+        $categories  = Category::orderBy('id','desc')->get();
+        $wareHouses    = Warehouse::orderBy('id','desc')->get();
+        $childCategories = ChildCategory::orderBy('id','desc')->get();
 
-        return view('backend.product.edit',compact('product','brands','pickups','categories','wareHouses'));
+        return view('backend.product.edit',compact('product','brands','pickups','categories','wareHouses','childCategories'));
     }
 
     /**
