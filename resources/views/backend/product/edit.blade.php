@@ -27,9 +27,9 @@
                                 <div class="text-center bg-primary p-2">
                                     <h1 class="h4 text-light"><b>Product Edit</b></h1>
                                 </div>
-                                <form class="user" method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
+                                <form class="user" method="POST" action="{{ route('product.update',$product->id) }}" enctype="multipart/form-data">
                                     @csrf
-
+                                    @method('PUT')
                                     <div class="row mt-4">
                                         <div class="col-md-7 card">
                                             <div class="form-row">
@@ -173,7 +173,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <input type="file" class="form-control image" name="images[]" accept="image/*" required>
+                                                                <input type="file" class="form-control image" name="images[]" accept="image/*">
                                                             </td>
                                                             <td>
                                                                 <button type="button" class="btn btn-sm btn-success" name="add" id="add">+</button>
