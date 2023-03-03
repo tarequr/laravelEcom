@@ -179,20 +179,21 @@
                                                                 <button type="button" class="btn btn-sm btn-success" name="add" id="add">+</button>
                                                             </td>
                                                         </tr>
+                                                        {{-- @dd($product->images) --}}
 
                                                         @php
-                                                            $images == json_decode($product->images, true);
+                                                            $images = json_decode($product->images, true);
                                                         @endphp
 
                                                         @if (!empty($images))
                                                             <div class="row">
-                                                                <div class="col-md-4">
-                                                                    @foreach ($images as $image)
+                                                                @foreach ($images as $image)
+                                                                    <div class="col-md-4">
                                                                         <img src="{{ asset('upload/product_images/'.$image) }}" alt="" style="width: 100px; height: 80px; padding: 10px;">
                                                                         <input type="hidden" name="old_images[]" value="{{$image}}">
                                                                         <button type="button" class="remove-files" style="border: none;">X</button>
-                                                                    @endforeach
-                                                                </div>
+                                                                    </div>
+                                                                @endforeach
                                                             </div>
                                                         @endif
                                                     </table>
@@ -289,6 +290,10 @@
                         })
                     }
                 })
+            });
+
+            $('.remove-files').on('click', function(){
+                $(this).parents('.col-md-4').remove();
             });
 
         });
