@@ -264,7 +264,106 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        // dd($request->all());
+
+        $product = Product::findOrFail($id);
+        // dd($product);
+
+        $this->validate($request, [
+            'name' => 'required|unique:products,name,'.$product->id,
+            'code' => 'required',
+            'subcategory_id' => 'required',
+            'brand_id' => 'required',
+            'unit' => 'required',
+            'selling_price' => 'required',
+            'color' => 'required',
+            'description' => 'required',
+        ]);
+
+        try {
+
+            $slug = Str::slug($request->name,'-');
+
+            if ($request->hasFile('thumbnail')) {
+                $file = $request->file('thumbnail');
+                @unlink(public_path('upload/product/' . $product->thumbnail));
+                $filename = $slug . '.' . $file->getClientOriginalExtension();
+                $path = public_path('upload/product/').$filename;
+                Image::make($file->getRealPath())->resize(600,600)->save($path);
+                $product->update([
+                    "thumbnail" => $filename,
+                ]);
+            }
+
+            if ($request->has('old_images')) {
+                $all_images = json_encode($request->old_images);
+            }
+
+            $images = [];
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $key => $image) {
+                    // $imageExists = Product::where('id',$id)->whereJsonContains('images', [$image])->first();
+                    // if ($imageExists) {
+                    //     array_push($images,$image);
+                    // } else {
+                    //     @unlink(public_path('upload/product_images/' . $image));
+                    //     $filename2 = 'IMG'. time(). $key . '.' . $image->getClientOriginalExtension();
+                    //     $path2 = public_path('upload/product_images/').$filename2;
+                    //     Image::make($image->getRealPath())->resize(600,600)->save($path2);
+                    //     array_push($images,$filename2);
+                    // }
+
+                    $filename2 = 'IMG'. time(). $key . '.' . $image->getClientOriginalExtension();
+                    $path2 = public_path('upload/product_images/').$filename2;
+                    Image::make($image->getRealPath())->resize(600,600)->save($path2);
+                    array_push($images,$filename2);
+                }
+
+                $all_images = json_encode($images);
+            }
+
+            $subCategory = SubCategory::find($request->subcategory_id);
+
+            $product->update([
+                "name" => $request->name,
+                "slug" => $slug,
+                "code" => $request->code,
+                "category_id" => $subCategory->category_id,
+                "subcategory_id" => $request->subcategory_id,
+                "childcategory_id" => $request->childcategory_id,
+                "brand_id" => $request->brand_id,
+                "pickup_id" => $request->pickup_id,
+                "unit" => $request->unit,
+                "tags" => $request->tags,
+                "purchase_price" => $request->purchase_price,
+                "selling_price" => $request->selling_price,
+                "discount_price" => $request->discount_price,
+                "warehouse" => $request->warehouse,
+                "stock_quantity" => $request->stock_quantity,
+                "color" => $request->color,
+                "size" => $request->size,
+                "description" => $request->description,
+                "video" => $request->video,
+                "images" => isset($all_images) ? $all_images : null,
+                "featured" => $request->filled('featured'),
+                "toady_deal_id" => $request->filled('toady_deal_id'),
+                "slider" => $request->filled('slider'),
+                "trendy" => $request->filled('trendy'),
+                "status" => $request->filled('status'),
+                "created_by" => Auth::user()->id,
+                "date" => date('Y-m-d'),
+                "month" => date('F'),
+            ]);
+
+            notify()->success("Product Updated Successfully.", "Success");
+            return redirect()->route('product.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Product Update Failed.", "Error");
+            return back();
+        }
     }
 
     /**
