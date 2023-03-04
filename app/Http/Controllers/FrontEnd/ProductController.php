@@ -23,7 +23,18 @@ class ProductController extends Controller
         $reladed_produts = Product::where('subcategory_id',$product->subcategory_id)->orderBy('id','desc')->take(10)->get();
         $reviews = Review::with('user')->where('product_id',$product->id)->orderBy('id','desc')->get();
 
-        return view('frontend.product.product-single', compact('product','categories','banner_product','reladed_produts','reviews'));
+         // Share button 1
+        $shareButtons = \Share::page(
+                                url()->current()
+                            )
+                            ->facebook()
+                            ->twitter()
+                            ->linkedin()
+                            ->telegram()
+                            ->whatsapp()
+                            ->reddit();
+
+        return view('frontend.product.product-single', compact('product','categories','banner_product','reladed_produts','reviews','shareButtons'));
     }
 
     public function productQuickview($id)

@@ -168,7 +168,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,  //using yajra database for lots of data
         Intervention\Image\ImageServiceProvider::class,  //image resize package
         LaraIzitoast\LaraIzitoastServiceProvider::class,  //success message
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class, //social login
+        Jorenvh\Share\Providers\ShareServiceProvider::class, //social share
 
         /*
          * Application Service Providers...
@@ -235,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

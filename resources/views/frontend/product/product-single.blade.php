@@ -206,7 +206,11 @@
                 <strong>Product Video :</strong>
                 <iframe width="340" height="205" src="https://www.youtube.com/embed/{{ $product->video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 @endisset
+
+                {!! $shareButtons !!}
             </div>
+
+
         </div><br><br>
 
         <div class="row">
@@ -481,6 +485,7 @@
 
 @push('js')
 <script src="{{ asset('frontend/js/product_custom.js') }}"></script>
+<script src="{{ asset('js/share.js') }}"></script>
 
 <script>
     // function cart(){
