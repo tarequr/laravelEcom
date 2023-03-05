@@ -174,7 +174,7 @@ class CampaignController extends Controller
 
     public function campaignProduct($campaign_id)
     {
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = Product::where('status',1)->orderBy('id', 'desc')->get();
         return view('backend.offer.campaign.campaign_product', compact('campaign_id', 'products'));
     }
 }
