@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\BackEnd;
 
+use App\Models\Product;
 use App\Models\Campaign;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -43,15 +44,17 @@ class CampaignController extends Controller
                         }
                     })
                     ->addColumn('action', function($row){
-                        $actionbtn = '<a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
+                        $actionbtn = '<a href="'.route('campaign.product',[$row->id]).'" class="btn btn-primary btn-sm campaign_product" title="Add Campaign Product">
+                            <i class="fa fa-plus"></i>
+                        </a>
+
+                        <a href="#" class="btn btn-success btn-sm edit" title="Edit" data-toggle="modal"
                         data-target="#editModal" data-id="'.$row->id.'">
                             <i class="fa fa-pen"></i>
-                            Edit
                         </a>
 
                         <button type="button" onclick="deleteData('.$row->id.')" class="btn btn-danger btn-sm" title="Delete">
                             <i class="fa fa-trash"></i>
-                            <span>Delete</span>
                         </button>
 
                         <form id="delete-form-'.$row->id.'" method="POST" action="'.route('campaign.destroy',[$row->id]).'" style="display: none;">
@@ -167,5 +170,11 @@ class CampaignController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function campaignProduct($campaign_id)
+    {
+        $products = Product::orderBy('id', 'desc')->get();
+        return view('backend.offer.campaign.campaign_product', compact('campaign_id', 'products'));
     }
 }
