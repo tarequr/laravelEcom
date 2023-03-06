@@ -39,7 +39,7 @@
                             <td>{{ $product->brand->brnad_name }}</td>
                             <td>{{ $product->selling_price }}</td>
                             <td>
-                                <a href="" class="btn btn-success btn-sm" title="Add Product">
+                                <a href="{{ route('add.campaign.product',[$product->id,$campaign_id]) }}" class="btn btn-success btn-sm" title="Add Product">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </td>

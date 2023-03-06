@@ -53,6 +53,7 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('ticket', TicketController::class);
     Route::resource('order', OrderController::class);
     Route::get('campaign/{campaign_id}/product', [CampaignController::class, 'campaignProduct'])->name('campaign.product');
+    Route::get('add/campaign/{id}/{campaign_id}/product', [CampaignController::class, 'addCampaignProduct'])->name('add.campaign.product');
     Route::get('order/{id}/details', [OrderController::class, 'orderDetails'])->name('order.details');
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');
