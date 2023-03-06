@@ -54,6 +54,8 @@ Route::group(['middleware'=>['auth','is_admin']],function(){
     Route::resource('order', OrderController::class);
     Route::get('campaign/{campaign_id}/product', [CampaignController::class, 'campaignProduct'])->name('campaign.product');
     Route::get('add/campaign/{id}/{campaign_id}/product', [CampaignController::class, 'addCampaignProduct'])->name('add.campaign.product');
+    Route::get('campaign/product/{campaign_id}/list', [CampaignController::class, 'campaignProductList'])->name('campaign.product.list');
+    Route::delete('campaign/product/{id}/destroy', [CampaignController::class, 'campaignProductDestroy'])->name('campaign.product.destroy');
     Route::get('order/{id}/details', [OrderController::class, 'orderDetails'])->name('order.details');
     Route::post('ticket/reply', [TicketController::class, 'ticketReply'])->name('ticket.reply');
     Route::get('ticket/{id}/close', [TicketController::class, 'ticketClose'])->name('ticket.close');

@@ -203,4 +203,27 @@ class CampaignController extends Controller
             return back();
         }
     }
+
+    public function campaignProductList($campaign_id)
+    {
+        $campaign = Campaign::findOrFail($campaign_id);
+        $campaignProducts = CampaignProduct::with('product')->where('campaign_id', $campaign_id)->get();
+
+        return view('backend.offer.campaign.campaign_product_list', compact('campaign','campaignProducts'));
+    }
+
+    public function campaignProductDestroy($id)
+    {
+        try {
+            CampaignProduct::findOrFail($id)->delete();
+
+            notify()->success("Campaign Product Deleted Successfully.", "Success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Campaign Product Delete Failed.", "Error");
+            return back();
+        }
+    }
 }

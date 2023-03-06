@@ -7,10 +7,9 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
-            <a href="{{ route('category.create') }}" class="btn btn-primary float-right btn-sm mb-3" data-toggle="modal"
-                data-target="#addModal">
-                <i class="fa fa-plus-circle"></i>
-                Create Brand
+            <a href="{{ route('campaign.product.list',$campaign_id) }}" class="btn btn-primary float-right btn-sm mb-3">
+                <i class="fa fa-list"></i>
+                Product List
             </a>
             <div class="table-responsive">
                 <table class="table table-bordered ytable" id="" width="100%" cellspacing="0">
