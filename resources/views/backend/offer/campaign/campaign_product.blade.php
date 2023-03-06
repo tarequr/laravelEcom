@@ -28,6 +28,10 @@
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
+                        @php
+                            $exist = App\Models\CampaignProduct::where('product_id', $product->id)->where('campaign_id', $campaign_id)->first();
+                        @endphp
+
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>
@@ -39,9 +43,13 @@
                             <td>{{ $product->brand->brnad_name }}</td>
                             <td>{{ $product->selling_price }}</td>
                             <td>
-                                <a href="{{ route('add.campaign.product',[$product->id,$campaign_id]) }}" class="btn btn-success btn-sm" title="Add Product">
-                                    <i class="fa fa-plus"></i>
-                                </a>
+                                @if ($exist)
+                                    <button type="button" class="btn btn-sm btn-danger" title="Exist">Exist</button>
+                                @else
+                                    <a href="{{ route('add.campaign.product',[$product->id,$campaign_id]) }}" class="btn btn-success btn-sm" title="Added To Campaign">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

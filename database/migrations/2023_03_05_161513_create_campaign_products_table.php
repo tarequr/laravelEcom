@@ -16,7 +16,7 @@ class CreateCampaignProductsTable extends Migration
         Schema::create('campaign_products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('campaign_id')->constrained('campaigns')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('campaigns')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->string('price')->nullable();
             $table->timestamps();
         });

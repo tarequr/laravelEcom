@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Models\CampaignProduct;
 use Intervention\Image\Facades\Image;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -180,6 +181,26 @@ class CampaignController extends Controller
 
     public function addCampaignProduct($id,$campaign_id)
     {
-        dd($id,$campaign_id);
+        try {
+            $product = Product::findOrFail($id);
+            $campaign = Campaign::findOrFail($campaign_id);
+
+            $discount_amount = $product->selling_price/100*$campaign->discount;
+            $discount = ($product->selling_price - $discount_amount);
+
+            CampaignProduct::create([
+                'campaign_id' => $campaign_id,
+                'product_id' => $id,
+                'price' => $discount
+            ]);
+
+            notify()->success("Product Added To Campaign Successfully.", "Success");
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Product Added To Campaign Failed.", "Error");
+            return back();
+        }
     }
 }
