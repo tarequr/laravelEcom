@@ -22,9 +22,9 @@ use App\Http\Controllers\FrontEnd\TicketController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('page/{slug}',[HomeController::class,'pageView'])->name('page.view');
