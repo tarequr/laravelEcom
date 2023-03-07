@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
-use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\Brand;
+use App\Models\Product;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\NewsLetter;
-use App\Models\Page;
-use App\Models\Product;
-use App\Models\WebsiteReview;
 use Illuminate\Http\Request;
+use App\Models\WebsiteReview;
+use App\Models\CampaignProduct;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -54,5 +55,11 @@ class HomeController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function campaignProduct($id)
+    {
+        $campaignProducts = CampaignProduct::with('product')->where('campaign_id', $id)->get();
+        return view('frontend.home.campaign_product_list', compact('campaignProducts'));
     }
 }

@@ -35,16 +35,19 @@
     @php
         $today = date('Y-m-d');
         $campaign_end = date('Y-m-d', strtotime($campaign->end_date));
+        $campaign_start = date('Y-m-d', strtotime($campaign->start_date));
     @endphp
 
     @isset($campaign)
-        @if ($today < $campaign_end)
+        @if ($today >= $campaign_start && $today <= $campaign_end)
             <div class="characteristics">
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-8">
                             <h5 class="text-center">{{ $campaign->title }}</h5>
-                            <img src="{{ asset('upload/campaign/'.$campaign->image) }}" alt="" style="width: 100%; height: 80px;">
+                            <a href="{{ route('frontend.campaign.product',$campaign->id) }}">
+                                <img src="{{ asset('upload/campaign/'.$campaign->image) }}" alt="" style="width: 100%; height: 80px;">
+                            </a>
                         </div>
                     </div>
                 </div>
