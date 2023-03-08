@@ -30,6 +30,7 @@ Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('page/{slug}',[HomeController::class,'pageView'])->name('page.view');
 Route::post('newsletter/store',[HomeController::class,'newsletterStore'])->name('newsletter.store');
 Route::get('frontend/campaign/{id}/product',[HomeController::class,'campaignProduct'])->name('frontend.campaign.product');
+Route::get('single/campaign/{slug}/product',[HomeController::class,'singleCampaignProduct'])->name('single.campaign.product');
 
 Route::get('single-product/{slug}',[ProductController::class,'singleProduct'])->name('single.product');
 Route::get('product-quick-view/{id}',[ProductController::class,'productQuickview']);

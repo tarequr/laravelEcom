@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="product_content">
                                         <div class="product_price">{{$setting->currency}}{{$campaignProduct->price}}</div>
-                                        <div class="product_name"><div><a href="{{ route('single.product',$campaignProduct->product->slug) }}" tabindex="0">{{ $campaignProduct->product->name }}</a></div></div>
+                                        <div class="product_name"><div><a href="{{ route('single.campaign.product',$campaignProduct->product->slug) }}" tabindex="0">{{ $campaignProduct->product->name }}</a></div></div>
                                     </div>
 
                                     @auth

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Models\Page;
 use App\Models\Brand;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Campaign;
 use App\Models\Category;
@@ -61,5 +62,33 @@ class HomeController extends Controller
     {
         $campaignProducts = CampaignProduct::with('product')->where('campaign_id', $id)->get();
         return view('frontend.home.campaign_product_list', compact('campaignProducts'));
+    }
+
+    public function singleCampaignProduct($slug)
+    {
+        // dd($slug);
+        Product::where('slug', $slug)->increment('product_view'); //here add number of product view in product_view in column.
+        $product = Product::with('category','subCategories','brand','pickupPoint')->where('slug', $slug)->firstOrFail();
+        $campaignProduct = CampaignProduct::where('product_id', $product->id)->firstOrFail();
+
+        $related_products = CampaignProduct::with('product')->where('campaign_id', $campaignProduct->campaign_id)->inRandomOrder()->take(16)->get();
+
+        // $categories = Category::with('subCategory','subCategory.childCategory')->orderBy('id','desc')->get();
+        // $banner_product = Product::with('brand')->where('slider',1)->latest()->first();
+        // $reladed_produts = Product::where('subcategory_id',$product->subcategory_id)->orderBy('id','desc')->take(10)->get();
+        $reviews = Review::with('user')->where('product_id',$product->id)->orderBy('id','desc')->get();
+
+         // Share button 1
+        $shareButtons = \Share::page(
+                                url()->current()
+                            )
+                            ->facebook()
+                            ->twitter()
+                            ->linkedin()
+                            ->telegram()
+                            ->whatsapp()
+                            ->reddit();
+
+        return view('frontend.home.single_campaign_product_list', compact('product','campaignProduct','related_products','reviews','shareButtons'));
     }
 }
