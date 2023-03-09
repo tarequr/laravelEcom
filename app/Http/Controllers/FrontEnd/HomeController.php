@@ -91,4 +91,9 @@ class HomeController extends Controller
 
         return view('frontend.home.single_campaign_product_list', compact('product','campaignProduct','related_products','reviews','shareButtons'));
     }
+
+    public function singleBlog(Type $var = null)
+    {
+        # code...
+    }
 }
