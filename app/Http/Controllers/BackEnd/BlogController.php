@@ -37,7 +37,25 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:blog_categories,name',
+        ]);
+
+        try {
+            Blog::create([
+                'name' => $request->name,
+                'slug'  => Str::slug($request->name,'-'),
+                'status' => $request->status,
+            ]);
+
+            notify()->success("Blog Category Created Successfully.", "Success");
+            return redirect()->route('blog-category.index');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            notify()->error("Blog Category Create Failed.", "Error");
+            return back();
+        }
     }
 
     /**
